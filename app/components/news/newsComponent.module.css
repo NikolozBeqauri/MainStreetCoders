@@ -6,4 +6,9 @@
     gap: 20px;
     height: 200px;
     justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.fontSize{
+    font-size: 16px;
 }
