@@ -9,7 +9,7 @@ type Props = {
 
 export default function NewsComponent (props: Props): ReactNode {
     return(
-        <div className={`${props.className}` || `${styles.background}`}>
+        <div className={`${props.className} ${styles.container}`}>
             <h1>{props.title}</h1>
             <p>{props.count}</p>
         </div>
