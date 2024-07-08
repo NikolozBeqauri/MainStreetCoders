@@ -1,0 +1,46 @@
+@import '../../../colors.scss';
+
+.form {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    max-width: 548px;
+    width: 100%;
+}
+
+.form input {
+    width: 100%;
+    padding: 16px 24px 16px 52px;
+    border-radius: 8px;
+    border: 1px solid $hawksEye;
+    background: $mainBlack;
+    color: $stoneCold;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    transition: .2s;
+
+    &:hover {
+        border: 1px solid $hawksEye;
+        background: #151519;
+    }
+    &:focus {
+        border: 1px solid var(--Gradient-apolo, #F903D0);
+        outline: none;
+        background: $mainBlack;
+        padding: 16px 24px;
+    }
+    &:focus ~ img {
+        display: none;
+    }
+}
+.form input:focus .form image {
+    display: none;
+}
+.form img {
+    position: absolute;
+    left: 24px;
+    transition: .2s;
+}
