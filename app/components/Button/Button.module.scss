@@ -1,0 +1,24 @@
+@import "../../colors.scss";
+
+.container{
+    display: flex;
+    padding: 12px 32px;
+    border-radius: 8px;
+    color: $bonBon;
+    gap: 4px;
+}
+.icon::before{
+    content: url("../../../../../../Desktop/Vector.svg");
+}
+
+.neutral{
+    background-color: $primaryGradient;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+
+.disabled{
+    background-color: black;
+}
