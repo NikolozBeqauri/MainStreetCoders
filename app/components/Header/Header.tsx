@@ -6,7 +6,7 @@ export const Header = () => {
     return(
         <div className={style.headerWrapper}>
             <Search/>
-            <UserProfileIcon src="userImage"/>
+            <UserProfileIcon src="userImage.png"/>
         </div>
     )
 }

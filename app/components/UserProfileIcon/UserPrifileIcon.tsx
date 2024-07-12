@@ -8,7 +8,7 @@ export const UserProfileIcon = (props:Props) => {
     return (
         <Image
             className={style.userImage}
-            src={`/images/${props.src}.png`}
+            src={`/images/${props.src}`}
             alt="user image"
             width={56}
             height={56}
