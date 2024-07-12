@@ -29,7 +29,7 @@
     background: $darkVoid;
 }
 
-.searchform img {
+.searchImage {
     position: absolute;
     cursor: text;
     left: 24px;
@@ -37,7 +37,12 @@
 
 .searchform input:focus {
     border-radius: 8px;
+    padding: 16px 24px;
     border: 1px solid var(--Gradient-apolo, #F903D0);
     outline: none;
-    background: #000;
+    background: #000;  
+}
+
+.searchform input:focus + .searchImage {
+    display: none;
 }

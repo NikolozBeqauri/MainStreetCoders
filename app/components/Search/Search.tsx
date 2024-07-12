@@ -4,13 +4,15 @@ type Props = {
     placeHolder?: string;
 }
 
-export const Search = ({ placeHolder }: Props) => {
-    placeHolder = placeHolder ? placeHolder : "Artists, tracks, albums"
+export const Search = (props: Props) => {
+    
+    const placeHolder = props.placeHolder ? props.placeHolder : "Artists, tracks, albums"
 
     return (
         <div className={styles.searchform}>
             <input type="text" placeholder={placeHolder} />
-            <Image
+            <Image 
+                className={styles.searchImage}
                 src="/icons/search.svg"
                 alt="search icon"
                 width={24}
