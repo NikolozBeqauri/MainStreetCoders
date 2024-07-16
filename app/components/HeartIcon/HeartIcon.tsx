@@ -7,15 +7,15 @@ type Props = {
     background?: boolean
 }
 
-export const HeartIcon = (props: Props) => {
-    const [iconState, setIconState] = useState<'neutral' | 'hovered' | 'pressed'>('neutral');
+export const HeartIcon = ({ background }: Props) => {
+    const [iconState, setIconState] = useState<'neutral' | 'hover' | 'pressed'>('neutral');
     const imgRef = useRef<HTMLImageElement>(null);
 
     const stylesClasses = [styles.generalStyles];
-    if (props.background) stylesClasses.push(styles.whiteBackground);
+    if (background) stylesClasses.push(styles.whiteBackground);
 
     const handleMouseEnter = () => {
-        if (iconState !== 'pressed') setIconState('hovered');
+        if (iconState !== 'pressed') setIconState('hover');
     };
     const handleMouseLeave = () => {
         if (iconState !== 'pressed') setIconState('neutral');
@@ -42,22 +42,11 @@ export const HeartIcon = (props: Props) => {
         };
     }, [iconState]);
 
-    const getIconSrc = () => {
-        switch (iconState) {
-            case 'hovered':
-                return "/icons/heartIcons/hoverHeart.svg";
-            case 'pressed':
-                return "/icons/heartIcons/pressedHeart.svg";
-            default:
-                return "/icons/heartIcons/neutralHeart.svg";
-        }
-    };
-
     return (
         <Image
             ref={imgRef}
             className={stylesClasses.join(" ").trim()}
-            src={getIconSrc()}
+            src={`/icons/heartIcons/${iconState}Heart.svg`}
             alt="heart icon"
             width={32}
             height={32}
