@@ -1,0 +1,62 @@
+@import "/app/colors.scss";
+
+.cardWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border-radius: 8px;
+    background: $darkVoid;
+    padding: 16px;
+    max-width: 548px;
+    width: 100%;
+}
+
+.cardImg {
+    cursor: pointer;
+}
+
+.cardinfo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cardTitles {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cardTitles h3 {
+    color: $defaultWhite;
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.cardTitles span {
+    color: $shadyLady;
+    font-family: "Plus Jakarta Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.cardAditionalInfo {
+    display: flex;
+    align-items: center;
+    gap: 56px;
+}
+
+.timing {
+    color: $shadyLady;
+    font-family: "Plus Jakarta Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
