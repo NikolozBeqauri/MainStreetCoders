@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styles from './AlbumCard.module.scss'
 import { HeartIcon } from '../HeartIcon/HeartIcon';
-import { ThreeDots } from '../ThreeDots/ThreeDots';
+import { ThreeDots } from '../ReusableIcon/ReusableIcon';
 
 type Props = {
     title?: string;

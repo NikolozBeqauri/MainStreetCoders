@@ -7,7 +7,7 @@
     justify-content: start;
     max-width: 277px;
     width: 100%;
-    height: 100%;
+    min-height: 100vh; 
     background: $reversedGrey;
     padding: 40px 20px;
     gap: 56px;
@@ -38,6 +38,8 @@
     border-radius: 8px;
 }
 
+
+
 .sideBarNav span {
     color: $missionControl;
     font-family: "Plus Jakarta Sans";
@@ -55,4 +57,17 @@
     font-weight: 500;
     line-height: normal;
     text-transform: uppercase;
+}
+
+#active {
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    background: $dynamicBlack;
+}
+
+#active span {
+    color: $defaultWhite;
 }

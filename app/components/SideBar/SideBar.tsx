@@ -1,8 +1,24 @@
+'use client'
 import Image from 'next/image';
-import styles from './SideBar.module.scss'
+import styles from './SideBar.module.scss';
 import Link from 'next/link';
+import { useState } from 'react';
+import { ReusableIcon } from '../ReusableIcon/ReusableIcon';
 
 export const SideBar = () => {
+    const [active, setActive] = useState<string | null>(null);
+
+    const links = [
+        { href: '#', label: 'Home', imageName: 'menuHome' },
+        { href: '#', label: 'Recommendations', imageName: 'menuRecomendation' },
+        { href: '#', label: 'Top Hits', imageName: 'menuTopHits' },
+        { href: '#', label: 'Top Charts', imageName: 'menuTopCharts' },
+        { href: '#', label: 'Playlists', imageName: 'menuPlaylists' },
+        { href: '#', label: 'Favorites', imageName: 'menuFavorites' },
+        { href: '#', label: 'Artist', imageName: 'menuArtist' },
+        { href: '#', label: 'Album', imageName: 'menuAlbum' }
+    ];
+
     return (
         <aside className={styles.sideBarWrapper}>
             <Link href='#'>
@@ -16,91 +32,25 @@ export const SideBar = () => {
             </Link>
             <nav className={styles.sideBarNav}>
                 <div className={styles.generalLinks}>
-                    <Link href='#'>
-                        <Image
-                            src={`/icons/menuHome.svg`}
-                            alt="main logo"
-                            width={20}
-                            height={20}
-                        />
-                        <span>Home</span>
-                    </Link>
-
-                    <Link href='#'>
-                        <Image
-                            src={`/icons/menuRecomendation.svg`}
-                            alt="main logo"
-                            width={24}
-                            height={24}
-                        />
-                        <span>Recommendations</span>
-                    </Link>
-
-                    <Link href='#'>
-                        <Image
-                            src={`/icons/menuTopHits.svg`}
-                            alt="main logo"
-                            width={24}
-                            height={24}
-                        />
-                        <span>Top Hits</span>
-                    </Link>
-
-                    <Link href='#'>
-                        <Image
-                            src={`/icons/menuTopCharts.svg`}
-                            alt="main logo"
-                            width={24}
-                            height={24}
-                        />
-                        <span>Top Charts</span>
-                    </Link>
-                </div>
-                <div>
-                    <h2>Collection</h2>
-                    <Link href='#'>
-                        <Image
-                            src={`/icons/menuPlaylists.svg`}
-                            alt="main logo"
-                            width={24}
-                            height={24}
-                        />
-                        <span>Playlists</span>
-                    </Link>
-
-                    <Link href='#'>
-                        <Image
-                            src={`/icons/menuFavorites.svg`}
-                            alt="main logo"
-                            width={24}
-                            height={24}
-                        />
-                        <span>Favorites</span>
-                    </Link>
-                </div>
-                <div>
-                    <h2>Discover</h2>
-                    <Link href='#'>
-                        <Image
-                            src={`/icons/menuArtist.svg`}
-                            alt="main logo"
-                            width={24}
-                            height={24}
-                        />
-                        <span>Artist</span>
-                    </Link>
-
-                    <Link href='#'>
-                        <Image
-                            src={`/icons/menuAlbum.svg`}
-                            alt="main logo"
-                            width={24}
-                            height={24}
-                        />
-                        <span>Album</span>
-                    </Link>
+                    {links.map(link => (
+                        <Link
+                            href={link.href}
+                            key={link.label}
+                            onClick={() => setActive(link.label)}
+                            onFocus={() => setActive(link.label)}
+                            onBlur={() => setActive(null)}
+                            id={active === link.label ? styles.active : ""}
+                        >
+                            <ReusableIcon
+                                imgName={link.imageName}
+                                active={active === link.label}
+                                onFocus={() => setActive(link.label)}
+                            />
+                            <span>{link.label}</span>
+                        </Link>
+                    ))}
                 </div>
             </nav>
         </aside>
-    )
-}
+    );
+};
