@@ -4,6 +4,7 @@ import 'antd/dist/reset.css';
 import styles from './ReasubleTable.module.scss'
 import { HeartIcon } from '../HeartIcon/HeartIcon';
 
+
 const ReasubleTable = () => {
     const columns = [
         {
@@ -144,7 +145,7 @@ const ReasubleTable = () => {
             SongName: 'So Fresh, So  Clean',
             Author: 'By Outkast',
             Album: "Stankonia",
-            time: '3:54',
+            Time: "3:54",
             src: './images/music11.png'
         }
 
