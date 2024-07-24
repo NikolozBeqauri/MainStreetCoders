@@ -43,8 +43,6 @@
     border: none;
 }
 
-
-
 .wrapper :global .Ant_key__R70Sb {
     display: flex;
     padding: 10px 8px;
@@ -73,7 +71,8 @@
     background : $blackMetal !important;
 }
 .wrapper :global .ant-table-row-level-0:hover{
-    background : #1D1D1D!important;
+    background : $dynamicBlack!important;
+    transition: 0.3s;
 }
 
 .wrapper :global .ant-table-cell-row-hover{
@@ -99,14 +98,6 @@
     text-align: center;
 
 }
-.wrapper :global .ant-table-row>td::before {
-
-}
-// .wrapper :global .ant-table-row>td:hover {
-//     border: ;
-// }
-
-
 
 .albumName {
     color: $shadyLady;
@@ -123,3 +114,8 @@
 .wrapper :global .ant-table-tbody tr> :nth-child(1) {
     vertical-align: middle;
 }
+
+.wrapper :global .ant-table-container .ant-table-tbody .ant-table-row-level-0:hover   td:first-child   {
+    transition: .3s;
+    border-left: 5px solid var(--Gradient-apolo, #F903D0) !important;
+}   
