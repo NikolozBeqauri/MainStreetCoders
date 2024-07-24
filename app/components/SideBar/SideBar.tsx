@@ -4,20 +4,11 @@ import styles from './SideBar.module.scss';
 import Link from 'next/link';
 import { useState } from 'react';
 import { ReusableIcon } from '../ReusableIcon/ReusableIcon';
-
+import { links } from './SideBarLinks/SideBarLinks'
 export const SideBar = () => {
     const [active, setActive] = useState<string | null>(null);
 
-    const links = [
-        { href: '#', label: 'Home', imageName: 'menuHome' },
-        { href: '#', label: 'Recommendations', imageName: 'menuRecomendation' },
-        { href: '#', label: 'Top Hits', imageName: 'menuTopHits' },
-        { href: '#', label: 'Top Charts', imageName: 'menuTopCharts' },
-        { href: '#', label: 'Playlists', imageName: 'menuPlaylists' },
-        { href: '#', label: 'Favorites', imageName: 'menuFavorites' },
-        { href: '#', label: 'Artist', imageName: 'menuArtist' },
-        { href: '#', label: 'Album', imageName: 'menuAlbum' }
-    ];
+        
 
     return (
         <aside className={styles.sideBarWrapper}>
