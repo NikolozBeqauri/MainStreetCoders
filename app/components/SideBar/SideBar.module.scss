@@ -7,12 +7,13 @@
     justify-content: start;
     max-width: 277px;
     width: 100%;
-    min-height: 100vh; 
     background: $reversedGrey;
     padding: 40px 20px;
     gap: 56px;
 }
-
+.mainLogo {
+    cursor: pointer;
+}
 .sideBarNav {
     display: flex;
     flex-direction: column;
@@ -28,7 +29,7 @@
     gap: 8px;
 }
 
-.sideBarNav a {
+.navBarlink {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -36,8 +37,8 @@
     width: 100%;
     padding: 12px 0px 12px 16px;
     border-radius: 8px;
+    cursor: pointer;
 }
-
 
 
 .sideBarNav span {
@@ -50,9 +51,12 @@
 }
 
 .sideBarNav h2 {
+    padding: 0px 16px;
     color: $defaultWhite;
     font-family: "Plus Jakarta Sans";
     font-size: 16px;
+    margin-top: 22px;
+    margin-bottom: 8px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
