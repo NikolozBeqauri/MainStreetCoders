@@ -1,5 +1,5 @@
 import { HeartIcon } from "../HeartIcon/HeartIcon";
-import { ThreeDots } from "../ThreeDots/ThreeDots";
+import { ThreeDots } from "../ReusableIcon/ReusableIcon";
 import styles from "./MusicCard.module.scss"
 import Image from 'next/image';
 
