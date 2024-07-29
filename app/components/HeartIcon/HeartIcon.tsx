@@ -4,13 +4,16 @@ import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 
 type Props = {
-    background?: boolean
+    background?: boolean;
+    width?: number;
+    height?: number;
+    padding?: number;
 }
 
-export const HeartIcon = ({ background }: Props) => {
+export const HeartIcon = ({ background, width, height, padding }: Props) => {
     const [iconState, setIconState] = useState<'neutral' | 'hover' | 'pressed'>('neutral');
     const imgRef = useRef<HTMLImageElement>(null);
-
+    
     const stylesClasses = [styles.generalStyles];
     if (background) stylesClasses.push(styles.whiteBackground);
 
@@ -48,8 +51,11 @@ export const HeartIcon = ({ background }: Props) => {
             className={stylesClasses.join(" ").trim()}
             src={`/icons/heartIcons/${iconState}Heart.svg`}
             alt="heart icon"
-            width={32}
-            height={32}
+            width={width ? width : 32}
+            height={height ? height : 32}
+            style={{
+                padding: `${padding}` 
+            }}
             tabIndex={0} 
         />
     );
