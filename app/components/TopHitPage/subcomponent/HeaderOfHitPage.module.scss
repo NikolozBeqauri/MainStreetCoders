@@ -1,0 +1,19 @@
+@import "/app/colors.scss";
+
+.hitHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 40px;
+}
+
+.chevronBack {
+    font-size: 32px;
+    color: $defaultWhite;
+    cursor: pointer;
+}
+
+.hitHeaderBtn {
+    background: transparent;
+    border: none;
+}
