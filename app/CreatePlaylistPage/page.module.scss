@@ -1,0 +1,35 @@
+@import "../colors.scss";
+
+/* || page layout */
+
+.container {
+    display: flex;
+    width: 100%;
+    background-color: $background;
+}
+
+/* || page children elements */
+
+.childrenContainer{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 24px;
+    padding: 24px;
+}
+
+
+/* || search bar */
+
+.searchLayout{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* || H1 Css */
+
+.header{
+    font-size: 32px;
+    color: $defaultWhite;
+}
