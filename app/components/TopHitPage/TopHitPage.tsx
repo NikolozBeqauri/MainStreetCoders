@@ -1,6 +1,7 @@
 
 import { Header } from '../Header/Header'
 import { NewsComponent } from '../NewsComponent/NewsComponent'
+import { ReusableTable } from '../ReusableTable/Reusable'
 import { Search } from '../Search/Search'
 import './TopHitPage.scss'
 
@@ -8,11 +9,13 @@ export const TopHitPage = () => {
 
     return (
         <div className='contentOfHit'>
-            <Header imgName='rightArrow'/>
-            <NewsComponent title='Top Hit  Of the week' count={999} />
+            <div className='headerMover'>
+                <Header imgName='rightArrow'/>
+            </div>
+            <NewsComponent title='Top Hit  Of the week' count={'999'} />
             <div className='contentOfSongs'>
                 <Search />
-                {/* აქ ჩაჯდება hit-ები(layouts) */}
+                <ReusableTable />
             </div>
         </div>
     )
