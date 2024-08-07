@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { SideBar } from "./components/SideBar/SideBar";
-
+import AudioPlayer from "./components/AudioPlayer/AudioPlayer";
+import styles from './layout.module.scss'
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -18,9 +19,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-          <SideBar/>
+        <div className={styles.mainContent}>
+          <SideBar />
           {children}
-      </body>
+        </div>
+        <div className={styles.AudioPlayer}>
+          <AudioPlayer />
+        </div>
+      </body> 
     </html>
   );
 }
