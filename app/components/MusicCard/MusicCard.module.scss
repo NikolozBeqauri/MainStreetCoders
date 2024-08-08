@@ -51,7 +51,9 @@
     align-items: center;
     gap: 56px;
 }
-
+.cardAditionalInfo > div {
+    width: 64px;
+}
 .timing {
     color: $shadyLady;
     font-family: "Plus Jakarta Sans";
@@ -59,4 +61,13 @@
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+}
+
+@media (max-width:1200px) {
+    .cardAditionalInfo > span {
+        display: none;
+    }
+    .cardWrapper {
+        gap: 8px;
+    }
 }
