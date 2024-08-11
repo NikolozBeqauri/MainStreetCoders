@@ -2,6 +2,7 @@ import { AlbumCard } from "./components/AlbumCard/AlbumCard";
 import { albumsData } from "./components/AlbumCard/albumData/albumData";
 import { popularAlbums } from "./components/AlbumCard/popularAlbums/popularAlbums";
 import { popularArtists } from "./components/AlbumCard/popularArtistsData/popularArtistsData";
+import { BurgerMenu } from "./components/BurgerMenu/BurgerMenu";
 import { Header } from "./components/Header/Header";
 import { MusicCard } from "./components/MusicCard/MusicCard";
 import { musicCardsData } from "./components/MusicCard/musicCardData/musicCardData";
@@ -11,7 +12,11 @@ export default function Home() {
   return (
     <main className={styles.wholeWrapper} >
       <section className={styles.container}>
-        <Header />
+
+        <section className={styles.headerWrapper}>
+          <BurgerMenu/>
+          <Header />
+        </section>
 
         <section className={styles.newsComponentWrapper}>
           <NewsComponent title={"Top Hit Of the week"} count={"795,900"} />

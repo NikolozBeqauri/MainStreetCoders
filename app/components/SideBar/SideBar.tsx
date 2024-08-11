@@ -12,9 +12,11 @@ import { Colectionlinks } from './SideBarLinks/ColectionLinks';
 export const SideBar = () => {
     const [active, setActive] = useState<string | null>(null);
     const router = useRouter()
+    
+    const sidebarGeneralStyles = [styles.sideBarWrapper]
 
     return (
-        <aside className={styles.sideBarWrapper}>
+        <aside className={sidebarGeneralStyles.join(" ").trim()} >
             <div className={styles.mainLogo}
                 onClick={() => router.push('/')}>
                 <Image

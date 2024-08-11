@@ -38,7 +38,6 @@
     gap: 16px;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
 }
 
 /**/
@@ -54,6 +53,12 @@
     background: $background;
     margin: 0 auto;
     max-width: 1152px;
+}
+
+.headerWrapper {
+    display: flex;
+    align-items: center;
+    gap: 25px;
 }
 
 .newsComponentWrapper {

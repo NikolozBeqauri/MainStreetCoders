@@ -13,17 +13,15 @@ export const AlbumCard = (props: Props) => {
     const stylesClass = [styles.cardIconsBackground]
     if(!props.title) stylesClass.push(styles.cardIconsCircleBackground)
     
-    const cardImageStyle = []
+    const cardImageStyle = [styles.defaultCardStyles]
     if(!props.title) cardImageStyle.push(styles.cardImage)
         
     return (
         <div className={styles.cardWrapper}>
             <div className={styles.cardImageWrapper}>
-                <Image className={cardImageStyle.join(" ").trim()}
+                <img className={cardImageStyle.join(" ").trim()}
                     src={`/images/${props.img}.png`}
                     alt="musician image"
-                    width={234}
-                    height={202}
                     tabIndex={0}
                 />
                 <div className={stylesClass.join(" ").trim()}>
