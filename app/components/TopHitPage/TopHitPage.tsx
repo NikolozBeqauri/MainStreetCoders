@@ -9,7 +9,7 @@ export const TopHitPage = () => {
     return (
         <div className='contentOfHit'>
             <Header imgName='rightArrow'/>
-            <NewsComponent title='Top Hit  Of the week' count={999} />
+            <NewsComponent title='Top Hit  Of the week' count={"99"} />
             <div className='contentOfSongs'>
                 <Search />
                 {/* აქ ჩაჯდება hit-ები(layouts) */}
