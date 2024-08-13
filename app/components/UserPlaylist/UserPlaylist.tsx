@@ -2,7 +2,7 @@ import Styles from "./UserPlaylist.module.scss";
 
 type Props = {
     image: string;
-    count: number;
+    count?: number;
 }
 
 export const UserPlaylist = (props: Props) => {
