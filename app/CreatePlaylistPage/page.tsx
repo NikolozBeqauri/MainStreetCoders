@@ -1,3 +1,5 @@
+"use client"
+
 import AudioPlayer from "../components/AudioPlayer/AudioPlayer";
 import { Header } from "../components/Header/Header"
 import ReusableButton from "../components/ReusableButton/ReusableButton";
@@ -7,7 +9,6 @@ import Styles from "./page.module.scss";
 
 export default function CreatePlaylistPage () {
 
-    let icon = ""
     return(
         <div className={Styles.container}>
         <SideBar />
