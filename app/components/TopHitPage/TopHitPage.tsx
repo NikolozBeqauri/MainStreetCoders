@@ -13,6 +13,8 @@ export const TopHitPage = () => {
                 <Header imgName='rightArrow'/>
             </div>
             <NewsComponent title='Top Hit  Of the week' count={'999'} />
+            <Header imgName='rightArrow'/>
+            <NewsComponent title='Top Hit  Of the week' count={"99"} />
             <div className='contentOfSongs'>
                 <Search />
                 <ReusableTable />

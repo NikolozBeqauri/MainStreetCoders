@@ -20,7 +20,7 @@ const Controls = ({ audioRef, progressBarRef, duration, setTimeProgress, tracks,
         setIsPlaying((e) => !e) 
     }
     
-    const playAnimationRef = useRef()
+    const playAnimationRef = useRef<number | null>(null);
     
     const repeat = useCallback(() => {
         const currentTime = audioRef.current.currentTime;
@@ -122,7 +122,7 @@ const Controls = ({ audioRef, progressBarRef, duration, setTimeProgress, tracks,
                     min={0}
                     max={100}
                     value={volume}
-                    onChange={(e) => setVolume(e.target.value)}
+                    onChange={(e:any) => setVolume(e.target.value)}
                     style={{
                         background: `linear-gradient(to right, #FFFFFF ${volume}%, #2E3133 ${volume}%)`,
                     }}
