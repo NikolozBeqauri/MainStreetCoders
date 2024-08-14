@@ -1,20 +1,38 @@
 'use client'
 import Image from 'next/image';
 import styles from './SideBar.module.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReusableIcon } from '../ReusableIcon/ReusableIcon';
 import { GeneralLinks } from './SideBarLinks/GeneralLinks'
 import { useRouter } from 'next/navigation';
 import { Discoverlinks } from './SideBarLinks/Discover';
 import { Colectionlinks } from './SideBarLinks/ColectionLinks';
+import { activeSidebarState } from '@/app/states';
+import { useRecoilState } from 'recoil';
 
 
 export const SideBar = () => {
     const [active, setActive] = useState<string | null>(null);
     const router = useRouter()
-    
-    const sidebarGeneralStyles = [styles.sideBarWrapper]
+    const [activeSidebar, setactiveSidebar] = useRecoilState(activeSidebarState);
 
+
+    useEffect(() => {
+        const handleResize = () => {
+            setactiveSidebar(window.innerWidth >= 745);
+        };
+
+        handleResize();
+
+        window.addEventListener('resize', handleResize);
+
+        () => window.removeEventListener('resize', handleResize);
+    }, [setactiveSidebar]);
+
+
+    if (!activeSidebar) return <></>
+
+    const sidebarGeneralStyles = [styles.sideBarWrapper]
     return (
         <aside className={sidebarGeneralStyles.join(" ").trim()} >
             <div className={styles.mainLogo}

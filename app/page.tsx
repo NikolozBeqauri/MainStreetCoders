@@ -8,7 +8,11 @@ import { MusicCard } from "./components/MusicCard/MusicCard";
 import { musicCardsData } from "./components/MusicCard/musicCardData/musicCardData";
 import { NewsComponent } from "./components/NewsComponent/NewsComponent";
 import styles from "./page.module.scss"
+
+
 export default function Home() {
+
+  
   return (
     <main className={styles.wholeWrapper} >
       <section className={styles.container}>

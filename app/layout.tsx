@@ -4,6 +4,7 @@ import "./globals.css";
 import { SideBar } from "./components/SideBar/SideBar";
 import AudioPlayer from "./components/AudioPlayer/AudioPlayer";
 import styles from './layout.module.scss'
+import { RecoilWrapper } from "./components/RecoilWrapper/RecoilWrapper";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -20,13 +21,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className={styles.mainContent}>
-          <SideBar />
-          {children}
+          <RecoilWrapper>
+            <SideBar/>
+            {children}
+          </RecoilWrapper>
         </div>
-        <div className={styles.AudioPlayer}>
+        <footer className={styles.AudioPlayer}>
           <AudioPlayer />
-        </div>
-      </body> 
+        </footer>
+      </body>
     </html>
   );
 }

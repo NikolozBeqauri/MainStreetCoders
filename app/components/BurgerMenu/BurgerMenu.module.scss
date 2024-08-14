@@ -1,3 +1,9 @@
 .burgerMenuWrapper {
-    cursor: pointer;
+    display: none;
+}
+@media (max-width: 745px) {
+    .burgerMenuWrapper {
+        display: flex;
+        cursor: pointer;
+    }
 }
