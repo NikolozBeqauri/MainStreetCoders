@@ -1,8 +1,9 @@
 @import '/app/colors.scss';
 
-.audio-player {
+.audioPlayer {
   background: $darkVoid;
   width: 100%;
+  min-width: 500px;
 }
   
 .inner {
@@ -10,16 +11,16 @@
   margin: 0 auto;
   padding: 32px;
   display: flex;
-  // min-width: 1000px;
+  max-height: 152px;
 }
 
 /* audio info */
-.audio-info {
+.audioInfo {
   display: flex;
   gap: 20px;
 }
 
-.audio-image ~ div {
+.audioImage ~ div {
   width: 200px;
 }
 
@@ -38,21 +39,22 @@
 }
   
 /* audio image */
-.icon-wrapper {
+.iconWrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
 }
 
-.audio-image {
+.audioImage {
+  max-width: 88px;
   width: 88px;
   height: 88px;
   border-radius: 8px;
   background-color: $shadyLady;
 }
   
-.audio-icon {
+.audioIcon {
   font-size: 40px;
   display: flex;
   justify-content: center;
@@ -63,7 +65,7 @@
   background: $shadyLady;
 }
   
-.audio-image img {
+.audioImage img {
   object-fit: fill;
   width: 100%;
   height: 100%;
@@ -71,13 +73,13 @@
   border-radius: 8px;
 }
 
-.audio-title {
+.audioTitle {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.audio-progress__bar {
+.audioProgressBar {
   display: flex;
   flex-direction: column-reverse;
   justify-content: flex-end;
@@ -95,14 +97,9 @@
   margin: auto;
 }
 
-.controls--play-pause svg {
+.controlsPlayPause svg {
   font-size: 48px;
 }
-
-// .controls-wrapper {
-//   display: flex;
-//   justify-content: center;
-// }
 
 .controls button, .volume button {
   border: none;
@@ -111,7 +108,7 @@
   color: $defaultWhite;
 }
 
-button svg {
+.butto svg {
   font-size: 24px;
 }
 
@@ -142,11 +139,8 @@ button svg {
   line-height: 20.16px;
 }
 
-// .time.current {
-// }
-
 /* Top bar */
-.top__bar {
+.topBar {
   font-size: 0.875rem;
   line-height: 1.25rem;
   text-align: center;
@@ -156,11 +150,11 @@ button svg {
   border-bottom: 1px solid $defaultWhite;
 }
 
-.top__bar a {
+.topBar a {
   color: inherit;
 }
 
-.top__bar p {
+.topBar p {
   margin: 0;
 }
 
@@ -168,4 +162,59 @@ button svg {
 .volume > input[type="range"] {
   height: 6px;
   border-radius: 12px;
+}
+
+
+
+
+// responsives
+
+@media (max-width: 860px) {
+  .volume {
+    margin-top: 2px;
+  }
+}
+
+@media (max-width: 744px) {
+  .audioInfo {
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  // .inner {
+  //   height: 150px;
+  // }
+
+  .audioImage {
+    width: 52px;
+    height: 52px;
+  }
+
+  .author {
+    font-size: 12px;
+    line-height: normal;
+  }
+    
+  .title {
+    font-size: 14px;
+    line-height: normal;
+  }
+
+  .audioProgressBar {
+    gap: 10px;
+  }
+
+  .audioTitle img {
+    position: absolute;
+    margin-left: 70px;
+    top: 45px;
+  }
+
+  .audioTitle > div > p {
+    margin-bottom: 8px;
+  }
+
+  .audioImage ~ div {
+      width: 150px;
+  }
 }
