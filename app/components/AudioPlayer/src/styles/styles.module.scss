@@ -2,8 +2,6 @@
 
 .audioPlayer {
   background: #151519;
-  /* width: 100%; */
-  min-width: 500px;
 }
   
 .inner {
@@ -11,7 +9,7 @@
   margin: 0 auto;
   padding: 32px;
   display: flex;
-  max-height: 152px;
+  // max-height: 152px;
   min-height: 136px;
 }
 
@@ -223,5 +221,79 @@
 
   .audioImage ~ div {
       width: 170px;
+  }
+}
+
+
+// responsive of mobile
+
+@media (max-width: 375px) {
+
+  .volume {
+    display: none;
+  }
+
+  .inner {
+    padding: 8px;
+    align-items: center;
+    min-height: 64px;
+  }
+
+  .audioInfo {
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  .audioImage {
+    width: 48px;
+    height: 48px;
+  }
+
+  .audioTitle img {
+    position: relative;
+    margin-left: 0px;
+    top: 0px
+  }
+
+  .audioTitle > div {
+    width: 158px;
+  }
+
+  .audioImage ~ div {
+    flex-direction: row-reverse;
+    align-items: center;
+    width: 195px;
+    justify-content: space-between;
+  }
+
+  .progress span {
+    display: none;
+  }
+
+  .progress input[type=range] {
+    position: absolute;
+    height: 4px;
+    top: -2.5px;
+    left: 0px;
+  }
+
+  .progress input[type=range]::before {
+    height: 4px;
+  }
+
+  .butto {
+    display: none;
+  }
+
+  .controlsPlayPause svg {
+    font-size: 28px;
+  }
+
+  .controlsPlayPause {
+    height: 28px;
+  }
+
+  .audioProgressBar {
+    flex-direction: row;
   }
 }
