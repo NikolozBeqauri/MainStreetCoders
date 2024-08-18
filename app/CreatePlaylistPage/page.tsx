@@ -7,7 +7,7 @@ import { Search } from "../components/Search/Search";
 import { SideBar } from "../components/SideBar/SideBar"
 import Styles from "./page.module.scss";
 
-export default function CreatePlaylistPage () {
+const CreatePlaylistPage = () => {
 
     return(
         <div className={Styles.container}>
@@ -24,3 +24,4 @@ export default function CreatePlaylistPage () {
         </div>
     )
 }
+export default CreatePlaylistPage
