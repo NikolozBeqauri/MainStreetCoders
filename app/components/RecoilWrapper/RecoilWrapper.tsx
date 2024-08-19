@@ -1,7 +1,6 @@
 'use client'
 import { ReactNode } from "react"
-import { RecoilRoot, useRecoilState } from "recoil"
-import { activeSidebarState } from "@/app/states"
+import { RecoilRoot} from "recoil"
 
 
 export const RecoilWrapper = (props: { children: ReactNode }) => {

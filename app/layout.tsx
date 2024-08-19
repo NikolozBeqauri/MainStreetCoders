@@ -5,6 +5,7 @@ import { SideBar } from "./components/SideBar/SideBar";
 import AudioPlayer from "./components/AudioPlayer/AudioPlayer";
 import styles from './layout.module.scss'
 import { RecoilWrapper } from "./components/RecoilWrapper/RecoilWrapper";
+import { MobileNavbar } from "./components/MobileNavbar/MobileNavbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -28,6 +29,7 @@ export default function RootLayout({
         </div>
         <footer className={styles.AudioPlayer}>
           <AudioPlayer />
+          <MobileNavbar/>
         </footer>
       </body>
     </html>

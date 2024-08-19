@@ -1,9 +1,16 @@
 .burgerMenuWrapper {
     display: none;
 }
+
 @media (max-width: 745px) {
     .burgerMenuWrapper {
         display: flex;
         cursor: pointer;
+    }
+}
+
+@media (max-width: 600px) {
+    .burgerMenuWrapper {
+        display: none;
     }
 }

@@ -85,7 +85,7 @@
 
 @media (max-width: 1024px) {
     .cardTitles {
-        width: 160px;
+        width: 125px;
     }
 }
 
@@ -93,5 +93,11 @@
     .cardWrapper {
         width: 154px;
         padding: 8px;
+    }
+}
+
+@media (max-width: 600px) {
+    .cardWrapper {
+        min-width: 253px;
     }
 }
