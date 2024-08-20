@@ -1,6 +1,9 @@
+@import '/app/colors.scss';
+
 .mainContent {
     display: flex;
     position: relative;
+    background-color: $reversedGrey;
 }
 
 .AudioPlayer {
