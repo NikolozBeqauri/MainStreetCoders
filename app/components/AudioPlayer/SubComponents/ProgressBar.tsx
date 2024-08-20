@@ -1,4 +1,4 @@
-
+import styles from '../src/styles/styles.module.scss'
 
 const ProgressBar = ({ progressBarRef, audioRef, timeProgress, duration }: any) => {
     const handleProgressChange = () => {
@@ -6,15 +6,15 @@ const ProgressBar = ({ progressBarRef, audioRef, timeProgress, duration }: any) 
     };
 
     return (
-        <div className="progress">
-            <span className="time current">{formatTime(timeProgress)}</span>
+        <div className={styles.progress}>
+            <span className={styles.time}>{formatTime(timeProgress)}</span>
             <input 
                 type="range" 
                 ref={progressBarRef}
                 defaultValue="0"
                 onChange={handleProgressChange}
             />
-            <span className="time">{formatTime(duration)}</span>
+            <span className={styles.time}>{formatTime(duration)}</span>
         </div>
     )
 }
