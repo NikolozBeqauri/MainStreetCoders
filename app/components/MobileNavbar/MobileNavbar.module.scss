@@ -1,0 +1,29 @@
+@import '/app/colors.scss';
+.container {
+    display: none;
+    width: 100%;
+}
+.listsContainer {
+    display: flex;
+    align-items: center;
+    background: #080808;
+    width: 100%;
+}
+.listsContainer > li {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 13px 0px;
+    gap: 6px;
+    flex: 1;
+    cursor: pointer;
+}
+.title {
+    color: $missionControl;
+}
+
+@media (max-width: 600px) {
+    .container{
+        display: flex;
+    }
+}

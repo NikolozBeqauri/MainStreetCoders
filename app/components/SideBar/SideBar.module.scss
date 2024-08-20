@@ -1,15 +1,17 @@
 @import "/app/colors.scss";
 
-.sideBarWrapper {
+.sideBarWrapper { 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: start;
     max-width: 277px;
+    height: 100%;
     width: 100%;
     background: $reversedGrey;
     padding: 40px 20px;
     gap: 56px;
+    z-index: 2;
 }
 .mainLogo {
     cursor: pointer;
@@ -74,4 +76,32 @@
 
 #active span {
     color: $defaultWhite;
+}
+
+.disableSidebar {
+    display: none;
+}
+
+.toDisableMenuDiv {
+    display: none;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    width: 100%;
+    left: 0;
+    z-index: 1;
+    cursor: pointer;
+}
+
+@media (max-width: 745px) {
+    .sideBarWrapper{
+        display: flex;
+        position: absolute;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+    .toDisableMenuDiv {
+        display: flex;
+    }
 }
