@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styles from './AlbumCard.module.scss'
 import { HeartIcon } from '../HeartIcon/HeartIcon';
-import { ThreeDots } from '../ReusableIcon/ReusableIcon';
+import { ReusableIcon } from '../ReusableIcon/ReusableIcon';
 
 type Props = {
     title?: string;
@@ -20,7 +20,7 @@ export const AlbumCard = (props: Props) => {
         <div className={styles.cardWrapper}>
             <div className={styles.cardImageWrapper}>
                 <Image className={cardImageStyle.join(" ").trim()}
-                    src={`/images/${props.img}`}
+                    src={`/images/${props.img}.png`}
                     alt="musician image"
                     width={234}
                     height={202}
@@ -29,7 +29,7 @@ export const AlbumCard = (props: Props) => {
                 <div className={stylesClass.join(" ").trim()}>
                     <div className={styles.cardIconsWrapper}>
                         <HeartIcon background />
-                        <ThreeDots background />
+                        <ReusableIcon imgName={'threeDots'} background/>
                     </div>
                 </div>
             </div>

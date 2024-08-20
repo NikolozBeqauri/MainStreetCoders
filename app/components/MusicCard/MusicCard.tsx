@@ -1,10 +1,10 @@
 import { HeartIcon } from "../HeartIcon/HeartIcon";
-import { ThreeDots } from "../ReusableIcon/ReusableIcon";
+import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
 import styles from "./MusicCard.module.scss"
 import Image from 'next/image';
 
 type Props = {
-    src: string;
+    imgName: string;
     title: string;
     author: string;
     timing: string;
@@ -18,7 +18,7 @@ export const MusicCard = (props: Props) => {
             <div className={styles.cardinfo}>
                 <Image
                     className={styles.cardImg}
-                    src={`/images/musicCards/${props.src}`}
+                    src={`/images/${props.imgName}.png`}
                     alt="musician image"
                     width={72}
                     height={72}
@@ -33,7 +33,7 @@ export const MusicCard = (props: Props) => {
                 <span className={styles.timing}>{props.timing}</span>
                 <div>
                     <HeartIcon/>
-                    <ThreeDots/>
+                    <ReusableIcon imgName={'threeDots'}/>
                 </div>
             </div>
         </div>

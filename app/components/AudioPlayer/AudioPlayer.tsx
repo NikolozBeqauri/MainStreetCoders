@@ -1,3 +1,4 @@
+'use client'
 import DisplayTrack from "./SubComponents/DisplayTrack";
 import Controls from "./SubComponents/Controls";
 import ProgressBar from "./SubComponents/ProgressBar";
