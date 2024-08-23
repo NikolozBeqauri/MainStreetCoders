@@ -1,5 +1,8 @@
-export const SighnUp = () => {
-    return
+import { SignUp } from "@/app/components/SighnUp/SignUp";
+
+export const SighnUpPage = () => {
+    return(
+    )
 }
 
-export default SighnUp;
+export default SighnUpPage;

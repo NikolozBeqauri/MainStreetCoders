@@ -1,0 +1,68 @@
+@import "/app/colors.scss";
+.fromWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.fromWrapper input {
+    padding: 16px;
+    width: 368px;
+    border-radius: 8px;
+    border: none;
+}
+.errorMessage{
+    color: red;
+}
+.fromWrapper input[type="email"],
+.fromWrapper input[type="Password"]  {
+    color: green;
+    background-color: white;
+    color: $lightPurple;
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 115%;
+}
+.fromWrapper input[type="email"]::placeholder,
+.fromWrapper input[type="Password"]::placeholder {
+    color: $lightPurple;
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 115%;
+}
+
+.fromWrapper input[type="submit"] {
+    background: $gradientApoloButton;
+    color: $defaultWhite;
+    font-family: Manrope;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height:  16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin: 8px 0px;
+}
+.passwordRules {
+    color: $palladium;
+    font-family: Manrope;
+    font-size: 12px;
+    line-height: normal;
+    font-weight: 500;
+}
+.haveAccount {
+    text-align: center;
+    color: $defaultWhite;
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+.haveAccount span {
+    color: $signapureOrchid;
+    cursor: pointer;
+}

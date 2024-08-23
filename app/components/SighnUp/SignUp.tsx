@@ -1,6 +1,6 @@
 'use client'
 import { useForm } from "react-hook-form";
-
+import styles from "./SignUp.module.scss"
 type FormValues = {
     email: string;
     password: string;
@@ -15,12 +15,13 @@ export const SignUp = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.fromWrapper}>
             <input 
                 placeholder="Email"
+                type="email"
                 {...register("email", { required: "Email is required" })} 
             />
-            {errors.email && <span>{errors.email.message}</span>}
+            {errors.email && <span className={styles.errorMessage}>{errors.email.message}</span>}
 
             <input 
                 placeholder="Password"
@@ -37,8 +38,13 @@ export const SignUp = () => {
                     }
                 })}
             />
-            {errors.password && <span>{errors.password.message}</span>}
-
+            {errors.password && <span className={styles.errorMessage}>{errors.password.message}</span>}
+            <div className={styles.passwordRules}>
+                <p>Password must contain: </p>
+                <p>*8 or more characters </p>
+                <p>*at least one capital letter</p>
+                <p>*at least one number</p>
+            </div>
             <input 
                 placeholder="Confirm Password"
                 type="password"
@@ -47,9 +53,11 @@ export const SignUp = () => {
                     validate: (value) => value === watch('password') || "Passwords do not match"
                 })}
             />
-            {errors.confirmPassword && <span>{errors.confirmPassword.message}</span>}
+            {errors.confirmPassword && <span className={styles.errorMessage}>{errors.confirmPassword.message}</span>}
 
             <input type="submit" value="Sign Up" />
+
+            <p className={styles.haveAccount} >Already have  an account? <span>Sign in</span></p>
         </form>
     );
 };
