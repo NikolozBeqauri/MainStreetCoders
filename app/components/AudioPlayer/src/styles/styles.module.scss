@@ -104,6 +104,11 @@
   font-size: 48px;
 }
 
+.controlsWrapper {
+  display: flex;
+  flex-direction: row;
+}
+
 .controls button, .volume button {
   border: none;
   background-color: $transparent;
@@ -120,7 +125,6 @@
   align-items: center;
   max-width: 105px;
   float: right;
-  margin-top: -33px;
   gap: 5px;
 }
 
