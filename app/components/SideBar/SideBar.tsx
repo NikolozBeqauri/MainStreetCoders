@@ -19,7 +19,7 @@ export const SideBar = () => {
 
     useEffect(() => {
         const handleResize = () => {
-            setactiveSidebar(window.innerWidth >= 745);
+            setactiveSidebar(window.innerWidth >= 1024);
         };
         handleResize();
         window.addEventListener('resize', handleResize);

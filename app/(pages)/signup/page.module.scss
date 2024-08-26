@@ -4,7 +4,7 @@
     flex-direction: column;
     gap: 104px;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     background-color: $signBackground;
     padding: 48px 0px 0px 80px;
     background-image: url('/images/signin.png'), url('/images/eclipse.png'), url('/images/rectangle.png');
