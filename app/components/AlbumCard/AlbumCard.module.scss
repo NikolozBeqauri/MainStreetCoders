@@ -73,6 +73,7 @@
 .cardImage {
     border-radius: 50%;
 }
+
 .cardIconsCircleBackground {
     border-radius: 50%;
 }
@@ -91,7 +92,7 @@
 
 @media (max-width: 900px) {
     .cardWrapper {
-        width: 154px;
+        min-width: 154px;
         padding: 8px;
     }
 }
