@@ -1,8 +1,9 @@
-import { Header } from '../../components/Header/Header'
-import { NewsComponent } from '../../components/NewsComponent/NewsComponent'
-import { ReusableTable } from '../../components/ReusableTable/Reusable'
-import { Search } from '../../components/Search/Search'
+
+import { Header } from '@/app/components/Header/Header';
 import styles from './page.module.scss'
+import { NewsComponent } from '@/app/components/NewsComponent/NewsComponent';
+import { Search } from '@/app/components/Search/Search';
+import { ReusableTable } from '@/app/components/ReusableTable/Reusable';
 
 const TopHitPage = () => {
 

@@ -1,4 +1,4 @@
 export const Discoverlinks = [
-    { href: '/pages/artist', label: 'Artist', imageName: 'menuArtist' },
-    { href: '/pages/album', label: 'Album', imageName: 'menuAlbum' }
+    { href: '/artist', label: 'Artist', imageName: 'menuArtist' },
+    { href: '/album', label: 'Album', imageName: 'menuAlbum' }
 ];

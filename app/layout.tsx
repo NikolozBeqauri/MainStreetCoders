@@ -23,14 +23,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <div className={styles.mainContent}>
           <RecoilWrapper>
-            <SideBar/>
             {children}
           </RecoilWrapper>
         </div>
-        <footer className={styles.AudioPlayer}>
-          <AudioPlayer />
-          <MobileNavbar/>
-        </footer>
       </body>
     </html>
   );
