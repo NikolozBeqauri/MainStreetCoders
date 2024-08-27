@@ -7,8 +7,8 @@ import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
 import { MusicCard } from "@/app/components/MusicCard/MusicCard";
 import { musicCardsData } from "@/app/components/MusicCard/musicCardData/musicCardData";
 import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
-import { Header } from "antd/es/layout/layout";
 import styles from "./page.module.scss"
+import { Header } from "@/app/components/Header/Header";
 
 
 export default function Home() {
