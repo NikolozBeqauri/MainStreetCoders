@@ -1,17 +1,27 @@
-import { AlbumCard } from "./components/AlbumCard/AlbumCard";
-import { albumsData } from "./components/AlbumCard/albumData/albumData";
-import { popularAlbums } from "./components/AlbumCard/popularAlbums/popularAlbums";
-import { popularArtists } from "./components/AlbumCard/popularArtistsData/popularArtistsData";
-import { Header } from "./components/Header/Header";
-import { MusicCard } from "./components/MusicCard/MusicCard";
-import { musicCardsData } from "./components/MusicCard/musicCardData/musicCardData";
-import { NewsComponent } from "./components/NewsComponent/NewsComponent";
+
+import { AlbumCard } from "@/app/components/AlbumCard/AlbumCard";
+import { albumsData } from "@/app/components/AlbumCard/albumData/albumData";
+import { popularAlbums } from "@/app/components/AlbumCard/popularAlbums/popularAlbums";
+import { popularArtists } from "@/app/components/AlbumCard/popularArtistsData/popularArtistsData";
+import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
+import { MusicCard } from "@/app/components/MusicCard/MusicCard";
+import { musicCardsData } from "@/app/components/MusicCard/musicCardData/musicCardData";
+import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import styles from "./page.module.scss"
+import { Header } from "@/app/components/Header/Header";
+
+
 export default function Home() {
+
+  
   return (
     <main className={styles.wholeWrapper} >
       <section className={styles.container}>
-        <Header />
+
+        <section className={styles.headerWrapper}>
+          <BurgerMenu/>
+          <Header />
+        </section>
 
         <section className={styles.newsComponentWrapper}>
           <NewsComponent title={"Top Hit Of the week"} count={"795,900"} />

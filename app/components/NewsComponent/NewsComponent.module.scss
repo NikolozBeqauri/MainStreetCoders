@@ -38,3 +38,26 @@
     font-size: 24px;
     font-weight: 500;
 }
+@media (max-width: 755px) {
+    .container {
+        height: 291px;
+    }
+    .h1Style{
+        font-size: 48px;
+    }
+    .playCount{
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 500px) {
+    .container {
+        height: 197px;
+    }
+    .h1Style{
+        font-size: 24px;
+    }
+    .playCount{
+        font-size: 14px;
+    }
+}
