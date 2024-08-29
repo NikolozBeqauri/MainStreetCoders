@@ -1,4 +1,5 @@
 @import "/app/colors.scss";
+
 .signUpWrapper {
     display: flex;
     flex-direction: column;
@@ -10,7 +11,7 @@
     background-image: url('/images/signin.png'), url('/images/eclipse.png'), url('/images/rectangle.png');
     background-repeat: no-repeat;
     background-position: bottom right, top left, top left;
-    background-size: contain;  
+    background-size: contain;
     background-size: 800px auto;
 }
 
@@ -20,6 +21,7 @@
     gap: 32px;
     max-width: 610px;
 }
+
 .where {
     color: $defaultWhite;
     font-family: "SF Pro Display";
@@ -71,4 +73,69 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+}
+
+.getStarted {
+    cursor: pointer;
+    color: $defaultWhite;
+    width: 332px;
+    padding: 16px 40px;
+    border-radius: 8px;
+    border: none;
+    background: $gradientApoloButton;
+}
+.startedComponentWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20% 0px;
+    gap: 24px;
+    width: 100vw;
+    min-height: 100vh;
+    height: 100%;
+    background-image: url('/images/mainLogo.png'),url('/images/signTabletBackground.png');
+    background-repeat: no-repeat;
+    background-position: top 32px left 32px,center;
+    background-size: 98px 83px,100vw 100vh;
+}
+.startedComponentWrapper h2 {
+    color: $lightPurple;
+    text-align: center;
+    font-family: "Plus Jakarta Sans";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    
+}
+@media (max-width: 1024px) {
+    .signUpWrapper {
+        padding: 32px;
+        gap: 72px;
+        background-image: url('/images/signin.png'), url('/images/signTabletBackground.png');
+        background-size: auto 60%, 100% 100%;
+    }
+    .where {
+        font-size: 50px;
+    }
+    .harmony {
+        font-size: 60px;
+    }
+    .meets {
+        font-size: 60px;
+    }
+    .melody {
+        font-size: 50px;
+    }
+    .content {
+        align-self: center;
+        width: 100%;
+        align-items: center;
+    }
+    .titles {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 }

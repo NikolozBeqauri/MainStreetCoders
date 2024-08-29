@@ -57,7 +57,7 @@ export const SignUp = () => {
 
             <input type="submit" value="Sign Up" />
 
-            <p className={styles.haveAccount} >Already have  an account? <span>Sign in</span></p>
+            <p className={styles.haveAccount} >Already have  an account? <span>Sign In</span></p>
         </form>
     );
 };
