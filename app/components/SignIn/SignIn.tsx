@@ -1,6 +1,8 @@
 'use client'
 import { useForm } from "react-hook-form";
 import styles from "./SignIn.module.scss"
+import { signInState, signUpState } from "@/app/states";
+import { useRecoilState } from "recoil";
 type FormValues = {
     email: string;
     password: string;
@@ -13,6 +15,9 @@ export const SignIn = () => {
     const onSubmit = (data: FormValues) => {
         console.log(data);
     };
+
+    const [signUp, setsignUp] = useRecoilState(signUpState);
+    const [signIn, setsignIn] = useRecoilState(signInState);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.fromWrapper}>
@@ -50,7 +55,7 @@ export const SignIn = () => {
 
             <input type="submit" value="Sign Up" />
 
-            <p className={styles.haveAccount} >Already have  an account? <span>Sign Up</span></p>
+            <p className={styles.haveAccount} >Already have  an account? <span onClick={() => {setsignUp(true); setsignIn(false)}}>Sign Up</span></p>
         </form>
     );
 };
