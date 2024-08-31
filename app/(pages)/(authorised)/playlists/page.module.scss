@@ -1,6 +1,13 @@
-@import "../colors.scss";
+@import "../../../colors.scss";
 
 /* || page layout */
+
+.containerWrapper{
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+}
 
 .container {
     display: flex;
