@@ -9,14 +9,28 @@
     padding: 16px;
     background-color: $darkVoid;
     max-width: 270px;
+    max-height: 288px;
     width: 100%;
     align-items: flex-start;
     border-radius: 8px;
+    position: relative;
 }
+
 
 /* || paragraph Css */
 
 .paragraph{
     font-size: 14px;
     color: $shadyLady;
+}
+
+/* || icon styles */
+
+.icons{
+    display: flex;
+    gap: 8px;
+    position: absolute;
+    bottom: 52px;
+    left: 50%;
+    transform: translateX(-50%);
 }

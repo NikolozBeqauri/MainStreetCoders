@@ -1,11 +1,9 @@
 "use client"
 
 import { useState } from "react";
-import AudioPlayer from "../../../components/AudioPlayer/AudioPlayer";
 import { Header } from "../../../components/Header/Header"
 import ReusableButton from "../../../components/ReusableButton/ReusableButton";
 import { Search } from "../../../components/Search/Search";
-import { SideBar } from "../../../components/SideBar/SideBar"
 import { UserPlaylist } from "../../../components/UserPlaylist/UserPlaylist";
 import Styles from "./page.module.scss";
 import Playlist from "./playlistArr/playlist";
@@ -29,7 +27,7 @@ const PlayListPage = () => {
         <div className={Styles.container}>
             {playlistState ? (
                 <div className={Styles.childrenContainer}>
-                    <Header imgName={"icon"} />
+                    <Header imgName={"rightArrow"} />
                     <h1 className={Styles.header}>My Playlists</h1>
                     <div className={Styles.searchLayout}>
                         <Search />
@@ -46,7 +44,7 @@ const PlayListPage = () => {
                     </div>
                 </div>) :
                 (<div className={Styles.childrenContainer}>
-                    <Header imgName={"icon"} />
+                    <Header imgName={"rightArrow"} />
                     <NewsComponent title={playlistName} count={""} />
                     <Search />
                     <ReusableTable />
