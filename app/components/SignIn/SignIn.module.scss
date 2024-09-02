@@ -50,12 +50,34 @@
     margin: 8px 0px;
     width: 100%;
 }
-.passwordRules {
+.memoryWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.checkbox {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    color: $defaultWhite;
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 19px
+}
+.checkbox label{
+    cursor: pointer;
+}
+.forgotPassword {
+    cursor: pointer;
     color: $palladium;
     font-family: Manrope;
-    font-size: 12px;
-    line-height: normal;
-    font-weight: 500;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 19px;
+    text-decoration-line: underline;
 }
 .haveAccount {
     text-align: center;
@@ -65,7 +87,6 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    max-width: 368px;
 }
 .haveAccount span {
     color: $signapureOrchid;
