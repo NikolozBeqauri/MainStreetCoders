@@ -3,7 +3,7 @@
 .audioPlayer {
   background: #151519;
 }
-  
+
 .inner {
   max-width: 1440px;
   margin: 0 auto;
@@ -19,7 +19,7 @@
   gap: 20px;
 }
 
-.audioImage ~ div {
+.audioImage~div {
   width: 200px;
 }
 
@@ -28,15 +28,17 @@
   font-size: 14px;
   line-height: 17.64px;
   font-weight: 600;
+  font-family: var(--font-jakarta-suns);
 }
-  
+
 .title {
   color: $defaultWhite;
+  font-family: vaR(--font-jakarta-suns);
   font-weight: 600;
   font-size: 16px;
   line-height: 20.16px;
 }
-  
+
 /* audio image */
 .iconWrapper {
   display: flex;
@@ -52,7 +54,7 @@
   border-radius: 8px;
   background-color: $shadyLady;
 }
-  
+
 .audioIcon {
   font-size: 40px;
   display: flex;
@@ -63,7 +65,7 @@
   border-radius: 50%;
   background: $shadyLady;
 }
-  
+
 .audioImage img {
   object-fit: fill;
   width: 100%;
@@ -78,7 +80,7 @@
   gap: 8px;
 }
 
-.audioTitle > div > p {
+.audioTitle>div>p {
   margin-bottom: 4px;
 }
 
@@ -109,11 +111,13 @@
   flex-direction: row;
 }
 
-.controls button, .volume button {
+.controls button,
+.volume button {
   border: none;
   background-color: $transparent;
   cursor: pointer;
   color: $defaultWhite;
+  font-family: var(--font-jakarta-suns);
 }
 
 .butto svg {
@@ -143,11 +147,13 @@
 .time {
   color: $defaultWhite;
   font-size: 16px;
+  font-family: var(--font-jakarta-suns);
   line-height: 20.16px;
 }
 
 /* Top bar */
 .topBar {
+  font-family: var(--font-jakarta-suns);
   font-size: 0.875rem;
   line-height: 1.25rem;
   text-align: center;
@@ -166,7 +172,7 @@
 }
 
 // volume
-.volume > input[type="range"] {
+.volume>input[type="range"] {
   height: 6px;
   border-radius: 12px;
 }
@@ -207,9 +213,10 @@
     font-size: 12px;
     line-height: normal;
   }
-    
+
   .title {
     font-size: 14px;
+    font-family: var(--font-jakarta-suns);
     line-height: normal;
   }
 
@@ -219,12 +226,12 @@
     top: 30px
   }
 
-  .audioTitle > div > p {
+  .audioTitle>div>p {
     margin-bottom: 8px;
   }
 
-  .audioImage ~ div {
-      width: 170px;
+  .audioImage~div {
+    width: 170px;
   }
 }
 
@@ -259,11 +266,11 @@
     top: 0px
   }
 
-  .audioTitle > div {
+  .audioTitle>div {
     width: 158px;
   }
 
-  .audioImage ~ div {
+  .audioImage~div {
     flex-direction: row-reverse;
     align-items: center;
     width: 195px;

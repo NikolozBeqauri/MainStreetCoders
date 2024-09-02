@@ -9,7 +9,7 @@
 
 .secondaryTitleDiv>h2 {
     color: $defaultWhite;
-    font-family: "Plus Jakarta Sans";
+    font-family: var(--font-jakarta-suns);
     font-size: 20px;
     font-weight: 600;
     line-height: 20px;
@@ -18,7 +18,7 @@
 
 .secondaryTitleDiv>span {
     color: $missionControl;
-    font-family: "Plus Jakarta Sans";
+    font-family: var(--font-jakarta-suns);
     font-size: 14px;
     font-weight: 400;
     line-height: 14px;
