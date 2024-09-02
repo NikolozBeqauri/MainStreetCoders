@@ -21,9 +21,12 @@
     border: none !important;
 }
 
-.wrapper :global .ant-table-tbody>tr>:nth-child(2) {
-    width: 347px;
+.wrapper :global .ant-table-cell>div {
+    display: flex;
+    gap: 41px;
 }
+
+.wrapper :global .ant-table-tbody>tr>:nth-child(2) {}
 
 .wrapper :global .ant-table-tbody>tr>:nth-child(3) {
     width: 307px;
@@ -38,7 +41,8 @@
 .wrapper :global .ant-table-tbody>tr>:nth-child(5) {
     vertical-align: middle;
 }
-.wrapper :global .ant-table-thead>tr>th{
+
+.wrapper :global .ant-table-thead>tr>th {
     background-color: $blackMetal !important;
     border: none;
 }
@@ -65,19 +69,22 @@
     font-style: normal;
     font-weight: 400 !important;
     line-height: normal;
-    
+
 }
-.wrapper :global .ant-table-row{
-    background : $blackMetal !important;
+
+.wrapper :global .ant-table-row {
+    background: $blackMetal !important;
 }
-.wrapper :global .ant-table-row-level-0:hover{
-    background : $dynamicBlack!important;
+
+.wrapper :global .ant-table-row-level-0:hover {
+    background: $dynamicBlack !important;
     transition: 0.3s;
 }
 
-.wrapper :global .ant-table-cell-row-hover{
-    background: unset !important;   
+.wrapper :global .ant-table-cell-row-hover {
+    background: unset !important;
 }
+
 .wrapper :global .ant-table-cell::before {
     background-color: $blackMetal !important;
 }
@@ -108,7 +115,7 @@
 }
 
 .wrapper :global .ant-table-thead>tr> :nth-child(1) {
-    text-align: center; 
+    text-align: center;
 }
 
 .wrapper :global .ant-table-tbody tr> :nth-child(1) {
@@ -116,7 +123,58 @@
     width: 60px;
 }
 
-.wrapper :global .ant-table-container .ant-table-tbody .ant-table-row-level-0:hover   td:first-child   {
+.wrapper :global .ant-table-container .ant-table-tbody .ant-table-row-level-0:hover td:first-child {
     transition: .3s;
     border-left: 5px solid var(--Gradient-apolo, #F903D0) !important;
-}   
+}
+
+// query
+
+
+@media (max-width: 430px) {
+
+    .wrapper :global .ant-table-tbody>tr>:nth-child(3),
+    .wrapper :global .ant-table-tbody>tr>:nth-child(4),
+    .wrapper :global .ant-table-thead>tr> :nth-child(3),
+    .wrapper :global .ant-table-thead>tr> :nth-child(4) {
+        display: none !important;
+    }
+
+    .wrapper :global .ant-table-cell>div {
+        display: flex;
+        gap: 21px;
+    }
+}
+
+@media (max-width: 460px) {
+    .wrapper :global .ant-table-cell>div {
+        display: flex;
+        gap: 21px;
+    }
+}
+
+
+
+@media (max-width: 744px) {
+
+    .wrapper :global .ant-table-tbody>tr>:nth-child(3),
+    .wrapper :global .ant-table-thead>tr> :nth-child(3) {
+        display: none !important;
+    }
+
+    ;
+
+}
+
+@media (max-width: 1000px) {
+    .wrapper :global .ant-table-tbody>tr>:nth-child(3) {
+        width: auto;
+    }
+}
+
+@media (max-width: 740px) {
+    .wrapper :global .ant-table-tbody>tr>:nth-child(4) {
+        width: auto;
+    }
+
+}

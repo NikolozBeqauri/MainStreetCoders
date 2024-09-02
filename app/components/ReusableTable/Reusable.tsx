@@ -5,6 +5,7 @@ import { Table } from 'antd';
 import 'antd/dist/reset.css';
 import styles from './ReusubleTable.module.scss'
 import { HeartIcon } from '../HeartIcon/HeartIcon';
+import { ReusableIcon } from '../ReusableIcon/ReusableIcon';
 
 
 export const ReusableTable = () => {
@@ -57,6 +58,7 @@ export const ReusableTable = () => {
             render: (record: any) => (
                 <div className={styles.icon}>
                    <HeartIcon />
+                   <ReusableIcon imgName={'whiteThreeDots'}/>
                 </div>
             ),
         },
