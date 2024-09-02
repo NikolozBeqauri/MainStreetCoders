@@ -1,12 +1,18 @@
 .album1 {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    margin-top: 40px;
+display: flex;
+gap: 27px;
 }
 .album2 {
     margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-left: 32px;
+    margin-right: 32px;
 }
-@media (max-width: 375px) {
-
+.table {
+    margin-top: 32px;
+}
+.album {
+    width: 100%;
 }
