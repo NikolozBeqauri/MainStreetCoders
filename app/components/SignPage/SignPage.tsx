@@ -41,8 +41,8 @@ export const SignPage = ({ component }: Props) => {
                     <Image
                         src={'/images/mainLogo.png'}
                         alt="icon"
-                        width={98}
-                        height={83}
+                        width={88}
+                        height={73}
                     />
                     <div className={styles.content}>
                         <div className={styles.titles}>
