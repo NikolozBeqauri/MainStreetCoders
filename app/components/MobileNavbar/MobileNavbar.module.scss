@@ -17,9 +17,11 @@
     gap: 6px;
     flex: 1;
     cursor: pointer;
+    font-family: var(--font-jakarta-suns);
 }
 .title {
     color: $missionControl;
+
 }
 
 @media (max-width: 600px) {
