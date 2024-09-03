@@ -119,4 +119,23 @@
 .wrapper :global .ant-table-container .ant-table-tbody .ant-table-row-level-0:hover   td:first-child   {
     transition: .3s;
     border-left: 5px solid var(--Gradient-apolo, #F903D0) !important;
+}   
+
+@media (max-width: 450px) {
+    
+    .wrapper :global .ant-table-thead>tr>:nth-child(3) {
+        display: none;
+    }
+
+    .wrapper :global .ant-table-thead>tr>:nth-child(4) {
+        display: none;
+    }
+
+    .wrapper :global .ant-table-tbody>tr>:nth-child(3) {
+        display: none;
+    }
+
+    .wrapper :global .ant-table-tbody>tr>:nth-child(4) {
+        display: none;
+    }
 }
