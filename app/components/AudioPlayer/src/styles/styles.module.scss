@@ -5,7 +5,6 @@
 }
   
 .inner {
-  max-width: 1440px;
   margin: 0 auto;
   padding: 32px;
   display: flex;
@@ -231,7 +230,7 @@
 
 // responsive of mobile
 
-@media (max-width: 375px) {
+@media (max-width: 490px) {
 
   .volume {
     display: none;
@@ -254,19 +253,16 @@
   }
 
   .audioTitle img {
-    position: relative;
+    position: absolute;
     margin-left: 0px;
-    top: 0px
-  }
-
-  .audioTitle > div {
-    width: 158px;
+    top: 26.5px;
+    right: 78px;
   }
 
   .audioImage ~ div {
     flex-direction: row-reverse;
     align-items: center;
-    width: 195px;
+    min-width: 195px;
     justify-content: space-between;
   }
 
@@ -299,5 +295,21 @@
 
   .audioProgressBar {
     flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 340px) {
+  .audioTitle img {
+    position: relative;
+    margin-left: 0px;
+    top: 0px;
+    right: 0px;
+  }
+
+  .audioProgressBar {
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-left: 8px;
   }
 }
