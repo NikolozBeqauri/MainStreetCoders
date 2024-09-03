@@ -1,0 +1,50 @@
+@import "/app/colors.scss";
+
+.artistPageWrapper {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    gap: 40px;
+    max-width: 1445px;
+    width: 100%;
+    padding: 40px 24px;
+}
+
+.artistCardsWrapper > h2 {
+    color: $defaultWhite;
+    font-family: var(--font-jakarta-suns);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    margin-bottom: 16px;
+}
+
+.artistCards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+
+@media (max-width: 1720px) {
+    .artistPageWrapper {
+        max-width: 1163px;
+    }
+}
+
+@media (max-width: 1437px) {
+    .artistPageWrapper {
+        max-width: 881px;
+    }
+}
+@media (max-width: 1155px) {
+    .artistCards > div {
+        width: 180px;
+    }
+}
+@media (max-width: 1095px) {
+    .artistPageWrapper {
+        width: 620px;
+    }
+}
