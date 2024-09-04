@@ -8,21 +8,20 @@
     gap: 8px;
     padding: 16px;
     background-color: $darkVoid;
-    max-width: 266px;
-    max-height: 309px;
+    max-width: 270px;
+    max-height: 288px;
     width: 100%;
     align-items: flex-start;
     border-radius: 8px;
     position: relative;
-    cursor: pointer;
 }
+
 
 /* || paragraph Css */
 
 .paragraph{
     font-size: 14px;
-    font-family: "Plus Jakarta Sans";
-    font-weight: 600;
+    font-family: var(--font-jakarta-suns);
     color: $shadyLady;
 }
 
@@ -35,18 +34,4 @@
     bottom: 52px;
     left: 50%;
     transform: translateX(-50%);
-}
-
-.opacity{
-    opacity: 0;
-    transition: 1s;
-}
-
-.container:hover{
-    opacity: 0.85;
-    transition: 0.5s;
-    .opacity{
-        opacity: 1;
-        transition: 1s;
-    }
 }
