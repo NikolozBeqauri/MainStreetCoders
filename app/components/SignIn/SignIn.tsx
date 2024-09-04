@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import styles from "./SignIn.module.scss"
 import { signInState, signUpState } from "@/app/states";
 import { useRecoilState } from "recoil";
+import axios, { Axios } from "axios";
 type FormValues = {
     email: string;
     password: string;
@@ -13,8 +14,16 @@ export const SignIn = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
     const onSubmit = (data: FormValues) => {
-        console.log(data);
+        console.log('1')
+        axios.post(`https://project-spotify.onrender.com/users`, data)
+        .then(response => {
+            console.log(response.data , 'res[poonse');
+        })
+        .catch(error => {
+            console.error(error);
+        });
     };
+    
 
     const [signUp, setsignUp] = useRecoilState(signUpState);
     const [signIn, setsignIn] = useRecoilState(signInState);

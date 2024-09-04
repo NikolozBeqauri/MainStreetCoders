@@ -10,7 +10,7 @@
     padding: 40px 24px;
 }
 
-.artistCardsWrapper > h2 {
+.artistCardsWrapper>h2 {
     color: $defaultWhite;
     font-family: var(--font-jakarta-suns);
     font-size: 20px;
@@ -38,13 +38,32 @@
         max-width: 881px;
     }
 }
+
 @media (max-width: 1155px) {
-    .artistCards > div {
+    .artistCards>div {
         width: 180px;
     }
 }
+
 @media (max-width: 1095px) {
     .artistPageWrapper {
         width: 620px;
+    }
+}
+@media (max-width: 620px) {
+    .artistCards {
+        justify-content: center;
+    }
+    .artistCards > div {
+        width: 154px;
+    }
+}
+
+@media (max-width: 560px) {
+    .artistCards {
+        justify-content: center;
+    }
+    .artistCards > div {
+        width: 154px;
     }
 }
