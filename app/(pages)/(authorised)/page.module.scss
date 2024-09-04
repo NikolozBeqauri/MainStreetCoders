@@ -1,0 +1,98 @@
+@import "/app/colors.scss";
+
+////
+.secondaryTitleDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.secondaryTitleDiv>h2 {
+    color: $defaultWhite;
+    font-family: var(--font-jakarta-suns);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.secondaryTitleDiv>span {
+    color: $missionControl;
+    font-family: var(--font-jakarta-suns);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 14px;
+    cursor: pointer;
+}
+
+//General Card Wrapper//
+.generalCardWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 24px 0px;
+}
+
+.generalCardItem {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/**/
+.wholeWrapper {
+    width: 100%;
+    background: $background;
+
+}
+
+.container {
+    width: 100%;
+    padding: 40px 20px 24px 20px;
+    background: $background;
+    margin: 0 auto;
+    max-width: 1152px;
+}
+
+.headerWrapper {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.newsComponentWrapper {
+    margin-top: 40px;
+}
+
+.musicCardWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.musicCards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    gap: 16px;
+}
+
+@media (max-width: 720px) {
+    .generalCardItem {
+        overflow-y: scroll;
+    }
+}
+
+@media (max-width:600px) {
+    .musicCards {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+@media (max-width: 375px) {
+    .container {
+        padding: 40px 16px 24px 16px;
+    }
+}

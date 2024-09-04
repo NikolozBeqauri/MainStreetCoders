@@ -14,7 +14,7 @@
     border-radius: 8px;
     border: 1px solid $hawksEye;
     background: $background;
-    font-family: "Plus Jakarta Sans";
+    font-family: var(--font-jakarta-suns);
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
@@ -40,9 +40,40 @@
     padding: 16px 24px;
     border: 1px solid var(--Gradient-apolo, #F903D0);
     outline: none;
-    background: #000;  
+    background: #000;
 }
 
-.searchform input:focus + .searchImage {
+.searchform input:focus+.searchImage {
     display: none;
+}
+
+@media (max-width:744px) {
+    .searchform {
+        width: 348px;
+        height: 48px;
+    }
+    .searchform input {
+        font-size: 14px;
+        font-weight: 500px;
+        padding: 16px 0px 16px 48px;
+    }
+    .searchImage {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+@media (max-width:500px) {
+    .searchform {
+        width: 257px;
+        height: 32px;
+    }
+    .searchform input {
+        font-size: 12px;
+        font-weight: 400px;
+        padding: 10px 0px 10px 48px;
+    }
+    .searchform input:focus{
+        padding: 10px 16px;
+    }
 }

@@ -1,6 +1,8 @@
 import { BsMusicNoteBeamed } from 'react-icons/bs';
 import { HeartIcon } from '../../HeartIcon/HeartIcon';
 
+import styles from '../src/styles/styles.module.scss'
+
 
 const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, nextTrack }: any) => {
     
@@ -18,23 +20,23 @@ const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, nex
                 onLoadedMetadata={onLoadedMetadata}
                 onEnded={nextTrack}
             />
-            <div className='audio-info'>
-                <div className='audio-image'>
+            <div className={styles.audioInfo}>
+                <div className={styles.audioImage}>
                     {
                         currentTrack.thumbnail ? 
                         (<img src={currentTrack.thumbnail} alt="Avatar" />) : 
-                        (<div className="icon-wrapper">
-                            <span className="audio-icon">
+                        (<div className={styles.iconWrapper}>
+                            <span className={styles.audioIcon}>
                               <BsMusicNoteBeamed />
                             </span>
                         </div>)
                     }
                 </div>
-                <div className='audio-title'>
+                <div className={styles.audioTitle}>
                     <HeartIcon height={24} width={24} padding={0}/>
                     <div>
-                        <p className='title'>{currentTrack.title}</p>
-                        <p className='author'>{currentTrack.author}</p>
+                        <p className={styles.title}>{currentTrack.title}</p>
+                        <p className={styles.author}>{currentTrack.author}</p>
                     </div>
                 </div>
             </div>

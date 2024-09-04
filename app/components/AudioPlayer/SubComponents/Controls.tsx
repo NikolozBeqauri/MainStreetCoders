@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
+import styles from '../src/styles/styles.module.scss'
 // icons
 import {
     IoPlaySkipBackOutline,
@@ -20,7 +21,7 @@ const Controls = ({ audioRef, progressBarRef, duration, setTimeProgress, tracks,
         setIsPlaying((e) => !e) 
     }
     
-    const playAnimationRef = useRef()
+    const playAnimationRef = useRef<number | null>(null);
     
     const repeat = useCallback(() => {
         const currentTime = audioRef.current.currentTime;
@@ -89,26 +90,26 @@ const Controls = ({ audioRef, progressBarRef, duration, setTimeProgress, tracks,
     
 
     return (
-        <div className='controls-wrapper'>
-            <div className='controls'>
-                <button onClick={shuffleIt}>
+        <div className={styles.controlsWrapper}>
+            <div className={styles.controls}>
+                <button className={styles.butto} onClick={shuffleIt}>
                     <IoShuffle />
                 </button>
-                <button onClick={previousTrack}>
+                <button className={styles.butto} onClick={previousTrack}>
                     <IoPlaySkipBackOutline />
                 </button>
-                <button onClick={togglePlayPause} className='controls--play-pause'>
+                <button onClick={togglePlayPause} className={styles.controlsPlayPause}>
                     {isPlaying ? <IoPauseCircleOutline /> : <IoPlayCircleOutline />}
                 </button>
-                <button onClick={nextTrack}>
+                <button className={styles.butto} onClick={nextTrack}>
                     <IoPlaySkipForwardOutline />
                 </button>
-                <button onClick={repeatIt}>
+                <button className={styles.butto} onClick={repeatIt}>
                     <IoRepeat />
                 </button>
             </div>
-            <div className='volume'>
-            <button onClick={() => setMuteVolume((prev) => !prev)}>
+            <div className={styles.volume}>
+            <button className={styles.butto} onClick={() => setMuteVolume((prev) => !prev)}>
                 {muteVolume || volume < 1 ? (
                     <IoVolumeOffOutline />
                 ) : volume < 50 ? (
@@ -122,7 +123,7 @@ const Controls = ({ audioRef, progressBarRef, duration, setTimeProgress, tracks,
                     min={0}
                     max={100}
                     value={volume}
-                    onChange={(e) => setVolume(e.target.value)}
+                    onChange={(e:any) => setVolume(e.target.value)}
                     style={{
                         background: `linear-gradient(to right, #FFFFFF ${volume}%, #2E3133 ${volume}%)`,
                     }}
@@ -133,5 +134,3 @@ const Controls = ({ audioRef, progressBarRef, duration, setTimeProgress, tracks,
 }
 
 export default Controls;
-
-// npm install react-icons
