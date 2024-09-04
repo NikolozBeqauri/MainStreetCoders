@@ -8,20 +8,31 @@
     gap: 8px;
     padding: 16px;
     background-color: $darkVoid;
+<<<<<<< Updated upstream
     max-width: 270px;
-    max-height: 288px;
+    width: 100%;
+    align-items: flex-start;
+    border-radius: 8px;
+=======
+    max-width: 266px;
+    max-height: 306px;
     width: 100%;
     align-items: flex-start;
     border-radius: 8px;
     position: relative;
+    cursor: pointer;
+>>>>>>> Stashed changes
 }
-
 
 /* || paragraph Css */
 
 .paragraph{
     font-size: 14px;
+<<<<<<< Updated upstream
+    color: $shadyLady;
+=======
     font-family: var(--font-jakarta-suns);
+    font-weight: 600;
     color: $shadyLady;
 }
 
@@ -34,4 +45,19 @@
     bottom: 52px;
     left: 50%;
     transform: translateX(-50%);
+}
+
+/* || icon opacity */
+
+.opacity{
+    opacity: 0;
+}
+
+.container:hover{
+    transition: 1s;
+    .opacity{
+        opacity: 1;
+        transition: 1s;
+    }
+>>>>>>> Stashed changes
 }
