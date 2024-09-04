@@ -1,8 +1,8 @@
 const Playlist = [
-    {image: "ad", count: 21,},
-    {image: "da", count: 223,},
-    {image: "ad", count: 123,},
-    {image: "ad", count: 123,},
-    {image: "ad", count: 123,}
+    {image: "beyonce", name: "beyonce",},
+    {image: "blazed", name: "blazed",},
+    {image: "eclipse", name: "eclipse",},
+    {image: "anetha", name: "anetha",},
+    {image: "edSheeran", name: "edSheeran",}
 ]
 export default Playlist
