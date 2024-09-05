@@ -14,16 +14,16 @@ export const SignIn = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
     const onSubmit = (data: FormValues) => {
-        console.log('1')
-        axios.post(`https://project-spotify.onrender.com/users`, data)
-        .then(response => {
-            console.log(response.data , 'res[poonse');
-        })
-        .catch(error => {
-            console.error(error);
-        });
+        console.log(data)
+        axios.post(`https://project-spotify.onrender.com/auth/login`, data)
+            .then(response => {
+                console.log(response.data, 'res[poonse');
+            })
+            .catch(error => {
+                console.error(error);
+            });
     };
-    
+
 
     const [signUp, setsignUp] = useRecoilState(signUpState);
     const [signIn, setsignIn] = useRecoilState(signInState);
@@ -64,7 +64,7 @@ export const SignIn = () => {
 
             <input type="submit" value="Sign Up" />
 
-            <p className={styles.haveAccount} >Already have  an account? <span onClick={() => {setsignUp(true); setsignIn(false)}}>Sign Up</span></p>
+            <p className={styles.haveAccount} >Already have  an account? <span onClick={() => { setsignUp(true); setsignIn(false) }}>Sign Up</span></p>
         </form>
     );
 };

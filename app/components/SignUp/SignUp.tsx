@@ -17,13 +17,14 @@ export const SignUp = () => {
     const [signIn, setsignIn] = useRecoilState(signInState);
     
     const onSubmit = (data: FormValues) => {
-        axios.post(`https://project-spotify.onrender.com/users`, JSON.stringify(data))
-        .then(response => {
-            console.log(response.data , 'res[poonse');
-        })
-        .catch(error => {
-            console.error(error);
-        });
+        console.log(data)
+        axios.post(`https://project-spotify.onrender.com/users`, data)
+            .then(response => {
+                console.log(response.data, 'res[poonse');
+            })
+            .catch(error => {
+                console.error(error);
+            });
     };
 
     return (
