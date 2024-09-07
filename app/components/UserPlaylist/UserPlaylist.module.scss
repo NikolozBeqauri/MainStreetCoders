@@ -8,20 +8,56 @@
     gap: 8px;
     padding: 16px;
     background-color: $darkVoid;
-    max-width: 270px;
-    max-height: 288px;
-    width: 100%;
-    align-items: flex-start;
     border-radius: 8px;
+    max-width: 266px;
+    max-height: 309px;
+    flex-grow: 1;
     position: relative;
+    cursor: pointer;
 }
 
+.containerBox{
+    display: flex;
+    max-width: 310px;
+    flex-grow: 1;
+}
+
+.image{
+    max-width: 234px;
+    max-height: 251px;
+    display: flex;
+    flex-grow: 1;
+}
+
+@media screen and (max-width: 1023px) and (min-width: 768px){
+    .container{
+        max-width: 158px;
+        max-height: 184px;
+    }
+    .image{
+        max-width: 142px;
+        max-height: 142px;
+    }
+}
+
+@media screen and (max-width: 767px){
+    .container{
+        max-width: 164px;
+        max-height: 184px;
+    }
+    .image{
+        max-width: 148px;
+        max-height: 142px;
+    }
+}
 
 /* || paragraph Css */
 
 .paragraph{
     font-size: 14px;
-    font-family: var(--font-jakarta-sans);
+    color: $shadyLady;
+    font-family: var(--font-jakarta-suns);
+    font-weight: 600;
     color: $shadyLady;
 }
 
@@ -34,4 +70,18 @@
     bottom: 52px;
     left: 50%;
     transform: translateX(-50%);
+}
+
+/* || icon opacity */
+
+.opacity{
+    opacity: 0;
+}
+
+.container:hover{
+    transition: 1s;
+    .opacity{
+        opacity: 1;
+        transition: 1s;
+    }
 }
