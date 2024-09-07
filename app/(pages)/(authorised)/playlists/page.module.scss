@@ -4,10 +4,11 @@
 
 .containerWrapper{
     display: flex;
-    justify-content: space-between;
     gap: 18px;
     flex-wrap: wrap;
+    justify-content: space-between;
 }
+
 
 .container {
     display: flex;
@@ -38,5 +39,7 @@
 
 .header{
     font-size: 32px;
+    font-family: "Plus Jakarta Sans";
+    font-weight: 500;
     color: $defaultWhite;
 }

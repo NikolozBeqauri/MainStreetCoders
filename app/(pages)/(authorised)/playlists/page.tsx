@@ -15,12 +15,10 @@ const PlayListPage = () => {
     const [playlistState, setPlaylistState] = useState<boolean>(true);
     const [playlistName, setPlaylistname] = useState<string>('')
 
-    const onClick = (e: any) => {
+    const onClick = (e: any , item: any) => {
         setPlaylistState(e.target.value)
-        setPlaylistname(e.target.getElementsByTagName("p")[0].innerText)
-        console.log(e.target)
+        setPlaylistname(item.name)
     }
-    
 
     return (
 
@@ -35,8 +33,8 @@ const PlayListPage = () => {
                     </div>
                     <div className={Styles.containerWrapper}>
                         {Playlist.map((item) => (
-                            <div onClick={onClick}>
-                                <UserPlaylist image={item.image} count={item.count} />
+                            <div onClick={(e) => onClick(e, item)}>
+                                <UserPlaylist image={item.image} name={item.name} />
                             </div>
                             
                         ))
