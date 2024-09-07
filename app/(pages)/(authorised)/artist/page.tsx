@@ -9,7 +9,6 @@ import { useState } from "react";
 type Album = {
     author: string;
     img: string;
-    // Add other properties if needed
 };
 
 const ArtistPage = () => {
