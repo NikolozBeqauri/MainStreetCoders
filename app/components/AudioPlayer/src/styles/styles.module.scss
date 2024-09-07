@@ -27,12 +27,12 @@
   font-size: 14px;
   line-height: 17.64px;
   font-weight: 600;
-  font-family: var(--font-jakarta-suns);
+  font-family: var(--font-jakarta-sans);
 }
 
 .title {
   color: $defaultWhite;
-  font-family: vaR(--font-jakarta-suns);
+  font-family: var(--font-jakarta-sans);
   font-weight: 600;
   font-size: 16px;
   line-height: 20.16px;
@@ -146,13 +146,13 @@
 .time {
   color: $defaultWhite;
   font-size: 16px;
-  font-family: var(--font-jakarta-suns);
+  font-family: var(--font-jakarta-sans);
   line-height: 20.16px;
 }
 
 /* Top bar */
 .topBar {
-  font-family: var(--font-jakarta-suns);
+  font-family: var(--font-jakarta-sans);
   font-size: 0.875rem;
   line-height: 1.25rem;
   text-align: center;
@@ -215,7 +215,7 @@
 
   .title {
     font-size: 14px;
-    font-family: var(--font-jakarta-suns);
+    font-family: var(--font-jakarta-sans);
     line-height: normal;
   }
 

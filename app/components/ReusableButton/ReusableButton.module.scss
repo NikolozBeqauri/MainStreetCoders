@@ -4,12 +4,13 @@
     background: $gradientApolo;
     border-radius: 8px;
     display: flex;
+    align-items: center;
     gap: 4px;
     padding: 12px 20px;
     justify-content: center;
     color: $defaultWhite; 
     border: none;
-    font-family: var(--font-jakarta-suns);
+    font-family: var(--font-jakarta-sans);
     cursor: pointer;
     transition: 1s;
     

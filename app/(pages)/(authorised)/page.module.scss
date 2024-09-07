@@ -9,7 +9,7 @@
 
 .secondaryTitleDiv>h2 {
     color: $defaultWhite;
-    font-family: var(--font-jakarta-suns);
+    font-family: var(--font-jakarta-sans);
     font-size: 20px;
     font-weight: 600;
     line-height: 20px;
@@ -18,7 +18,7 @@
 
 .secondaryTitleDiv>span {
     color: $missionControl;
-    font-family: var(--font-jakarta-suns);
+    font-family: var(--font-jakarta-sans);
     font-size: 14px;
     font-weight: 400;
     line-height: 14px;
@@ -94,5 +94,27 @@
 @media (max-width: 375px) {
     .container {
         padding: 40px 16px 24px 16px;
+    }
+}
+
+
+@media (max-width: 900px) {
+    .generalCardItem > div {
+        min-width: 154px;
+        padding: 8px;
+    }
+    .newsComponentWrapper > div {
+        height: 291px;
+    }
+}
+
+@media (max-width: 600px) {
+    .generalCardItem > div {
+        min-width: 253px;
+    }
+}
+@media (max-width: 500px) {
+    .newsComponentWrapper > div {
+        height: 197px;
     }
 }

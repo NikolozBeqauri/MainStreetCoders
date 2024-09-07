@@ -24,7 +24,7 @@ export default function Home() {
         </section>
 
         <section className={styles.newsComponentWrapper}>
-          <NewsComponent title={"Top Hit Of the week"} count={"795,900"} />
+          <NewsComponent title={"Top Hit Of the week"} count={"795,900"} image="newsimage"/>
         </section>
 
         <section className={styles.generalCardWrapper}>

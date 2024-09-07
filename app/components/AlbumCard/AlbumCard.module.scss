@@ -10,6 +10,7 @@
     padding: 16px;
     border-radius: 8px;
     background: $darkVoid;
+    cursor: pointer;
 }
 
 .cardTitles {
@@ -20,7 +21,7 @@
 
 .cardTitles span {
     color: $shadyLady;
-    font-family: var(--font-jakarta-suns);
+    font-family: var(--font-jakarta-sans);
     font-size: 14px;
     font-weight: 600;
     white-space: nowrap;
@@ -30,7 +31,7 @@
 
 .cardTitles h3 {
     color: $defaultWhite;
-    font-family: "Plus Jakarta Sans";
+    font-family: var(--font-jakarta-sans);
     font-size: 16px;
     font-weight: 600;
     white-space: nowrap;
@@ -87,18 +88,5 @@
 @media (max-width: 1024px) {
     .cardTitles {
         width: 125px;
-    }
-}
-
-@media (max-width: 900px) {
-    .cardWrapper {
-        min-width: 154px;
-        padding: 8px;
-    }
-}
-
-@media (max-width: 600px) {
-    .cardWrapper {
-        min-width: 253px;
     }
 }

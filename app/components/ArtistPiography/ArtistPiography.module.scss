@@ -1,0 +1,32 @@
+@import '/app/colors.scss';
+.cardWrapper{
+    display: flex;
+    gap: 24px;
+    padding: 24px 26px 24px 16px;
+    margin-bottom: 24px;
+}
+
+.texts {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.texts h2 {
+    color: $defaultWhite;
+    font-family: var(--font-jakarta-suns);
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 32px;
+}
+
+.texts p {
+    color: $shadyLady;
+    text-align: justify;
+    font-family: var(--font-jakarta-suns);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

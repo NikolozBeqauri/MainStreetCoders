@@ -10,7 +10,6 @@
 }
 
 .wrapper {
-    max-width: 1112px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -64,7 +63,7 @@
 
 .wrapper :global .ant-table-cell {
     color: $missionControl !important;
-    font-family: var(--font-jakarta-suns);
+    font-family: var(--font-jakarta-sans);
     font-size: 14px;
     font-style: normal;
     font-weight: 400 !important;
