@@ -7,6 +7,7 @@ type Props = {
     title?: string;
     author: string;
     img: string;
+    onClick?: () => void;
 }
 
 export const AlbumCard = (props: Props) => {
@@ -17,7 +18,7 @@ export const AlbumCard = (props: Props) => {
     if(!props.title) cardImageStyle.push(styles.cardImage)
         
     return (
-        <div className={styles.cardWrapper}>
+        <div className={styles.cardWrapper} onClick={props.onClick}>
             <div className={styles.cardImageWrapper}>
                 <img className={cardImageStyle.join(" ").trim()}
                     src={`/images/${props.img}.png`}
