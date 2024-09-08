@@ -5,6 +5,7 @@ import { artistPageData } from "./artistPageData/artistPageData";
 import { AlbumCard } from "@/app/components/AlbumCard/AlbumCard";
 import { TopSongs } from "@/app/components/TopSongs/TopSongs";
 import { useState } from "react";
+import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
 
 type Album = {
     author: string;
@@ -13,15 +14,18 @@ type Album = {
 
 const ArtistPage = () => {
     const [data, setData] = useState<Album | null>(null);
-    
+
     return (
         <div className={styles.artistPageWrapper}>
-            <Header />
+            <div className={styles.headerWrapper}>
+                <BurgerMenu/>
+                <Header />
+            </div>
             {data ? (
-                <TopSongs 
-                    image={data.img} 
+                <TopSongs
+                    image={data.img}
                     title={data.author}
-                    count={"123"} 
+                    count={"123"}
                 />
             ) : (
                 <div className={styles.artistCardsWrapper}>

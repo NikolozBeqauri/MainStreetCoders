@@ -5,11 +5,15 @@
     flex-direction: column;
     margin: 0 auto;
     gap: 40px;
-    max-width: 1445px;
+    max-width: 1400px;
     width: 100%;
     padding: 40px 24px;
 }
-
+.headerWrapper {
+    display: flex; 
+    align-items: center;
+    gap: 24px;
+}
 .artistCardsWrapper>h2 {
     color: $defaultWhite;
     font-family: var(--font-jakarta-suns);
@@ -21,49 +25,24 @@
 }
 
 .artistCards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 16px;
 }
 
-
-@media (max-width: 1720px) {
-    .artistPageWrapper {
-        max-width: 1163px;
-    }
-}
-
-@media (max-width: 1437px) {
-    .artistPageWrapper {
-        max-width: 881px;
-    }
-}
-
-@media (max-width: 1155px) {
-    .artistCards>div {
-        width: 180px;
-    }
-}
-
-@media (max-width: 1095px) {
-    .artistPageWrapper {
-        width: 620px;
-    }
-}
-@media (max-width: 620px) {
+@media (max-width: 1440px) {
     .artistCards {
-        justify-content: center;
+        grid-template-columns: repeat(4, 1fr);
     }
-    .artistCards > div {
-        width: 154px;
+}
+@media (max-width: 700px) {
+    .artistCards {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 550px) {
     .artistCards {
-        justify-content: center;
-    }
-    .artistCards > div {
-        width: 154px;
+        grid-template-columns: repeat(2, 1fr);
     }
 }

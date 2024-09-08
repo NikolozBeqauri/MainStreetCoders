@@ -16,7 +16,7 @@ type Props = {
 export const TopSongs = (props: Props) => {
     const [activeButton, setActiveButton] = useState(artistNav.topSongs);    
     return (
-        <div>
+        <div className={styles.wrapper}>
             <NewsComponent 
                 title={props.title} 
                 count={props.count} 
