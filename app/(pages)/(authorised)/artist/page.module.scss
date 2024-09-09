@@ -42,6 +42,9 @@
 }
 
 @media (max-width: 550px) {
+    .artistPageWrapper {
+        padding: 24px 12px;
+    }
     .artistCards {
         grid-template-columns: repeat(2, 1fr);
     }
