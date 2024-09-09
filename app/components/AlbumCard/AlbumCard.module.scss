@@ -38,7 +38,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
+.iconsWholeWrapper {
+    opacity: 0;
+    transition: 1s;
+}
 .cardImageWrapper {
     position: relative;
 }
@@ -55,6 +58,9 @@
 }
 
 .cardWrapper:hover .cardIconsBackground {
+    opacity: 1;
+}
+.cardWrapper:hover .iconsWholeWrapper {
     opacity: 1;
 }
 
