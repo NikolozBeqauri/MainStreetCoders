@@ -1,5 +1,24 @@
 .artistAlbumWrapper {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 16px;
+    padding: 0;
+}
+
+@media (max-width: 744px) {
+    .artistAlbumWrapper {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+
+@media (max-width: 740px) {
+    .artistAlbumWrapper {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 560px) {
+    .artistAlbumWrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
