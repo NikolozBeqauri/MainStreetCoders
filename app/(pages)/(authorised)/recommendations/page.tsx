@@ -1,11 +1,10 @@
 import { AlbumCard } from '@/app/components/AlbumCard/AlbumCard';
-import styles from './page.module.scss'
-import { toprecomentadtiondata } from '@/app/components/AlbumCard/toprecomentadtiondata/TopReommendationsData';
 import { AlbumsYouMightLove } from '@/app/components/AlbumCard/toprecomentadtiondata/AlbumsYouMightLove';
 import { BecauseyoulistenedtoPeggyGou } from '@/app/components/AlbumCard/toprecomentadtiondata/BecauseyoulistenedtoPeggyGou';
 import { HiddenGems } from '@/app/components/AlbumCard/toprecomentadtiondata/HiddenGems';
+import { toprecomentadtiondata } from '@/app/components/AlbumCard/toprecomentadtiondata/TopReommendationsData';
+import styles from "./page.module.scss"
 import { Header } from '@/app/components/Header/Header';
-
 
 const RecommendaionPage = () => {
   return (
