@@ -16,7 +16,12 @@ const PlayListPage = () => {
     const [playlistName, setPlaylistname] = useState<string>('')
 
     const onClick = (e: any , item: any) => {
-        setPlaylistState(e.target.value)
+
+        if(e.target.alt == "heart icon" || e.target.alt == "icon"){
+            setPlaylistState(true)
+        }else{
+            setPlaylistState(e.target.value)
+        }
         setPlaylistname(item.name)
     }
 
@@ -31,15 +36,17 @@ const PlayListPage = () => {
                         <Search />
                         <ReusableButton title={"New Playlist"} />
                     </div>
-                    <div className={Styles.containerWrapper}>
-                        {Playlist.map((item) => (
-                            <div onClick={(e) => onClick(e, item)}>
-                                <UserPlaylist image={item.image} name={item.name} />
-                            </div>
-                            
-                        ))
-                        }
-                    </div>
+                    
+                        <div className={Styles.containerWrapper}>
+                            {Playlist.map((item) => (
+                                <div onClick={(e) => onClick(e, item)} className={Styles.containerBox}>
+                                    <UserPlaylist image={item.image} name={item.name} />
+                                </div>
+                                
+                            ))
+                            }
+                        </div>
+                    
                 </div>) :
                 (<div className={Styles.childrenContainer}>
                     <Header imgName={"rightArrow"} />

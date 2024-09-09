@@ -7,10 +7,12 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    background-color: $splashOfGrendine; // აქ ჩავსვავთ background-image - ს. ეს ფროფერთი დროებით იყოს
+    background-size: cover;       
+    background-position: center;  
+    background-repeat: no-repeat;
 }
 
-.componentHeader{
+.componentHeader {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -18,46 +20,66 @@
     gap: 16px;
 }
 
-.buttonElement{
+.buttonElement {
     margin-top: 16px;
 }
 
 
 /* || font styles */
 
-.h1Style{
-    color: #FFFFFF;
-    font-family: var(--font-jakarta-sans);
+.h1Style {
+    color: $defaultWhite;
+    font-family: var(--font-jakarta-suns);
     font-size: 64px;
+    font-style: normal;
     font-weight: 800;
+    line-height: 64px;
 }
 
-.playCount{
+.playCount {
     color: $glacierGrey;
     font-family: var(--font-jakarta-sans);
     font-size: 24px;
+    font-style: normal;
     font-weight: 500;
+    line-height: 24px;
 }
+
 @media (max-width: 755px) {
-    .container {
-        height: 291px;
+    .componentHeader {
+        padding: 24px;
     }
-    .h1Style{
+    .h1Style {
         font-size: 48px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: 48px;
     }
-    .playCount{
+
+    .playCount {
         font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px
     }
 }
 
 @media (max-width: 500px) {
-    .container {
-        height: 197px;
+    .componentHeader {
+        padding: 16px;
+        gap: 4px;
     }
-    .h1Style{
+    .h1Style {
         font-size: 24px;
     }
-    .playCount{
+
+    .playCount {
         font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 14px;
+    }
+    .buttonElement {
+        margin-top: 12px;
     }
 }

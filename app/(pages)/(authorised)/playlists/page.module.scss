@@ -4,9 +4,12 @@
 
 .containerWrapper{
     display: flex;
+    // grid-template-columns: repeat(4, 1fr);
     gap: 18px;
+    // width: 100%;
     flex-wrap: wrap;
     justify-content: space-between;
+    flex-grow: 1;
 }
 
 

@@ -10,6 +10,7 @@
     padding: 16px;
     border-radius: 8px;
     background: $darkVoid;
+    cursor: pointer;
 }
 
 .cardTitles {
@@ -87,18 +88,5 @@
 @media (max-width: 1024px) {
     .cardTitles {
         width: 125px;
-    }
-}
-
-@media (max-width: 900px) {
-    .cardWrapper {
-        min-width: 154px;
-        padding: 8px;
-    }
-}
-
-@media (max-width: 600px) {
-    .cardWrapper {
-        min-width: 253px;
     }
 }
