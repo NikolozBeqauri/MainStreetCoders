@@ -25,7 +25,7 @@ export const AlbumCard = (props: Props) => {
                     alt="musician image"
                     tabIndex={0}
                 />
-                <div>
+                <div className={styles.iconsWholeWrapper}>
                     <div className={styles.cardIconsWrapper}>
                         <HeartIcon background />
                         <ReusableIcon imgName={'threeDots'} background/>
