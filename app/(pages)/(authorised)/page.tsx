@@ -16,8 +16,6 @@ export default function Home() {
 
   
   return (
-    <>
-    <EditPlaylist title={"Add To Playlist"} button={false} imageName={"rightArrow"}/>
     <main className={styles.wholeWrapper} >
       <section className={styles.container}>
 
@@ -96,7 +94,6 @@ export default function Home() {
         </section>
       </section>
     </main>
-    </>
   );
 }
 
