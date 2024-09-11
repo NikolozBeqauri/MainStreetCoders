@@ -1,9 +1,8 @@
 'use client'
 import { useForm } from "react-hook-form";
 import styles from "./SignIn.module.scss"
-import { signInState, signUpState } from "@/app/states";
-import { useRecoilState } from "recoil";
-import axios, { Axios } from "axios";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 type FormValues = {
     email: string;
     password: string;
@@ -13,20 +12,21 @@ type FormValues = {
 export const SignIn = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
-    const onSubmit = (data: FormValues) => {
-        console.log(data)
-        axios.post(`https://project-spotify.onrender.com/auth/login`, data)
+    const router = useRouter();
+
+    const onSubmit = (data: any) => {
+        axios.post(`https://auth.novatori.ge/auth/login`, data)
             .then(response => {
-                console.log(response.data, 'res[poonse');
+                localStorage.setItem('user', JSON.stringify(response.data))
             })
             .catch(error => {
                 console.error(error);
             });
     };
 
-
-    const [signUp, setsignUp] = useRecoilState(signUpState);
-    const [signIn, setsignIn] = useRecoilState(signInState);
+    const navigateToSignUp = () => {
+        router.push('/signup');
+    };
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={styles.fromWrapper}>
@@ -45,8 +45,8 @@ export const SignIn = () => {
                     minLength: {
                         value: 8,
                         message: "Password must be at least 8 characters"
-                    },
-                    validate: {
+                      },
+                      validate: {
                         hasUpperCase: value => /[A-Z]/.test(value) || "Password must contain at least one uppercase letter",
                         hasNumber: value => /\d/.test(value) || "Password must contain at least one number"
                     }
@@ -64,7 +64,7 @@ export const SignIn = () => {
 
             <input type="submit" value="Sign Up" />
 
-            <p className={styles.haveAccount} >Already have  an account? <span onClick={() => { setsignUp(true); setsignIn(false) }}>Sign Up</span></p>
+            <p className={styles.haveAccount} >Already have  an account? <span onClick={navigateToSignUp}>Sign Up</span></p>
         </form>
-    );
+    ); 
 };
