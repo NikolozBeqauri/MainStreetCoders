@@ -18,7 +18,7 @@ export const SignUp = () => {
     const onSubmit = (data: FormValues) => {
         axios.post(`https://project-spotify.onrender.com/users`, data)
             .then(response => {
-                console.log(response.data, 'res[poonse');
+                console.log(response.data);
             })
             .catch(error => {
                 console.error(error);

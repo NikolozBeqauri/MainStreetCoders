@@ -15,10 +15,8 @@ export const SignIn = () => {
     const router = useRouter();
 
     const onSubmit = (data: any) => {
-        console.log(data)
         axios.post(`https://auth.novatori.ge/auth/login`, data)
             .then(response => {
-                console.log(response.data, 'respoonse');
                 localStorage.setItem('user', JSON.stringify(response.data))
             })
             .catch(error => {
@@ -44,14 +42,14 @@ export const SignIn = () => {
                 type="password"
                 {...register("password", {
                     required: "Password is required",
-                    // minLength: {
-                    //     value: 8,
-                    //     message: "Password must be at least 8 characters"
-                    //   },
-                    //   validate: {
-                    //     hasUpperCase: value => /[A-Z]/.test(value) || "Password must contain at least one uppercase letter",
-                    //     hasNumber: value => /\d/.test(value) || "Password must contain at least one number"
-                    // }
+                    minLength: {
+                        value: 8,
+                        message: "Password must be at least 8 characters"
+                      },
+                      validate: {
+                        hasUpperCase: value => /[A-Z]/.test(value) || "Password must contain at least one uppercase letter",
+                        hasNumber: value => /\d/.test(value) || "Password must contain at least one number"
+                    }
                 })}
             />
             {errors.password && <span className={styles.errorMessage}>{errors.password.message}</span>}
