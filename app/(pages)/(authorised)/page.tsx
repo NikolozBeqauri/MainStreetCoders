@@ -9,12 +9,15 @@ import { musicCardsData } from "@/app/components/MusicCard/musicCardData/musicCa
 import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import styles from "./page.module.scss"
 import { Header } from "@/app/components/Header/Header";
+import EditPlaylist from "@/app/components/EditPlaylist/EditPlaylist";
 
 
 export default function Home() {
 
   
   return (
+    <>
+    <EditPlaylist title={"Add To Playlist"} button={false} imageName={"rightArrow"}/>
     <main className={styles.wholeWrapper} >
       <section className={styles.container}>
 
@@ -93,6 +96,7 @@ export default function Home() {
         </section>
       </section>
     </main>
+    </>
   );
 }
 

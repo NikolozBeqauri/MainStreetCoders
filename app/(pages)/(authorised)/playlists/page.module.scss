@@ -42,7 +42,7 @@
 
 .header{
     font-size: 32px;
-    font-family: "Plus Jakarta Sans";
+    font-family: var(--font-jakarta-sans);
     font-weight: 500;
     color: $defaultWhite;
 }
