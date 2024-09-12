@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import styles from "./SignIn.module.scss"
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { setCookie } from "@/helpers/cookies";
 type FormValues = {
     email: string;
     password: string;
@@ -17,7 +18,8 @@ export const SignIn = () => {
     const onSubmit = (data: any) => {
         axios.post(`https://auth.novatori.ge/auth/login`, data)
             .then(response => {
-                localStorage.setItem('user', JSON.stringify(response.data))
+                setCookie("token", response.data.accessToken, 60)
+                router.push("/")
             })
             .catch(error => {
                 console.error(error);
