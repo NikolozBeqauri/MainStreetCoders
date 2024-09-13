@@ -1,60 +1,52 @@
 "use client"
 
-import { useState } from "react";
-import { Header } from "../../../components/Header/Header"
-import ReusableButton from "../../../components/ReusableButton/ReusableButton";
-import { Search } from "../../../components/Search/Search";
-import { UserPlaylist } from "../../../components/UserPlaylist/UserPlaylist";
+import { useEffect, useState } from "react";
 import Styles from "./page.module.scss";
-import Playlist from "./playlistArr/playlist";
-import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
-import { ReusableTable } from "@/app/components/ReusableTable/Reusable";
+import playListsData from "./playListsData/playListsData";
+import { SquareCard } from "@/app/components/SquareCard/SquareCard";
+import { Search } from "@/app/components/Search/Search";
+import ReusableButton from "@/app/components/ReusableButton/ReusableButton";
+import { Header } from "@/app/components/Header/Header";
+import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
+import { useViewport } from "react-viewport-hooks";
 
 const PlayListPage = () => {
 
-    const [playlistState, setPlaylistState] = useState<boolean>(true);
-    const [playlistName, setPlaylistname] = useState<string>('')
 
-    const onClick = (e: any , item: any) => {
+    const {vw} = useViewport(); 
 
-        if(e.target.alt == "heart icon" || e.target.alt == "icon"){
-            setPlaylistState(true)
-        }else{
-            setPlaylistState(e.target.value)
-        }
-        setPlaylistname(item.name)
-    }
+
 
     return (
 
         <div className={Styles.container}>
-            {playlistState ? (
-                <div className={Styles.childrenContainer}>
-                    <Header imgName={"rightArrow"} />
-                    <h1 className={Styles.header}>My Playlists</h1>
-                    <div className={Styles.searchLayout}>
-                        <Search />
-                        <ReusableButton title={"New Playlist"} />
-                    </div>
+            <div className={Styles.defaultPage}>
+                <div>
+                    {vw < 1024 ? <Header imgName={"rightArrow"}/> : <Header burger={true}/>}
                     
-                        <div className={Styles.containerWrapper}>
-                            {Playlist.map((item) => (
-                                <div onClick={(e) => onClick(e, item)} className={Styles.containerBox}>
-                                    <UserPlaylist image={item.image} name={item.name} />
-                                </div>
-                                
-                            ))
-                            }
-                        </div>
-                    
-                </div>) :
-                (<div className={Styles.childrenContainer}>
-                    <Header imgName={"rightArrow"} />
-                    <NewsComponent title={playlistName} count={""} />
+                </div>
+                <h1 className={Styles.header}>My Playlists</h1>
+                <div className={Styles.searchLayout}>
                     <Search />
-                    <ReusableTable />
-                </div>)
-            }
+                    <ReusableButton title={"+ New Playlist"} />
+                </div>
+
+                <div className={Styles.containerWrapper}>
+                    {
+                        playListsData.map((playList, index) => (
+                            <SquareCard key={index} title={playList.name} img={playList.img} />
+                        ))
+                    }
+                </div>
+            </div>
+
+            {/* <div className={Styles.childrenContainer}>
+                <Header imgName={"rightArrow"} />
+                <NewsComponent title={playlistName} count={""} />
+                <Search />
+                <ReusableTable />
+            </div> */}
+
         </div>
 
     )

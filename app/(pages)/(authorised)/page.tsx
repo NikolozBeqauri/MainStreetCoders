@@ -9,7 +9,6 @@ import { musicCardsData } from "@/app/components/MusicCard/musicCardData/musicCa
 import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import styles from "./page.module.scss"
 import { Header } from "@/app/components/Header/Header";
-import EditPlaylist from "@/app/components/EditPlaylist/EditPlaylist";
 
 
 export default function Home() {
