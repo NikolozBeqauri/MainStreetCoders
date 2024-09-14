@@ -7,6 +7,8 @@ import { BurgerMenu } from "../BurgerMenu/BurgerMenu";
 type Props = {
   imgName?: string;
   burger?: boolean;
+  imgWidth?: number;
+  imgHeight?: number;
 };
 export const Header = (props: Props) => {
   if (props.burger) {
@@ -23,8 +25,8 @@ export const Header = (props: Props) => {
         <Image
           src={`/icons/${props.imgName}.svg`}
           alt="icon"
-          width={24}
-          height={24}
+          width={props.imgWidth ? props.imgWidth : 24}
+          height={props.imgHeight ? props.imgHeight : 24}
         />
       ) : (
         <Search />

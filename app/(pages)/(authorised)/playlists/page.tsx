@@ -1,55 +1,85 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react";
 import Styles from "./page.module.scss";
 import playListsData from "./playListsData/playListsData";
 import { SquareCard } from "@/app/components/SquareCard/SquareCard";
 import { Search } from "@/app/components/Search/Search";
 import ReusableButton from "@/app/components/ReusableButton/ReusableButton";
 import { Header } from "@/app/components/Header/Header";
-import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
 import { useViewport } from "react-viewport-hooks";
+import { ReusableIcon } from "@/app/components/ReusableIcon/ReusableIcon";
+import { useState } from "react";
+import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
+import { ReusableTable } from "@/app/components/ReusableTable/Reusable";
 
 const PlayListPage = () => {
+    const { vw } = useViewport();
+    const [playlistContentActive, setPlaylistContentActive] = useState(true);
+    const [selectedPlaylist, setSelectedPlaylist] = useState<any>(null); 
 
-
-    const {vw} = useViewport(); 
-
-
-
+    const handleCardClick = (playList: any) => {
+        setSelectedPlaylist(playList);
+        setPlaylistContentActive(false);
+    };
+    console.log(selectedPlaylist);
+    
     return (
-
         <div className={Styles.container}>
-            <div className={Styles.defaultPage}>
-                <div>
-                    {vw < 1024 ? <Header imgName={"rightArrow"}/> : <Header burger={true}/>}
-                    
+            {playlistContentActive  ? (
+                <div className={Styles.defaultPage}>
+                    <div>
+                        {vw < 1024 && vw > 600 ? (
+                            <Header burger={true} />
+                        ) : (
+                            <Header imgName={"rightArrow"} imgHeight={35} imgWidth={35} />
+                        )}
+                    </div>
+
+                    <div className={Styles.mainTitleWrapper}>
+                        {vw < 1024 && vw > 600 ? (
+                            <ReusableIcon imgName={"rightArrow"} width={35} height={35} />
+                        ) : (
+                            ""
+                        )}
+                        <h1 className={Styles.header}>My Playlists</h1>
+                    </div>
+
+                    <div className={Styles.searchLayout}>
+                        <Search />
+                        {vw < 1024 ? (
+                            <ReusableButton title={"+"} />
+                        ) : (
+                            <ReusableButton title={"+ New Playlist"} />
+                        )}
+                    </div>
+
+                    <div className={Styles.containerWrapper}>
+                        {playListsData.map((playList, index) => (
+                            <SquareCard
+                                key={index}
+                                title={playList.name}
+                                img={playList.img}
+                                onClick={() => handleCardClick(playList)}
+                            />
+                        ))}
+                    </div>
                 </div>
-                <h1 className={Styles.header}>My Playlists</h1>
-                <div className={Styles.searchLayout}>
+            ) : (
+                <div className={Styles.childrenContainer}>
+                    <Header imgName={"rightArrow"} />
+                    {selectedPlaylist && (
+                        <NewsComponent
+                            title={selectedPlaylist.name} 
+                            image={selectedPlaylist.img}
+                            count={"300,000"}
+                        />
+                    )}
                     <Search />
-                    <ReusableButton title={"+ New Playlist"} />
+                    <ReusableTable />
                 </div>
-
-                <div className={Styles.containerWrapper}>
-                    {
-                        playListsData.map((playList, index) => (
-                            <SquareCard key={index} title={playList.name} img={playList.img} />
-                        ))
-                    }
-                </div>
-            </div>
-
-            {/* <div className={Styles.childrenContainer}>
-                <Header imgName={"rightArrow"} />
-                <NewsComponent title={playlistName} count={""} />
-                <Search />
-                <ReusableTable />
-            </div> */}
-
+            )}
         </div>
-
-    )
-}
+    );
+};
 
 export default PlayListPage;

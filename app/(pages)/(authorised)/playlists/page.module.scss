@@ -4,7 +4,7 @@
     padding: 40px 24px;
     max-width: 1250px;
     margin: 0 auto;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .defaultPage {
@@ -22,11 +22,14 @@
 
 .searchLayout {
     display: flex;
-    align-items: center;
     gap: 24px;
     justify-content: space-between;
 }
-
+.mainTitleWrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
 .containerWrapper {
     margin-top: 8px;
     display: grid;
@@ -37,6 +40,13 @@
 .searchLayout > :nth-child(1) {
     height: 100%;
 }
+
+.childrenContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+
 @media (max-width: 768px) {
     .containerWrapper {
         grid-template-columns: repeat(3, 1fr);

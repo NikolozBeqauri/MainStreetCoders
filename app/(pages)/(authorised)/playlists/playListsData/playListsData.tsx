@@ -1,5 +1,4 @@
 const playListsData = [
-
     {
       img: 'anetha',
       name: 'Playlist 1',
