@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Styles from "./page.module.scss";
 import playListsData from "./playListsData/playListsData";
 import { SquareCard } from "@/app/components/SquareCard/SquareCard";
@@ -8,24 +9,28 @@ import ReusableButton from "@/app/components/ReusableButton/ReusableButton";
 import { Header } from "@/app/components/Header/Header";
 import { useViewport } from "react-viewport-hooks";
 import { ReusableIcon } from "@/app/components/ReusableIcon/ReusableIcon";
-import { useState } from "react";
 import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import { ReusableTable } from "@/app/components/ReusableTable/Reusable";
 
 const PlayListPage = () => {
     const { vw } = useViewport();
     const [playlistContentActive, setPlaylistContentActive] = useState(true);
-    const [selectedPlaylist, setSelectedPlaylist] = useState<any>(null); 
+    const [selectedPlaylist, setSelectedPlaylist] = useState<any>(null);
+    const [playLists, setPlayLists] = useState(playListsData);
 
     const handleCardClick = (playList: any) => {
         setSelectedPlaylist(playList);
         setPlaylistContentActive(false);
     };
-    console.log(selectedPlaylist);
-    
+
+    const handleDelete = (index: number) => {
+        const updatedPlaylists = playLists.filter((_, i) => i !== index); 
+        setPlayLists(updatedPlaylists); 
+    };
+
     return (
         <div className={Styles.container}>
-            {playlistContentActive  ? (
+            {playlistContentActive ? (
                 <div className={Styles.defaultPage}>
                     <div>
                         {vw < 1024 && vw > 600 ? (
@@ -54,12 +59,13 @@ const PlayListPage = () => {
                     </div>
 
                     <div className={Styles.containerWrapper}>
-                        {playListsData.map((playList, index) => (
+                        {playLists.map((playList, index) => (
                             <SquareCard
                                 key={index}
                                 title={playList.name}
                                 img={playList.img}
                                 onClick={() => handleCardClick(playList)}
+                                onDelete={() => handleDelete(index)}
                             />
                         ))}
                     </div>
@@ -69,7 +75,7 @@ const PlayListPage = () => {
                     <Header imgName={"rightArrow"} />
                     {selectedPlaylist && (
                         <NewsComponent
-                            title={selectedPlaylist.name} 
+                            title={selectedPlaylist.name}
                             image={selectedPlaylist.img}
                             count={"300,000"}
                         />

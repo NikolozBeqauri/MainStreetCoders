@@ -11,6 +11,7 @@ type Props = {
     width?: number,
     height?: number,
     onFocus?: () => void,
+    onClick?: () => void,
 }
 
 export const ReusableIcon = (props: Props) => {
@@ -37,6 +38,7 @@ export const ReusableIcon = (props: Props) => {
             height={props.height ? props.height : 32}
             onFocus={handleFocus}
             tabIndex={0}
+            onClick={props.onClick}
         />
     );
 };
