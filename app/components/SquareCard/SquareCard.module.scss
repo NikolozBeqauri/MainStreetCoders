@@ -5,6 +5,7 @@
     flex-direction: column;
     gap: 8px;
     width: 100%; 
+    max-width: 300px;
     height: auto;
     padding: 16px;
     border-radius: 8px;
@@ -68,6 +69,11 @@
 @media (max-width: 1440px) {
     .cardTitles {
         width: 100px;
+    }
+}
+@media (max-width: 1250px) {
+    .cardImageWrapper > img {
+        height: 168px; 
     }
 }
 @media (max-width: 1124px) {
