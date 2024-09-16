@@ -18,17 +18,20 @@ export const AlbumCard = (props: Props) => {
     if(!props.title) cardImageStyle.push(styles.cardImage)
         
     return (
-        <div className={styles.cardWrapper} onClick={props.onClick}>
+        <div className={styles.cardWrapper}>
             <div className={styles.cardImageWrapper}>
                 <img className={cardImageStyle.join(" ").trim()}
                     src={`/images/${props.img}.png`}
                     alt="musician image"
                     tabIndex={0}
                 />
-                <div className={stylesClass.join(" ").trim()}>
+                <div className={styles.iconsWholeWrapper}>
                     <div className={styles.cardIconsWrapper}>
                         <HeartIcon background />
                         <ReusableIcon imgName={'threeDots'} background/>
+                    </div>
+                    <div className={stylesClass.join(" ").trim()} onClick={props.onClick}>
+
                     </div>
                 </div>
             </div>

@@ -1,48 +1,62 @@
-@import "../../../colors.scss";
-
-/* || page layout */
-
-.containerWrapper{
-    display: flex;
-    // grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
-    // width: 100%;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    flex-grow: 1;
-}
-
-
+@import "/app/colors.scss";
 .container {
-    display: flex;
     width: 100%;
-    background-color: $background;
+    padding: 40px 24px;
+    max-width: 1250px;
+    margin: 0 auto;
+    min-height: 100vh;
 }
 
-/* || page children elements */
-
-.childrenContainer{
+.defaultPage {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
     gap: 24px;
-    padding: 24px;
 }
-
-
-/* || search bar */
-
-.searchLayout{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* || H1 Css */
 
 .header{
     font-size: 32px;
-    font-family: "Plus Jakarta Sans";
+    font-family: var(--font-jakarta-sans);
     font-weight: 500;
     color: $defaultWhite;
+}
+
+.searchLayout {
+    display: flex;
+    gap: 24px;
+    justify-content: space-between;
+}
+.mainTitleWrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.containerWrapper {
+    margin-top: 8px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 16px;
+    align-items: center;
+}
+.searchLayout > :nth-child(1) {
+    height: 100%;
+}
+
+.childrenContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+
+@media (max-width: 768px) {
+    .containerWrapper {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .containerWrapper {
+        padding: 8px;
+    }
+}
+@media (max-width: 660px) {
+    .containerWrapper {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
