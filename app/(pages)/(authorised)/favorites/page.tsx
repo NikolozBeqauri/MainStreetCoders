@@ -1,24 +1,30 @@
-import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
+"use client"
 import { Header } from "@/app/components/Header/Header";
-import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent"
 import { ReusableTable } from "@/app/components/ReusableTable/Reusable"
 import styles from "./page.module.scss"
-import { ReusableIcon } from "@/app/components/ReusableIcon/ReusableIcon";
 import { Search } from "@/app/components/Search/Search";
+import { useViewport } from "react-viewport-hooks";
+
 const FavoritesPage = () => {
+    const { vw } = useViewport();
+
     return (
+
         <div className={styles.favorites}>
             <div className={styles.favorites2}>
                 <div className={styles.favorites1}>
-                    <BurgerMenu />
-                    <Header imgName="favoritesicon" />
+                    {vw < 1024 && vw > 600 ? (
+                        <Header burger={true} />
+                    ) : (
+                        <Header imgName={"rightArrow"} imgHeight={35} imgWidth={35} />
+                    )}
                     <div>
                         <Search />
                     </div>
                 </div>
                 <div>
                     <div className={styles.table}>
-                        <ReusableTable />
+                        <ReusableTable heartActive/>
                     </div>
                 </div>
             </div>
