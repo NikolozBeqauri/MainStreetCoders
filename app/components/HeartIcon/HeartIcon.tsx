@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import styles from "./HeartIcon.module.scss";
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
@@ -8,12 +8,21 @@ type Props = {
     width?: number;
     height?: number;
     padding?: number;
-}
+    active?: boolean; 
+};
 
-export const HeartIcon = ({ background, width, height, padding }: Props) => {
+export const HeartIcon = ({ background, width, height, padding, active }: Props) => {
     const [iconState, setIconState] = useState<'neutral' | 'hover' | 'pressed'>('neutral');
     const imgRef = useRef<HTMLImageElement>(null);
     
+    useEffect(() => {
+        if (active) {
+            setIconState('pressed');
+        } else {
+            setIconState('neutral');
+        }
+    }, [active]);
+
     const stylesClasses = [styles.generalStyles];
     if (background) stylesClasses.push(styles.whiteBackground);
 
@@ -24,7 +33,9 @@ export const HeartIcon = ({ background, width, height, padding }: Props) => {
         if (iconState !== 'pressed') setIconState('neutral');
     };
     const handleMouseDown = () => {
-        setIconState(prevState => (prevState === 'pressed' ? 'neutral' : 'pressed'));
+        if (!active) {
+            setIconState(prevState => (prevState === 'pressed' ? 'neutral' : 'pressed'));
+        }
     };
 
     useEffect(() => {
@@ -51,10 +62,10 @@ export const HeartIcon = ({ background, width, height, padding }: Props) => {
             className={stylesClasses.join(" ").trim()}
             src={`/icons/heartIcons/${iconState}Heart.svg`}
             alt="heart icon"
-            width={width ? width : 32}
-            height={height ? height : 32}
+            width={width ?? 32}
+            height={height ?? 32}
             style={{
-                padding: `${padding}` 
+                padding: `${padding}px`
             }}
             tabIndex={0} 
         />

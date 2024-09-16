@@ -7,8 +7,11 @@ import styles from './ReusubleTable.module.scss'
 import { HeartIcon } from '../HeartIcon/HeartIcon';
 import { ReusableIcon } from '../ReusableIcon/ReusableIcon';
 
+type Props = {
+    heartActive?: boolean;
+}
 
-export const ReusableTable = () => {
+export const ReusableTable = (props:Props) => {
     const columns = [
         {
             title: '#',
@@ -57,7 +60,7 @@ export const ReusableTable = () => {
             key: 'key',
             render: (record: any) => (
                 <div className={styles.icon}>
-                   <HeartIcon />
+                   <HeartIcon active={props.heartActive}/>
                    <ReusableIcon imgName={'whiteThreeDots'}/>
                 </div>
             ),
