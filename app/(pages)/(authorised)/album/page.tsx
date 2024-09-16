@@ -13,7 +13,7 @@ const AlbumPage = () => {
                     <Header />
                 </div>
                 <div> 
-                    <NewsComponent title={"Seek For Marktoop"} count={"Released 07/12/2023"} />
+                    <NewsComponent title={"Seek For Marktoop"} count={"Released 07/12/2023"} image={"artistDemoImage"}/>
                     <div className={styles.table}>
                     <ReusableTable />
                     </div>

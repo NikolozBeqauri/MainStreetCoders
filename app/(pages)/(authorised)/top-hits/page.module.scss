@@ -3,8 +3,13 @@
 .contentOfHit {
     display: flex;
     flex-direction: column;
+    padding: 30px;
     gap: 40px;
     margin-top: 40px;
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    
 }
 
 .contentOfSongs {

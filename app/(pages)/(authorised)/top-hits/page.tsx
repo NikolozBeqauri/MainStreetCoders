@@ -12,7 +12,7 @@ const TopHitPage = () => {
             <div className={styles.headerMover}>
                 <Header imgName='rightArrow'/>
             </div>
-            <NewsComponent title='Top Hit  Of the week' count={'999'} />
+            <NewsComponent title='Top Hit  Of the week' count={'999'} image='chartBackground' />
             <div className={styles.contentOfSongs}>
                 <Search />
                 <ReusableTable />
