@@ -9,6 +9,8 @@ import { musicCardsData } from "@/app/components/MusicCard/musicCardData/musicCa
 import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import styles from "./page.module.scss"
 import { Header } from "@/app/components/Header/Header";
+import { AddPlaylist } from "@/app/components/AddPlaylist/AddPlaylist";
+import UploadFile from "@/app/components/UploadFile/UploadFile";
 
 
 export default function Home() {
@@ -17,7 +19,7 @@ export default function Home() {
   return (
     <main className={styles.wholeWrapper} >
       <section className={styles.container}>
-
+        <UploadFile/>
         <section className={styles.headerWrapper}>
           <BurgerMenu/>
           <Header />

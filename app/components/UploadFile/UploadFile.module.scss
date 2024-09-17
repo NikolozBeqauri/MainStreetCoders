@@ -1,0 +1,80 @@
+@import '/app/colors.scss';
+
+.formWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 335px;
+    width: 100%;
+    padding: 16px;
+    border-radius: 8px;
+    background: $uploadBackgrond;
+    box-shadow: 2px 2px 16px 0px rgba(0, 0, 0, 0.50);
+}
+
+.titleWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.titleWrapper h2 {
+    color: $defaultWhite;
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-left: 44px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form input[type="text"] {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: 1px solid $formInputborder;
+    background: $formInputBackground;
+}
+
+.form input[type="text"]::placeholder,
+.form input[type="text"] {
+    color: $defaultWhite;
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+.form input[type="file"] {
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    border: 1px solid $formInputborder;
+    background: $formInputBackground;
+    padding: 10px 15px;
+    height: 196px;
+    color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+}
+.form input[type=file]::file-selector-button {
+    display: none;
+}
+.dragAndDrop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.dragAndDrop > label {
+    cursor: pointer;
+    position: absolute;
+}
+.form button {
+    margin-top: 12px;
+}

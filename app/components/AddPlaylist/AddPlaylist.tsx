@@ -1,16 +1,19 @@
+'use client'
+import { useRouter } from "next/navigation";
 import { AddLine } from "./AddLIne/AddLine"
 import styles from "./AddPlaylist.module.scss";
 
 
 
 export const AddPlaylist = () => {
+    const router = useRouter()
 
 
     return(
         <div className={`${styles.container} ${styles.background}`} >
-            <AddLine title="Add to playlists" image={"public/icons/addPlaylistComponentIcons/addPlaylistIcon.svg"} />
-            <AddLine title="View Album" image={"public/icons/addPlaylistComponentIcons/viewAlbumIcon.svg"} />
-            <AddLine title="viewArtist" image={"public/icons/addPlaylistComponentIcons/viewArtistIcon.svg"} />
+            <AddLine title="Add to playlists" image={"addPlaylistIcon"} />
+            <AddLine onClick={() => {router.push('/album')}} title="View Album" image={"viewAlbumIcon"} />
+            <AddLine onClick={() => {router.push('/artist')}} title="viewArtist" image={"viewArtistIcon"} />
         </div>
     )
 }
