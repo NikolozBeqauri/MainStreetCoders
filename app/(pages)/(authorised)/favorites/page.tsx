@@ -1,6 +1,6 @@
 "use client"
 import { Header } from "@/app/components/Header/Header";
-import { ReusableTable } from "@/app/components/ReusableTable/Reusable"
+import { ReusableTable } from "@/app/components/ReusableTable/ReusableTable"
 import styles from "./page.module.scss"
 import { Search } from "@/app/components/Search/Search";
 import { useViewport } from "react-viewport-hooks";

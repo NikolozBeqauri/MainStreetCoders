@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react';
 import { NewsComponent } from "../NewsComponent/NewsComponent";
-import { ReusableTable } from "../ReusableTable/Reusable";
+import { ReusableTable } from "../ReusableTable/ReusableTable";
 import styles from "./TopSongs.module.scss";
 import artistNav from '@/app/enums/artistNav';
 import { ArtistBiography } from '../ArtistPiography/ArtistPiography';

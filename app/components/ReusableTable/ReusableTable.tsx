@@ -3,7 +3,7 @@
 import React from 'react';
 import { Table } from 'antd';
 import 'antd/dist/reset.css';
-import styles from './ReusubleTable.module.scss'
+import styles from './ReusableTable.module.scss'
 import { HeartIcon } from '../HeartIcon/HeartIcon';
 import { ReusableIcon } from '../ReusableIcon/ReusableIcon';
 

@@ -10,7 +10,7 @@ import { useViewport } from "react-viewport-hooks";
 import { ReusableIcon } from "@/app/components/ReusableIcon/ReusableIcon";
 import { useState } from "react";
 import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
-import { ReusableTable } from "@/app/components/ReusableTable/Reusable";
+import { ReusableTable } from "@/app/components/ReusableTable/ReusableTable";
 
 const PlayListPage = () => {
     const { vw } = useViewport();
