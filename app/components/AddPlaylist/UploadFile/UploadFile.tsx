@@ -6,7 +6,6 @@ import ReusableButton from "../ReusableButton/ReusableButton";
 import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
 import styles from './UploadFile.module.scss';
 import axios from 'axios';
-import Link from 'next/dist/client/link';
 
 type FormValues = {
     playlistName: string;
@@ -25,7 +24,7 @@ export const UploadFile = () => {
 
         axios.post('https://project-spotify.onrender.com/playlist', data, {
             headers: {
-                "Content-Type": "multipart/form-data"
+                "Content-Type": "multipart/form-data" 
             }
         })
             .then(res => {

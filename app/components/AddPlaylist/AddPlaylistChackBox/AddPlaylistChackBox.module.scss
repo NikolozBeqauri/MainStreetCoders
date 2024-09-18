@@ -1,0 +1,64 @@
+@import '/app/colors.scss';
+
+.wholeWrapper {
+    border-radius: 8px;
+    background: #29292E;
+    padding: 24px;
+    max-width: 276px;
+    width: 100%;
+}
+
+.titleWrapper {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+    padding: 10px 0px;
+    margin-bottom: 24px;
+}
+
+.titleWrapper h2 {
+    color: $defaultWhite;
+    text-align: center;
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.newPlaylist {
+    padding: 8px 16px 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    background: $formInputBackground;
+    color: $defaultWhite;
+    font-family: "Plus Jakarta Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    margin-bottom: 16px;
+}
+
+.chackBoxWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: $defaultWhite;
+    font-family: "Plus Jakarta Sans";
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+.playlistLabel {
+    display: flex;
+    align-items: center;
+}
+.chackBoxWrapper input[type='checkbox'] {
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+    accent-color: $primaryGradient;
+}
