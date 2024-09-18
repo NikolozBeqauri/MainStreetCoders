@@ -2,10 +2,10 @@
 import React, { useRef } from 'react';
 import Image from "next/image";
 import { useForm, SubmitHandler } from 'react-hook-form';
-import ReusableButton from "../ReusableButton/ReusableButton";
-import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
 import styles from './UploadFile.module.scss';
 import axios from 'axios';
+import { ReusableIcon } from '../../ReusableIcon/ReusableIcon';
+import ReusableButton from '../../ReusableButton/ReusableButton';
 
 type FormValues = {
     playlistName: string;
