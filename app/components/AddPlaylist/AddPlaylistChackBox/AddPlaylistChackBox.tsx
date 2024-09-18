@@ -3,7 +3,11 @@ import { useState } from 'react';
 import styles from './AddPlaylistChackBox.module.scss';
 import { ReusableIcon } from '../../ReusableIcon/ReusableIcon';
 
-export const AddPlaylistChackBox = () => {
+type Props = {
+    onClickBtn?: () => void;
+}
+
+export const AddPlaylistChackBox = (props:Props) => {
 
 
     const [playlists, setPlaylists] = useState([
@@ -28,7 +32,7 @@ export const AddPlaylistChackBox = () => {
                 <h2>Add To Playlist</h2>
             </div>
 
-            <button className={styles.newPlaylist}>+ New playlist</button>
+            <button onClick={props.onClickBtn} className={styles.newPlaylist}>+ New playlist</button>
 
             <div className={styles.chackBoxWrapper}>
                 {playlists.map((playlist) => (

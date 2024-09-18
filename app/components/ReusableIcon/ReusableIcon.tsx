@@ -1,5 +1,5 @@
 'use client'
-
+import Image from "next/image";
 import { useState } from "react";
 import styles from "./ReusableIcon.module.scss";
 
@@ -23,13 +23,13 @@ export const ReusableIcon = (props: Props) => {
         if (props.onFocus) props.onFocus();
     };
 
-
     const stylesClasses = [styles.generalStyles];
     if (props.background) stylesClasses.push(styles.whiteBackground);
     if (props.active || isFocused || props.isHovered) stylesClasses.push(styles.active);
+
     
     return (
-        <img
+        <Image
             className={stylesClasses.join(" ").trim()}
             src={`/icons/${imageName}.svg`}
             alt="icon"

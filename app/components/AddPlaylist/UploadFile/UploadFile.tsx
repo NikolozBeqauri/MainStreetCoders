@@ -12,7 +12,11 @@ type FormValues = {
     file: FileList;
 };
 
-export const UploadFile = () => {
+type Props = {
+    setActiveComponent: Function;
+}
+
+export const UploadFile = (props: Props) => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
 
@@ -28,10 +32,12 @@ export const UploadFile = () => {
             }
         })
             .then(res => {
-                console.log(res);
+                console.log(res); 
+                props.setActiveComponent(null)
             })
             .catch(err => {
                 console.log(err);
+                props.setActiveComponent(null)
             })
     };
 
