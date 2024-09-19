@@ -23,7 +23,7 @@ export const AddPlaylist = () => {
             </div> }
 
             {activeComponent === popUpNav.addChackBox && <div>
-                <AddPlaylistChackBox onClickBtn={() => setActiveComponent(popUpNav.uploadFile)}/>
+                <AddPlaylistChackBox setActiveComponent={setActiveComponent} onClickBtn={() => setActiveComponent(popUpNav.uploadFile)}/>
             </div>}
             
             {activeComponent === popUpNav.uploadFile && <div >

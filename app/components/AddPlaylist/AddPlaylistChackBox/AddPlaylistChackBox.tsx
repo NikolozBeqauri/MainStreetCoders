@@ -2,10 +2,13 @@
 import { useState } from 'react';
 import styles from './AddPlaylistChackBox.module.scss';
 import { ReusableIcon } from '../../ReusableIcon/ReusableIcon';
+import popUpNav from '@/app/enums/popUpNav';
 
 type Props = {
     onClickBtn?: () => void;
+    setActiveComponent: Function;
 }
+
 
 export const AddPlaylistChackBox = (props:Props) => {
 
@@ -28,8 +31,8 @@ export const AddPlaylistChackBox = (props:Props) => {
     return (
         <div className={styles.wholeWrapper}>
             <div className={styles.titleWrapper}>
-                <ReusableIcon imgName={'rightArrow'} />
-                <h2>Add To Playlist</h2>
+            <div onClick={() => props.setActiveComponent(popUpNav.addPlaylist)}><ReusableIcon imgName={"rightArrow"} /></div>
+            <h2>Add To Playlist</h2>
             </div>
 
             <button onClick={props.onClickBtn} className={styles.newPlaylist}>+ New playlist</button>

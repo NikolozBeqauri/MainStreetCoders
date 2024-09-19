@@ -6,6 +6,7 @@ import styles from './UploadFile.module.scss';
 import axios from 'axios';
 import { ReusableIcon } from '../../ReusableIcon/ReusableIcon';
 import ReusableButton from '../../ReusableButton/ReusableButton';
+import popUpNav from '@/app/enums/popUpNav';
 
 type FormValues = {
     playlistName: string;
@@ -44,7 +45,7 @@ export const UploadFile = (props: Props) => {
     return (
         <div className={styles.formWrapper}>
             <div className={styles.titleWrapper}>
-                <ReusableIcon imgName={"rightArrow"} />
+                <div onClick={() => props.setActiveComponent(popUpNav.addChackBox)}><ReusableIcon imgName={"rightArrow"} /></div>
                 <h2>Create New Playlist</h2>
             </div>
             <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
