@@ -1,6 +1,13 @@
 
 @import "/app/colors.scss";
-
+.recomendationPage {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 36px;
+    margin-left: 20px;
+    margin: 0 auto;
+}
 .generalCardItem{
     display: flex;
     gap: 16px;
@@ -31,11 +38,4 @@
     gap: 16px;
     margin-top: 40px;
 
-}
-.recomendationPage {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    margin-top: 36px;
-    margin-left: 20px;
 }

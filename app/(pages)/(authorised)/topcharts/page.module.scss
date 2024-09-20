@@ -1,0 +1,33 @@
+@import "/app/colors.scss";
+
+.content {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    gap: 40px;
+    margin-top: 40px;
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    
+}
+
+.contentOfSongs {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+@media (max-width: 744px) {
+    .content {
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+}
+
+@media (max-width: 490px) {
+    .content {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
