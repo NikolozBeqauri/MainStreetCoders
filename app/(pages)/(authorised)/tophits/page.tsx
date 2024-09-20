@@ -4,12 +4,14 @@ import styles from './page.module.scss'
 import { NewsComponent } from '@/app/components/NewsComponent/NewsComponent';
 import { Search } from '@/app/components/Search/Search';
 import { ReusableTable } from '@/app/components/ReusableTable/Reusable';
+import { BurgerMenu } from '@/app/components/BurgerMenu/BurgerMenu';
 
 const TopHitPage = () => {
 
     return (
         <div className={styles.contentOfHit}>
             <div className={styles.headerMover}>
+                <BurgerMenu/>
                 <Header imgName='rightArrow'/>
             </div>
             <NewsComponent title='Top Hit  Of the week' count={'999'} image='chartBackground' />

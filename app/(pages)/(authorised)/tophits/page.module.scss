@@ -11,7 +11,11 @@
     margin: 0 auto;
     
 }
-
+.headerMover {
+    display: flex; 
+    align-items: center;
+    gap: 20px;
+}
 .contentOfSongs {
     display: flex;
     flex-direction: column;
