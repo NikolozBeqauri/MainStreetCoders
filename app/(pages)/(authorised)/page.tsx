@@ -17,7 +17,6 @@ export default function Home() {
   return (
     <main className={styles.wholeWrapper} >
       <section className={styles.container}>
-
         <section className={styles.headerWrapper}>
           <BurgerMenu/>
           <Header />

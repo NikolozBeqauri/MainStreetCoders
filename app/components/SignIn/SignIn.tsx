@@ -16,12 +16,15 @@ export const SignIn = () => {
     const router = useRouter();
 
     const onSubmit = (data: any) => {
-        axios.post(`https://auth.novatori.ge/auth/login`, data)
+        axios.post(`https://project-spotify.onrender.com/auth/login`, data)
             .then(response => {
+                console.log('ki');
                 setCookie("token", response.data.accessToken, 60)
                 router.push("/")
             })
             .catch(error => {
+                console.log('ara');
+
                 console.error(error);
             });
     };
