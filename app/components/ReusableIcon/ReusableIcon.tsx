@@ -19,7 +19,7 @@ export const ReusableIcon = (props: Props) => {
 
     const [isFocused, setIsFocused] = useState(false);
     const [threeDotClicked, setThreeDotClicked] = useState(false)
-    
+
     const handleFocus = () => {
         setIsFocused(true);
         if (props.onFocus) props.onFocus();
@@ -32,20 +32,23 @@ export const ReusableIcon = (props: Props) => {
 
     if (isThreeDots) {
         return (
-            <div className={styles.iconWrapper}>
-                {threeDotClicked && <div className={styles.AddPlaylist}>
-                    <AddPlaylist/>
-                </div>}
-                <Image
-                    className={stylesClasses.join(" ").trim()}
-                    src={`/icons/${imageName}.svg`}
-                    alt="icon"
-                    width={props.width ? props.width : 32}
-                    height={props.height ? props.height : 32}
-                    onFocus={handleFocus}
-                    onClick={() => setThreeDotClicked(!threeDotClicked)}
-                    tabIndex={0}
-                />
+            <div className={styles.wholeWrapper}>
+                <div className={styles.iconWrapper}>
+                    {threeDotClicked &&
+                        <div className={styles.AddPlaylist}>
+                            <AddPlaylist />
+                        </div>}
+                    <Image
+                        className={stylesClasses.join(" ").trim()}
+                        src={`/icons/${imageName}.svg`}
+                        alt="icon"
+                        width={props.width ? props.width : 32}
+                        height={props.height ? props.height : 32}
+                        onFocus={handleFocus}
+                        onClick={() => setThreeDotClicked(!threeDotClicked)}
+                        tabIndex={0}
+                    />
+                </div>
             </div>
         );
     } else {
