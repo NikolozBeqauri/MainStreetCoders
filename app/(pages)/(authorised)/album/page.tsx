@@ -1,9 +1,8 @@
 import { Header } from "@/app/components/Header/Header";
 import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
-import { ReusableTable } from "@/app/components/ReusableTable/Reusable";
-import { Search } from "@/app/components/Search/Search";
 import styles from "./page.module.scss"
 import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
+import { ReusableTable } from "@/app/components/ReusableTable/ReusableTable";
 const AlbumPage = () => {
     return (
         <div className={styles.album}>
