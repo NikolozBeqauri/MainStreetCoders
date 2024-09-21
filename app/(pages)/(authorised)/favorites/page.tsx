@@ -1,9 +1,9 @@
 "use client"
 import { Header } from "@/app/components/Header/Header";
-import { ReusableTable } from "@/app/components/ReusableTable/Reusable"
 import styles from "./page.module.scss"
 import { Search } from "@/app/components/Search/Search";
 import { useViewport } from "react-viewport-hooks";
+import { ReusableTable } from "@/app/components/ReusableTable/ReusableTable";
 
 const FavoritesPage = () => {
     const { vw } = useViewport();

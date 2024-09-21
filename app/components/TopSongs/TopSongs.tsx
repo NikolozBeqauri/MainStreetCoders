@@ -1,11 +1,11 @@
 'use client'
 import { useState } from 'react';
 import { NewsComponent } from "../NewsComponent/NewsComponent";
-import { ReusableTable } from "../ReusableTable/Reusable";
 import styles from "./TopSongs.module.scss";
 import artistNav from '@/app/enums/artistNav';
 import { ArtistBiography } from '../ArtistPiography/ArtistPiography';
 import { ArtistAlbum } from '../ArtistAlbum/ArtistAlbum';
+import { ReusableTable } from '../ReusableTable/ReusableTable';
 
 type Props = {
     image: string;
