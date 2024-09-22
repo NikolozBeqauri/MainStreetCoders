@@ -97,3 +97,12 @@
         width: 125px;
     }
 }
+
+@media (max-width: 720px) {
+    .cardWrapper:hover .cardIconsBackground {
+        display: none;
+    }
+    .cardWrapper:hover .iconsWholeWrapper {
+        display: none;
+    }
+}
