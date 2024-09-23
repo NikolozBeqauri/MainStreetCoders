@@ -34,7 +34,6 @@ export const AddPlaylist = () => {
                     <AddLine onClick={() => { router.push('/artist') }} title="viewArtist" image={"viewArtistIcon"} />
                 </div>
             )}
-
             {activeComponent === popUpNav.addChackBox && (
                 <div>
                     <AddPlaylistChackBox setActiveComponent={setActiveComponent} onClickBtn={() => setActiveComponent(popUpNav.uploadFile)} />

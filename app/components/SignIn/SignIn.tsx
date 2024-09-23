@@ -16,7 +16,9 @@ export const SignIn = () => {
     const router = useRouter();
 
     const onSubmit = (data: any) => {
-        axios.post(`https://project-spotify.onrender.com/auth/login`, data)
+        console.log(data);
+        
+        axios.post(`https://project-spotify-1.onrender.com/auth/login`, data)
             .then(response => {
                 console.log('ki');
                 setCookie("token", response.data.accessToken, 60)
