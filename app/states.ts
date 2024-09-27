@@ -14,3 +14,8 @@ export const signUpState = atom({
     key: "signUp",
     default: false,
 });
+
+export const modalState = atom({
+    key: "modal",
+    default: true,
+});

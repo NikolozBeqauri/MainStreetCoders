@@ -3,12 +3,16 @@ import { useState } from 'react';
 import Image from 'next/image';
 import styles from './MobileNavbar.module.scss';
 import { menuItems } from './MobileNavbarLinks/MobileNavbarLinks';
+import { useRecoilState } from 'recoil';
+import { modalState } from '@/app/states';
 
 export const MobileNavbar = () => {
     const [activeIndex, setActiveIndex] = useState(0);
+    const [modal, setModalState] = useRecoilState(modalState);
 
     const handleClick = (index:any) => {
         setActiveIndex(index);
+        setModalState(true)
     };
 
     return (

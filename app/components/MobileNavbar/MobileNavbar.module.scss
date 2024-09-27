@@ -27,5 +27,7 @@
 @media (max-width: 600px) {
     .container{
         display: flex;
+        z-index: 2;
+        position: relative;
     }
 }

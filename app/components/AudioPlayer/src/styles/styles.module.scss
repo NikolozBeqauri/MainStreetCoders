@@ -10,6 +10,7 @@
   display: flex;
   // max-height: 152px;
   min-height: 136px;
+  transition: 0.1s;
 }
 
 /* audio info */
@@ -201,6 +202,7 @@
   .audioInfo {
     flex-direction: column;
     gap: 12px;
+    height: 131px;
   }
 
   .audioImage {
@@ -252,6 +254,8 @@
   .audioInfo {
     flex-direction: row;
     gap: 12px;
+    align-items: center;
+    height: 65px;
   }
 
   .audioImage {
