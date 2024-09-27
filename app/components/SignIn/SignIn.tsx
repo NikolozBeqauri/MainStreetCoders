@@ -16,15 +16,12 @@ export const SignIn = () => {
     const router = useRouter();
 
     const onSubmit = (data: any) => {
-        axios.post(`https://project-spotify.onrender.com/auth/login`, data)
+        axios.post(`https://project-spotify-1.onrender.com/auth/login`, data)
             .then(response => {
-                console.log('ki');
-                setCookie("token", response.data.accessToken, 60)
+                setCookie("token", response.data.access_token, 60)
                 router.push("/")
             })
             .catch(error => {
-                console.log('ara');
-
                 console.error(error);
             });
     };

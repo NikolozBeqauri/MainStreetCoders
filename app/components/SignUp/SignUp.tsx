@@ -1,6 +1,6 @@
-'use client'
+'use client';
 import { useForm } from "react-hook-form";
-import styles from "./SignUp.module.scss"
+import styles from "./SignUp.module.scss";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
@@ -11,20 +11,21 @@ type FormValues = {
 };
 
 export const SignUp = () => {
-    const { register, handleSubmit, watch,formState: { errors } } = useForm<FormValues>();
-    
+    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm<FormValues>();
     const router = useRouter();
 
     const onSubmit = (data: FormValues) => {
-        axios.post(`https://project-spotify.onrender.com/users`, data)
+        axios.post(`https://project-spotify-1.onrender.com/users/register`, data)
             .then(response => {
-                console.log(response.data);
+                console.log(response);
+                router.push("/signin");
             })
             .catch(error => {
                 console.error(error);
+                reset();
             });
     };
-    
+
     const navigateToSignIn = () => {
         router.push('/signin');
     };
@@ -49,17 +50,20 @@ export const SignUp = () => {
                     },
                     validate: {
                         hasUpperCase: value => /[A-Z]/.test(value) || "Password must contain at least one uppercase letter",
-                        hasNumber: value => /\d/.test(value) || "Password must contain at least one number"
+                        hasNumber: value => /\d/.test(value) || "Password must contain at least one number",
+                        hasSpecialChar: value => /[!@#$%^&*(),.?":{}|<>]/.test(value) || "Password must contain at least one special character (!, @, #, etc.)"
                     }
                 })}
             />
             {errors.password && <span className={styles.errorMessage}>{errors.password.message}</span>}
             <div className={styles.passwordRules}>
                 <p>Password must contain: </p>
-                <p>*8 or more characters </p>
-                <p>*at least one capital letter</p>
-                <p>*at least one number</p>
+                <p>* 8 or more characters</p>
+                <p>* At least one capital letter</p>
+                <p>* At least one number</p>
+                <p>* At least one special character (!, @, #, etc.)</p>
             </div>
+
             <input 
                 placeholder="Confirm Password"
                 type="password"
@@ -72,7 +76,9 @@ export const SignUp = () => {
 
             <input type="submit" value="Sign Up" />
 
-            <p className={styles.haveAccount} >Already have  an account? <span onClick={navigateToSignIn}>Sign In</span></p>
+            <p className={styles.haveAccount}>
+                Already have an account? <span onClick={navigateToSignIn}>Sign In</span>
+            </p>
         </form>
     );
 };
