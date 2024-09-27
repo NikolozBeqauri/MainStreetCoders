@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
-import styles from '../src/styles/styles.module.scss'
+import styles from '../src/styles/styles.module.scss';
+import style from '../src/styles/mobile.module.scss';
+
 // icons
 import {
     IoPlaySkipBackOutline,
@@ -13,6 +15,8 @@ import {
     IoVolumeLowOutline,
     IoVolumeHighOutline
 } from 'react-icons/io5';
+import { useRecoilState } from 'recoil';
+import { modalState } from '@/app/states';
 
 const Controls = ({ audioRef, progressBarRef, duration, setTimeProgress, tracks, trackIndex, setTrackIndex, setCurrentTrack, }: any) => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -87,29 +91,31 @@ const Controls = ({ audioRef, progressBarRef, duration, setTimeProgress, tracks,
           audioRef.current.muted = muteVolume;
         }
       }, [volume, audioRef, muteVolume]);
+
+      const [modal, setModalState] = useRecoilState(modalState);
     
 
     return (
-        <div className={styles.controlsWrapper}>
+        <div className={modal === true ? styles.controlsWrapper : style.mobileControlsWrapper}>
             <div className={styles.controls}>
-                <button className={styles.butto} onClick={shuffleIt}>
+                <button className={modal === true ? styles.butto : style.mobileButto} onClick={shuffleIt}>
                     <IoShuffle />
                 </button>
-                <button className={styles.butto} onClick={previousTrack}>
+                <button className={modal === true ? styles.butto : style.mobileButto} onClick={previousTrack}>
                     <IoPlaySkipBackOutline />
                 </button>
-                <button onClick={togglePlayPause} className={styles.controlsPlayPause}>
+                <button onClick={togglePlayPause} className={modal === true ? styles.controlsPlayPause : style.mobileControlsPlayPause}>
                     {isPlaying ? <IoPauseCircleOutline /> : <IoPlayCircleOutline />}
                 </button>
-                <button className={styles.butto} onClick={nextTrack}>
+                <button className={modal === true ? styles.butto : style.mobileButto} onClick={nextTrack}>
                     <IoPlaySkipForwardOutline />
                 </button>
-                <button className={styles.butto} onClick={repeatIt}>
+                <button className={modal === true ? styles.butto : style.mobileButto} onClick={repeatIt}>
                     <IoRepeat />
                 </button>
             </div>
             <div className={styles.volume}>
-            <button className={styles.butto} onClick={() => setMuteVolume((prev) => !prev)}>
+            <button className={modal === true ? styles.butto : style.mobileButto} onClick={() => setMuteVolume((prev) => !prev)}>
                 {muteVolume || volume < 1 ? (
                     <IoVolumeOffOutline />
                 ) : volume < 50 ? (

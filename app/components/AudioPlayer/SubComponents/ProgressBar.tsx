@@ -1,12 +1,19 @@
-import styles from '../src/styles/styles.module.scss'
+import { useRecoilState } from 'recoil';
+import styles from '../src/styles/styles.module.scss';
+import style from '../src/styles/mobile.module.scss';
+import { modalState } from '@/app/states';
 
 const ProgressBar = ({ progressBarRef, audioRef, timeProgress, duration }: any) => {
+
+
     const handleProgressChange = () => {
         audioRef.current.currentTime = progressBarRef.current.value;
     };
 
+    const [modal, setModalState] = useRecoilState(modalState);
+
     return (
-        <div className={styles.progress}>
+        <div className={modal === true ? styles.progress : style.mobileProgress}>
             <span className={styles.time}>{formatTime(timeProgress)}</span>
             <input 
                 type="range" 

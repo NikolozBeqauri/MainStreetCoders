@@ -21,7 +21,6 @@ const PlayListPage = () => {
         setSelectedPlaylist(playList);
         setPlaylistContentActive(false);
     };
-    console.log(selectedPlaylist);
     
     return (
         <div className={Styles.container}>

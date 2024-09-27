@@ -9,8 +9,8 @@ type Props = {
     background?: boolean,
     active?: boolean,
     isHovered?: boolean,
-    width?: number,
-    height?: number,
+    width?: any,
+    height?: any,
     onFocus?: () => void,
 }
 

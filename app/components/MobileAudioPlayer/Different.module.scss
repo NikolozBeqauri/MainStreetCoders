@@ -1,0 +1,26 @@
+@import "/app/colors.scss";
+
+
+.mobileVersion {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: none;
+}
+
+.mobileVersionDisable {
+    display: none;
+}
+
+@media (max-width: 490px) {
+    .mobileVersion {
+        display: flex;
+        height: 70px;
+        max-width: 75vw;
+        background: transparent;
+      }
+}
