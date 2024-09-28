@@ -17,8 +17,14 @@ export const SignIn = () => {
 
     const onSubmit = (data: any) => {
         axios.post(`https://project-spotify-1.onrender.com/auth/login`, data)
-            .then(response => {
+            .then(response => {                
+                const dataString = response.config.data;
+                const parsedData = JSON.parse(dataString);
+                const email = parsedData.email;
+                
                 setCookie("token", response.data.access_token, 60)
+                localStorage.setItem("email", email);
+                
                 router.push("/")
             })
             .catch(error => {

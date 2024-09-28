@@ -37,7 +37,8 @@ export const ReusableIcon = (props: Props) => {
                     {threeDotClicked &&
                         <div className={styles.AddPlaylist}>
                             <AddPlaylist />
-                        </div>}
+                        </div>
+                        }
                     <Image
                         className={stylesClasses.join(" ").trim()}
                         src={`/icons/${imageName}.svg`}
