@@ -45,7 +45,7 @@ const AudioPlayer = () => {
         <div className={style.mobileHeader}>
           <div className={style.mobileVersionLayout}>
             <img className={style.downArr} src="/icons/downArrow.svg" onClick={() => setModalState(true)}/>
-            <ReusableIcon imgName="WhiteThreeDots" width={32} />
+            <ReusableIcon imgName="whiteThreeDots" width={32} />
           </div>
         </div>
       )}
