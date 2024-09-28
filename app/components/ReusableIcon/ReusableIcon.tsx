@@ -29,13 +29,14 @@ export const ReusableIcon = (props: Props) => {
     if (props.background) stylesClasses.push(styles.whiteBackground);
     if (props.active || isFocused || props.isHovered) stylesClasses.push(styles.active);
     const isThreeDots = props.imgName === 'threeDots' ? true : false;
+    const isWhiteThreeDots = props.imgName === 'whiteThreeDots' ? true : false;
 
-    if (isThreeDots) {
+    if (isThreeDots || isWhiteThreeDots) {
         return (
             <div className={styles.wholeWrapper}>
                 <div className={styles.iconWrapper}>
                     {threeDotClicked &&
-                        <div className={styles.AddPlaylist}>
+                        <div className={isThreeDots === true ? styles.AddPlaylist : styles.AddWhitePlaylist}>
                             <AddPlaylist />
                         </div>}
                     <Image
