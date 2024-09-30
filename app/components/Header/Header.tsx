@@ -15,7 +15,7 @@ export const Header = (props: Props) => {
     return (
       <div className={styles.headerWrapper}>
         <BurgerMenu />
-        <UserProfileIcon src="userImage.png" />
+        <UserProfileIcon/>
       </div>
     )
   } else {
@@ -31,7 +31,7 @@ export const Header = (props: Props) => {
       ) : (
         <Search />
       )}
-      <UserProfileIcon src="userImage.png" />
+      <UserProfileIcon/>
     </div>
   );
 
