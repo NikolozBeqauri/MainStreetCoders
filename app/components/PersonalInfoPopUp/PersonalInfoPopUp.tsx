@@ -1,23 +1,25 @@
-'use client'
-import { useState } from 'react';
 import styles from './PersonalInfoPopUp.module.scss';
 
-export const PersonalInfoPopUp = () => {
-    const [isActive, setIsActive] = useState(false)
+type Props = {
+    isActive: boolean;
+    setIsActive: (value: boolean) => void;
+};
+
+export const PersonalInfoPopUp = ({ isActive, setIsActive }: Props) => {
     const handleLogOut = () => {        
         document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; 
         window.location.reload(); 
     };
 
-    const email = localStorage.getItem("email")
+    const email = localStorage.getItem("email");
 
-    if(!isActive) return
+    if (!isActive) return null;
 
     return (
-        <div className={styles.background} onClick={()=>setIsActive(false)}>
+        <div className={styles.background} onClick={() => setIsActive(false)}>
             <div className={styles.wrapper}>
-                <h3>{email}</h3>
-                <h3 onClick={()=>handleLogOut()} >Log Out</h3>
+                <h3>Email: {email}</h3>
+                <h3 onClick={handleLogOut}>Log Out</h3>
             </div>
         </div>
     );
