@@ -56,7 +56,7 @@ export const SignIn = () => {
                       },
                       validate: {
                         hasUpperCase: value => /[A-Z]/.test(value) || "Password must contain at least one uppercase letter",
-                        hasNumber: value => /\d/.test(value) || "Password must contain at least one number"
+                        hasNumber: (value: string) => /\d/.test(value) || "Password must contain at least one number"
                     }
                 })}
             />
