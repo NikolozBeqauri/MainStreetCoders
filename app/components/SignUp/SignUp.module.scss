@@ -30,7 +30,7 @@
 .fromWrapper input[type="email"]::placeholder,
 .fromWrapper input[type="Password"]::placeholder {
     color: $lightPurple;
-    font-family: Manrope;
+    font-family:var(--Manrope);
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
@@ -40,7 +40,7 @@
 .fromWrapper input[type="submit"] {
     background: $gradientApoloButton;
     color: $defaultWhite;
-    font-family: Manrope;
+    font-family: var(--Manrope);
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
@@ -52,7 +52,7 @@
 }
 .passwordRules {
     color: $palladium;
-    font-family: Manrope;
+    font-family:var(--Manrope);
     font-size: 12px;
     line-height: normal;
     font-weight: 500;
@@ -60,7 +60,7 @@
 .haveAccount {
     text-align: center;
     color: $defaultWhite;
-    font-family: Manrope;
+    font-family: var(--Manrope);
     font-size: 14px;
     font-style: normal;
     font-weight: 500;

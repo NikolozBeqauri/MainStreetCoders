@@ -5,6 +5,7 @@ import styles from './page.module.scss'
 import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
 import { ReusableTable } from "@/app/components/ReusableTable/ReusableTable";
 const TopCharactersPage = () => {
+    
     return (
         <div className={styles.content}>
             <div className={styles.headerMover}>
