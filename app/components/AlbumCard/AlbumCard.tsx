@@ -21,7 +21,7 @@ export const AlbumCard = (props: Props) => {
         <div className={styles.cardWrapper}>
             <div className={styles.cardImageWrapper}>
                 <img className={cardImageStyle.join(" ").trim()}
-                    src={`/images/${props.img}.png`}
+                    src={props.img}
                     alt="musician image"
                     tabIndex={0}
                 />
