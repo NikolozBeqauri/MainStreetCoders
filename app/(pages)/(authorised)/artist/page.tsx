@@ -27,7 +27,6 @@ const ArtistPage = () => {
     .then((r => {
         setDataBase(r.data)
     }))}, [])
-    console.log(dataBase)
     
 
     return (
@@ -50,7 +49,7 @@ const ArtistPage = () => {
                             <AlbumCard
                                 key={index}
                                 author={album.author}
-                                img={album.img}
+                                img={album.authorImage}
                                 onClick={() => setData(album)}
                             />
                         ))}
