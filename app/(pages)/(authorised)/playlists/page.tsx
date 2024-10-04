@@ -8,14 +8,31 @@ import ReusableButton from "@/app/components/ReusableButton/ReusableButton";
 import { Header } from "@/app/components/Header/Header";
 import { useViewport } from "react-viewport-hooks";
 import { ReusableIcon } from "@/app/components/ReusableIcon/ReusableIcon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import { ReusableTable } from "@/app/components/ReusableTable/ReusableTable";
+import axios from "axios";
+import Cookies from 'js-cookie';
 
 const PlayListPage = () => {
     const { vw } = useViewport();
     const [playlistContentActive, setPlaylistContentActive] = useState(true);
     const [selectedPlaylist, setSelectedPlaylist] = useState<any>(null); 
+    const  [data, setData] = useState<any>([]);
+    const token = Cookies.get("token");
+
+    useEffect(() => {
+        axios.get("https://project-spotify-1.onrender.com/playlist", {
+            headers:{
+                    "Content-Type": "multipart/form-data",
+                    "Authorization": `Bearer ${token}`,
+            }
+        })
+        .then((r) => {
+            setData(r.data)
+        })
+    }, [])
+    console.log(data)
 
     const handleCardClick = (playList: any) => {
         setSelectedPlaylist(playList);
@@ -53,11 +70,11 @@ const PlayListPage = () => {
                     </div>
 
                     <div className={Styles.containerWrapper}>
-                        {playListsData.map((playList, index) => (
+                        {data.map((playList: any, index: any) => (
                             <SquareCard
                                 key={index}
                                 title={playList.name}
-                                img={playList.img}
+                                img={playList.image}
                                 onClick={() => handleCardClick(playList)}
                             />
                         ))}
