@@ -39,10 +39,6 @@
     align-items: center;
     justify-content: space-between;
 }
-.generalCardItem > div > div > img {
-    width: 100%;
-    height: 200px;
-}
 
 /**/
 .wholeWrapper {
@@ -82,20 +78,11 @@
     width: 100%;
     gap: 16px;
 }
-@media (max-width: 1150px) {
-    .generalCardItem > div > div > img {
-        height: 170px;
-    }
-}
-
 
 @media (max-width: 720px) {
     .generalCardItem {
-        overflow-x: scroll;
+        overflow-y: scroll;
     }
-    .generalCardItem::-webkit-scrollbar {
-        display: none;
-    }   
 }
 
 @media (max-width:600px) {

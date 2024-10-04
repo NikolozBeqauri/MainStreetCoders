@@ -4,8 +4,11 @@ import styles from "./page.module.scss";
 import { artistPageData } from "./artistPageData/artistPageData";
 import { AlbumCard } from "@/app/components/AlbumCard/AlbumCard";
 import { TopSongs } from "@/app/components/TopSongs/TopSongs";
-import { useState } from "react";
+import { Key, SetStateAction, useEffect, useState } from "react";
 import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
+import axios from "axios";
+
+import Cookies from 'js-cookie';
 
 type Album = {
     author: string;
@@ -14,6 +17,18 @@ type Album = {
 
 const ArtistPage = () => {
     const [data, setData] = useState<Album | null>(null);
+    const [dataBase, setDataBase] = useState<any>([]);
+    const token = Cookies.get("token")
+    useEffect(() => {axios.get("https://project-spotify-1.onrender.com/authors/topArtists", {
+        headers: {
+            "Content-Type": "multipart/form-data",
+            "Authorization": `Bearer ${token}`
+        }})
+    .then((r => {
+        setDataBase(r.data)
+    }))}, [])
+    console.log(dataBase)
+    
 
     return (
         <div className={styles.artistPageWrapper}>
@@ -31,7 +46,7 @@ const ArtistPage = () => {
                 <div className={styles.artistCardsWrapper}>
                     <h2>Trending Now</h2>
                     <div className={styles.artistCards}>
-                        {artistPageData.map((album, index) => (
+                        {dataBase.map((album: SetStateAction<Album | any>, index: Key | null | undefined) => (
                             <AlbumCard
                                 key={index}
                                 author={album.author}
