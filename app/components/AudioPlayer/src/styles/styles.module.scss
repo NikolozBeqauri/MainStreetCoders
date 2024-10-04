@@ -8,7 +8,6 @@
   margin: 0 auto;
   padding: 32px;
   display: flex;
-  // max-height: 152px;
   min-height: 136px;
   transition: 0.1s;
 }
@@ -139,8 +138,12 @@
 .progress {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
   height: 15px;
+}
+
+.progress span:last-child {
+  padding-left: 3px;
 }
 
 /* time */
@@ -149,6 +152,7 @@
   font-size: 16px;
   font-family: var(--font-jakarta-sans);
   line-height: 20.16px;
+  width: 59px;
 }
 
 /* Top bar */
@@ -175,6 +179,22 @@
 .volume>input[type="range"] {
   height: 6px;
   border-radius: 12px;
+}
+
+.loading {
+  width: 100vw;
+  height: 30px;
+  background-color: $codGrey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading > p {
+  color: $defaultWhite;
+  font-family: "Plus Jakarta Sans";
+  font-weight: 800;
+  font-size: 19px;
 }
 
 
