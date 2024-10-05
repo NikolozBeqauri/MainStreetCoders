@@ -16,6 +16,8 @@ const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, nex
         progressBarRef.current.max = seconds;
     }
 
+    
+
     const [modal, setModalState] = useRecoilState(modalState);
 
     return (
@@ -41,7 +43,7 @@ const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, nex
                 <div className={modal === true ? styles.audioTitle : style.mobileAudioTitle}>
                     <HeartIcon height={26} width={26} padding={0}/>
                     <div>
-                        <p className={styles.title}>{currentTrack.title || 'Unknown Title'}</p>
+                        <p className={styles.title}>{currentTrack.trackTitle || 'Unknown Title'}</p>
                         <p className={styles.author}>{currentTrack.authorName || 'Unknown Artist'}</p>
                     </div>
                 </div>

@@ -15,7 +15,7 @@ const TopCharactersPage = () => {
             <NewsComponent title='Top Charts  Of the week' count={'999'} image='chartBackground' />
             <div className={styles.contentOfSongs}>
                 <Search />
-                <ReusableTable />
+                <ReusableTable pageName="musics/topHits"/>
             </div>
         </div>
     )

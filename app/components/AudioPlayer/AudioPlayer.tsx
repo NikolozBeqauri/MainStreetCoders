@@ -12,6 +12,8 @@ import { useViewport } from "react-viewport-hooks";
 
 import styles from "./src/styles/styles.module.scss";
 import style from "./src/styles/mobile.module.scss";
+import Loading from "../Loading/Loading";
+import Cookies from 'js-cookie';
 
 const AudioPlayer = () => {
   const [trackIndex, setTrackIndex] = useState(0);
@@ -25,13 +27,11 @@ const AudioPlayer = () => {
 
   const { vw } = useViewport();
 
+  const token = Cookies.get("token");
+
   if (JSON.stringify(vw) > "490px") {
     setModalState(true);
   }
-
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJ1c2VyRW1haWwiOiJ0b3JuaWtlc3VhcmlzaHZpbGlAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3Mjc1MzIxOTEsImV4cCI6MTcyODEzNjk5MX0.LvQ68AHiDAoDbNMIH0iUd04orMM5a8gfPqWgEi5zbvA";
-
   useEffect(() => {
     const fetchTracks = async () => {
       try {
@@ -46,7 +46,7 @@ const AudioPlayer = () => {
         const data = await response.json();
         setTracks(data);
         setCurrentTrack(data[0]);
-        console.log(data);
+        // console.log(data);
         
       } catch (error) {
         console.error("Error fetching tracks:", error);
@@ -56,18 +56,9 @@ const AudioPlayer = () => {
     fetchTracks();
   }, [token]);
 
-  const nextTrack = () => {
-    if (trackIndex < tracks.length - 1) {
-      setTrackIndex(trackIndex + 1);
-      setCurrentTrack(tracks[trackIndex + 1]);
-    } else {
-      setTrackIndex(0); // Loop back to the first track
-      setCurrentTrack(tracks[0]);
-    }
-  };
 
   if (!currentTrack) {
-      return <div className={styles.loading}><p>Loading...</p></div>;
+      return <Loading width="100%" background="#1D1D1D"/>
   }
 
   
