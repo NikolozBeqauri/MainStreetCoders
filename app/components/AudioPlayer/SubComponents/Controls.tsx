@@ -29,6 +29,8 @@ const Controls = ({
   setCurrentTrack,
 }: any) => {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isShuffle, setIsShuffle] = useState(false);
+  const [isRepeat, setIsRepeat] = useState(false);
 
   const playAnimationRef = useRef<number | null>(null);
 
@@ -44,20 +46,21 @@ const Controls = ({
     playAnimationRef.current = requestAnimationFrame(repeat);
   }, [audioRef, duration, progressBarRef, setTimeProgress]);
 
+
   useEffect(() => {
     if (isPlaying) {
-      audioRef.current.play(); // Play the audio
-      playAnimationRef.current = requestAnimationFrame(repeat); // Start updating the progress
+      audioRef.current.play(); 
+      playAnimationRef.current = requestAnimationFrame(repeat); 
     } else {
-      audioRef.current.pause(); // Pause the audio
+      audioRef.current.pause(); 
       if (playAnimationRef.current !== null) {
-        cancelAnimationFrame(playAnimationRef.current); // Stop the progress update if not null
+        cancelAnimationFrame(playAnimationRef.current); 
       }
     }
 
     return () => {
       if (playAnimationRef.current !== null) {
-        cancelAnimationFrame(playAnimationRef.current); // Clean up on component unmount
+        cancelAnimationFrame(playAnimationRef.current); 
       }
     };
   }, [audioRef, isPlaying, repeat]);
@@ -69,12 +72,11 @@ const Controls = ({
       audioRef.current.play();
     }
     setIsPlaying(!isPlaying);
+    
   };
 
   const shuffleIt = () => {
-    let randomNum = Math.floor(Math.random() * (tracks.length - 1));
-    setTrackIndex(randomNum);
-    setCurrentTrack(tracks[randomNum]);
+    setIsShuffle(!isShuffle);
   };
 
   const previousTrack = () => {
@@ -82,7 +84,7 @@ const Controls = ({
     if (trackIndex > 0) {
       prevIndex = trackIndex - 1;
     } else {
-      prevIndex = tracks.length - 1; // Loop back to the last track
+      prevIndex = tracks.length - 1;
     }
     setTrackIndex(prevIndex);
     const prevTrack = tracks[prevIndex];
@@ -93,7 +95,7 @@ const Controls = ({
       audioRef.current.src = prevTrack.filePath;
       audioRef.current.play();
     }
-  };
+  };  
 
   const nextTrack = () => {
     let nextIndex;
@@ -113,7 +115,9 @@ const Controls = ({
     }
   };
 
-  const repeatIt = () => {};
+  const repeatIt = () => {
+    setIsRepeat(!isRepeat);
+  };
 
   const [volume, setVolume] = useState(60);
   const [muteVolume, setMuteVolume] = useState(false);
@@ -137,6 +141,7 @@ const Controls = ({
         <button
           className={modal === true ? styles.butto : style.mobileButto}
           onClick={shuffleIt}
+          style={{ color: isShuffle ? "#ef4eff" : "#fff" }}
         >
           <IoShuffle />
         </button>
@@ -165,6 +170,7 @@ const Controls = ({
         <button
           className={modal === true ? styles.butto : style.mobileButto}
           onClick={repeatIt}
+          style={{ color: isRepeat ? "#ef4eff" : "#fff" }}
         >
           <IoRepeat />
         </button>

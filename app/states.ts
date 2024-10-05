@@ -19,3 +19,13 @@ export const modalState = atom({
     key: "modal",
     default: true,
 });
+
+// export const recordState = atom({
+//     key: "record",
+//     default: [],
+// });
+
+// export const currentRecordState = atom({
+//     key: "currentRecord",
+//     default: null,
+// });

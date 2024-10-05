@@ -1,167 +1,151 @@
-"use client"
+"use client";
 
-import React from 'react';
-import { Table } from 'antd';
-    import styles from './ReusubleTable.module.scss'
-import { HeartIcon } from '../HeartIcon/HeartIcon';
-import { ReusableIcon } from '../ReusableIcon/ReusableIcon';
+import React, { useEffect, useState } from "react";
+import { Table } from "antd";
+import styles from "./ReusubleTable.module.scss";
+import { HeartIcon } from "../HeartIcon/HeartIcon";
+import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
+import axios from "axios";
+import Loading from "../Loading/Loading";
+import Cookies from 'js-cookie';
 
 type Props = {
-    heartActive?: boolean;
-}
-
-export const ReusableTable = (props:Props) => {
-    const columns = [
-        {
-            title: '#',
-            key: 'key',
-            render: (record: any) => (
-                <div className={styles.key}>{record.key}</div>
-            ),
-        },
-        {
-            title: 'SongName',
-            key: 'key',
-            render: (record: any) => (
-                <div className={styles.infoWrapper}>
-                    <img src={record.src} alt="tableMusic" width={48} height={48} />
-                    <div className={styles.wrapper}>
-                        <div className={styles.songName}>
-                            {record.SongName}
-                        </div>
-                        <div className={styles.author}>
-                            {record.Author}
-                        </div>
-                    </div>
-                </div>
-            ),
-        },
-        {
-            title: 'Album',
-            key: 'key',
-            render: (record: any) => (
-                <div className={styles.albumName}>
-                    {record.Album}
-                </div>
-            ),
-        },
-        {
-            title: 'Time',
-            key: 'key',
-            render: (record: any) => (
-                <div className={styles.time}>
-                    {record.Time}
-                </div>
-            ),
-        },
-        {
-    
-            key: 'key',
-            render: (record: any) => (
-                <div className={styles.icon}>
-                   <HeartIcon active={props.heartActive}/>
-                   <ReusableIcon imgName={'whiteThreeDots'}/>
-                </div>
-            ),
-        },
-    ];
-
-    const data = [
-        {
-            key: '1',
-            SongName: 'Girls Are Fascinating',
-            Author: 'By Anetha',
-            Album: "Mothearth",
-            Time: '3:54',
-            src: '/images/music1.png',
-        },
-        {
-            key: '2',
-            SongName: 'Smash My Heart',
-            Author: 'By Robin Schulz',
-            Album: "Pink",
-            Time: '3:10',
-            src: './images/music2.png',
-        },
-        {
-            key: '3',
-            SongName: 'Blackbird',
-            Author: 'By Beyonce',
-            Album: "Cowboy Carter",
-            Time: '3:10',
-            src: './images/music3.png'
-        },
-        {
-            key: '4',
-            SongName: 'Human',
-            Author: 'By Lenny Kravitz',
-            Album: "Blue Electric Light",
-            Time: '3:54',
-            src: './images/music4.png'
-        },
-        {
-            key: '5',
-            SongName: 'Toes',
-            Author: 'By Glass Animals',
-            Album: "Zaba",
-            Time: '4:10',
-            src: './images/music5.png'
-        },
-        {
-            key: '6',
-            SongName: 'Picture Of You',
-            Author: 'By Anyma',
-            Album: "Genesys II    ",
-            Time: '3:54',
-            src: './images/music6.png'
-        }, {
-            key: '7',
-            SongName: 'End Of An Era',
-            Author: 'By Dua Lipa',
-            Album: "Radical Optimism",
-            Time: '5:32',
-            src: './images/music7.png'
-        },
-        {
-            key: '8',
-            SongName: 'Your Art',
-            Author: 'By Peggy Gou',
-            Album: "I Hear You",
-            Time: '3:54',
-            src: './images/music8.png'
-        },
-        {
-            key: '9',
-            SongName: 'Poker Face',
-            Author: 'By Lady Gaga',
-            Album: "The Fame Monster",
-            Time: '3:54',
-            src: './images/music9.png'
-        },
-        {
-            key: '10',
-            SongName: 'The man',
-            Author: 'By Taylor Swift',
-            Album: "Lover",
-            Time: '3:54',
-            src: './images/music10.png'
-        },
-        {
-            key: '11',
-            SongName: 'So Fresh, So  Clean',
-            Author: 'By Outkast',
-            Album: "Stankonia",
-            Time: "3:54",
-            src: './images/music11.png'
-        }
-
-
-    ];
-
-    return (
-        <div className={styles.wrapper} >
-            <Table columns={columns} dataSource={data} />
-        </div>
-    );
+  heartActive?: boolean;
+  pageName: string; 
+  id?: string; 
 };
 
+export const ReusableTable = (props: Props) => {
+  const [records, setRecords] = useState<any[]>([]); 
+  const [loading, setLoading] = useState(true); 
+  const token = Cookies.get("token"); 
+
+  
+  useEffect(() => {
+    axios
+      .get(`https://project-spotify-1.onrender.com/${props.pageName}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        setRecords(data);
+        setLoading(false);
+        console.log("General Data:", data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      });
+  }, [token, props.pageName]);
+
+  
+  useEffect(() => {
+    if (props.pageName === "albums" && props.id) {
+      axios
+        .get(`https://project-spotify-1.onrender.com/albums/${props.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          const albumData = response.data;
+          setRecords([albumData]); 
+          setLoading(false);
+          console.log("Album Data:", albumData);
+        })
+        .catch((error) => {
+          console.error("Error fetching album data:", error);
+          setLoading(false);
+        });
+    }
+  }, [token, props.pageName, props.id]);
+
+  if (loading) {
+    return <Loading width="" />;
+  }
+
+  const columns = [
+    {
+      title: "#",
+      key: "index",
+      render: (_: any, __: any, index: number) => (
+        <div className={styles.key}>{index + 1}</div>
+      ),
+    },
+    {
+      title: "Song Name",
+      key: "songName",
+      render: (record: any) => {
+        const randomTrack =
+          record.musics && record.musics.length
+            ? record.musics[Math.floor(Math.random() * record.musics.length)]
+            : null;
+
+        return (
+          <div className={styles.infoWrapper}>
+            <img
+              src={
+                record.coverImage || record.album?.coverImage || undefined
+              }
+              alt="Album Cover"
+              width={48}
+              height={48}
+            />
+            <div className={styles.wrapper}>
+              <div className={styles.songName}>
+                {randomTrack
+                  ? randomTrack.trackTitle
+                  : record.trackTitle || "Unknown Track"}
+              </div>
+              <div className={styles.author}>
+                {record.authorName}
+              </div>
+            </div>
+          </div>
+        );
+      },
+    },
+    {
+      title: "Album",
+      key: "album",
+      render: (record: any) => (
+        <div className={styles.albumName}>
+          {record.title || record.album?.title || "Unknown Album"}
+        </div>
+      ),
+    },
+    {
+      title: "Time",
+      key: "time",
+      render: (record: any) => {
+        const randomTrack =
+          record.musics && record.musics.length
+            ? record.musics[Math.floor(Math.random() * record.musics.length)]
+            : null;
+
+        return (
+          <div className={styles.time}>
+            {randomTrack ? randomTrack.duration : record.duration || "Unknown Duration"}
+          </div>
+        );
+      },
+    },
+    {
+      key: "actions",
+      render: () => (
+        <div className={styles.icon}>
+          <HeartIcon active={props.heartActive} />
+          <ReusableIcon imgName={"whiteThreeDots"} />
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <div className={styles.wrapper}>
+      <Table columns={columns} dataSource={records} rowKey="id" />
+    </div>
+  );
+};
