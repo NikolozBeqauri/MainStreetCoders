@@ -1,4 +1,4 @@
-
+"use client"
 import { AlbumCard } from "@/app/components/AlbumCard/AlbumCard";
 import { albumsData } from "@/app/components/AlbumCard/albumData/albumData";
 import { popularAlbums } from "@/app/components/AlbumCard/popularAlbums/popularAlbums";
@@ -9,21 +9,241 @@ import { musicCardsData } from "@/app/components/MusicCard/musicCardData/musicCa
 import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import styles from "./page.module.scss"
 import { Header } from "@/app/components/Header/Header";
+import { Key, useEffect, useState } from "react";
+import axios from "axios";
+import Cookies from 'js-cookie';
+import { useViewport } from "react-viewport-hooks";
 
 
 export default function Home() {
+  const [artists, setArtists] = useState<any>([]);
+  const [albums, setAlbums] = useState<any>([]);
+  const [hits, setHits] = useState<any>([]);
+  const [background, setBackground] = useState<any>([]);
+  const [topHits, setTopHits] = useState<any>([]);
+  const { vw } = useViewport();
+
+
+  const token = Cookies.get("token")
+  useEffect(() => {
+    axios.get("https://project-spotify-1.onrender.com/authors/topArtists", {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+      .then((r) => {
+        setArtists(r.data)
+      })
+  }, [])
+
+  useEffect(() => {
+    axios.get("https://project-spotify-1.onrender.com/albums/top-albums", {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+      .then((r) => {
+        setAlbums(r.data)
+      })
+  }, [])
 
   
+
+  
+  useEffect(() => {
+    axios.get("https://project-spotify-1.onrender.com/musics/topHits", {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+      .then((r) => {
+        setHits(r.data)
+        setBackground(r.data[0].trackImage)
+      })
+  }, [])
+  useEffect(() => {
+    axios.get("https://project-spotify-1.onrender.com/musics/topHits", {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Authorization": `Bearer ${token}`
+      }
+    })
+      .then((r) => {
+        setTopHits(r.data)        
+      })
+  }, [])
+
+  let fiveArtist = [];
+  let fiveAlbum = [];
+  let fiveHits = [];
+  if(vw >= 1040){
+    for (let i = 0; i < 6; i++) {
+      if (artists[i]) {
+          fiveArtist.push(artists[i]);
+          
+      }
+  }}
+  else if(vw >= 950 && vw < 1040){
+    for (let i = 0; i < 5; i++) {
+    
+      if (artists[i]) {
+          fiveArtist.push(artists[i]);
+          
+      }
+  }
+  }else if(vw >= 800 && vw < 950){
+    for (let i = 0; i < 4; i++) {
+    
+      if (artists[i]) {
+          fiveArtist.push(artists[i]);
+          
+      }
+  }
+  }else if(vw >= 700 && vw <= 799){
+    for (let i = 0; i < 4; i++) {
+    
+      if (artists[i]) {
+          fiveArtist.push(artists[i]);
+          
+      }
+  }
+  }
+  else if(vw >= 500 && vw < 699){
+    for (let i = 0; i < 3; i++) {
+    
+      if (artists[i]) {
+          fiveArtist.push(artists[i]);
+          
+      }
+  }
+  }else if(vw >= 300 && vw < 499){
+    for (let i = 0; i < 2; i++) {
+    
+      if (artists[i]) {
+          fiveArtist.push(artists[i]);
+          
+      }
+  }
+  }
+  if(vw >= 1040){
+    for (let i = 0; i < 6; i++) {
+      if (albums[i]) {
+        fiveAlbum.push(albums[i]);
+          
+      }
+  }}
+  else if(vw >= 950 && vw < 1040){
+    for (let i = 0; i < 5; i++) {
+    
+      if (albums[i]) {
+        fiveAlbum.push(albums[i]);
+          
+      }
+  }
+  }else if(vw >= 800 && vw < 950){
+    for (let i = 0; i < 4; i++) {
+    
+      if (albums[i]) {
+        fiveAlbum.push(albums[i]);
+          
+      }
+  }
+  }else if(vw >= 700 && vw <= 799){
+    for (let i = 0; i < 4; i++) {
+    
+      if (albums[i]) {
+        fiveAlbum.push(albums[i]);
+          
+      }
+  }
+  }
+  else if(vw >= 500 && vw < 699){
+    for (let i = 0; i < 3; i++) {
+    
+      if (albums[i]) {
+        fiveAlbum.push(albums[i]);
+          
+      }
+  }
+  }else if(vw >= 300 && vw < 499){
+    for (let i = 0; i < 2; i++) {
+    
+      if (albums[i]) {
+        fiveAlbum.push(albums[i]);
+          
+      }
+  }
+  }
+  if(vw >= 1040){
+    for (let i = 0; i < 6; i++) {
+      if (topHits[i]) {
+        fiveHits.push(topHits[i]);
+          
+      }
+  }}
+  else if(vw >= 950 && vw < 1040){
+    for (let i = 0; i < 5; i++) {
+    
+      if (topHits[i]) {
+        fiveHits.push(topHits[i]);
+          
+      }
+  }
+  }else if(vw >= 800 && vw < 950){
+    for (let i = 0; i < 4; i++) {
+    
+      if (topHits[i]) {
+        fiveHits.push(topHits[i]);
+          
+      }
+  }
+  }else if(vw >= 700 && vw <= 799){
+    for (let i = 0; i < 4; i++) {
+    
+      if (topHits[i]) {
+        fiveHits.push(topHits[i]);
+          
+      }
+  }
+  }
+  else if(vw >= 500 && vw < 699){
+    for (let i = 0; i < 3; i++) {
+    
+      if (topHits[i]) {
+        fiveHits.push(topHits[i]);
+          
+      }
+  }
+  }else if(vw >= 300 && vw < 499){
+    for (let i = 0; i < 2; i++) {
+    
+      if (topHits[i]) {
+        fiveHits.push(topHits[i]);
+          
+      }
+  }
+  }
+  
+console.log(hits)
   return (
     <main className={styles.wholeWrapper} >
       <section className={styles.container}>
         <section className={styles.headerWrapper}>
-          <BurgerMenu/>
+          <BurgerMenu />
           <Header />
         </section>
 
         <section className={styles.newsComponentWrapper}>
-          <NewsComponent title={"Top Hit Of the week"} count={"795,900"} image="newsimage"/>
+          {/* <NewsComponent title={hits[0].count == undefined ? "sa" : "sd"} count={"ss"} image="newsimage"/> */}
+          <NewsComponent
+            title={"Top Hit Of The Week"}
+            count={hits.length > 0 && hits[0].count !== undefined ? hits[0].count : "default count"}
+            image={background}
+          />
+
         </section>
 
         <section className={styles.generalCardWrapper}>
@@ -32,12 +252,12 @@ export default function Home() {
             <span>See all</span>
           </div>
           <div className={styles.generalCardItem}>
-            {albumsData.map((album, index) => (
+            {fiveHits.map((album: any, index: any) => (
               <AlbumCard
                 key={index}
-                author={album.author}
-                title={album.title}
-                img={album.img}
+                author={album.authorName}
+                title={album.trackTitle}
+                img={album.trackIamge}
               />
             ))}
           </div>
@@ -64,11 +284,18 @@ export default function Home() {
             <span>See all</span>
           </div>
           <div className={styles.generalCardItem}>
-            {popularArtists.map((album, index) => (
+            {/* {artists.map((playlist: any, index: any) => {
+               <AlbumCard
+               key={index}
+               author={playlist.album.authorFullName}
+               img={playlist.album.authorImage}
+             />
+            })} */}
+            {fiveArtist.map((album: any, index: any) => (
               <AlbumCard
                 key={index}
-                author={album.author}
-                img={album.img}
+                author={album.authorFullName}
+                img={album.authorImage}
               />
             ))}
           </div>
@@ -76,16 +303,16 @@ export default function Home() {
 
         <section className={styles.generalCardWrapper}>
           <div className={styles.secondaryTitleDiv}>
-            <h2>Top Hits</h2>
+            <h2>Popular Albums</h2>
             <span>See all</span>
           </div>
           <div className={styles.generalCardItem}>
-            {popularAlbums.map((album, index) => (
+            {fiveAlbum.map((album: any, index: any) => (
               <AlbumCard
                 key={index}
                 author={album.author}
                 title={album.title}
-                img={album.img}
+                img={album.coverImage}
               />
             ))}
           </div>
