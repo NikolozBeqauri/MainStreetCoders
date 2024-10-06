@@ -1,7 +1,7 @@
 "use client";
 
 import Styles from "./page.module.scss";
-import playListsData from "./playListsData/playListsData";
+
 import { SquareCard } from "@/app/components/SquareCard/SquareCard";
 import { Search } from "@/app/components/Search/Search";
 import ReusableButton from "@/app/components/ReusableButton/ReusableButton";
@@ -17,31 +17,33 @@ import Cookies from 'js-cookie';
 const PlayListPage = () => {
     const { vw } = useViewport();
     const [playlistContentActive, setPlaylistContentActive] = useState(true);
-    const [selectedPlaylist, setSelectedPlaylist] = useState<any>(null); 
-    const  [data, setData] = useState<any>([]);
+    const [selectedPlaylist, setSelectedPlaylist] = useState<any>(null);
+    const [data, setData] = useState<any>([]);
     const token = Cookies.get("token");
 
+
     useEffect(() => {
-        axios.get("https://project-spotify-1.onrender.com/playlist", {
-            headers:{
-                    "Content-Type": "multipart/form-data",
-                    "Authorization": `Bearer ${token}`,
+        axios.get(`https://project-spotify-1.onrender.com/playlist`, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                "Authorization": `Bearer ${token}`,
             }
         })
-        .then((r) => {
-            setData(r.data)
-        })
+            .then((r) => {
+                setData(r.data);
+            })
     }, [])
-    console.log(data)
+
+
 
     const handleCardClick = (playList: any) => {
         setSelectedPlaylist(playList);
         setPlaylistContentActive(false);
     };
-    
+
     return (
         <div className={Styles.container}>
-            {playlistContentActive  ? (
+            {playlistContentActive ? (
                 <div className={Styles.defaultPage}>
                     <div>
                         {vw < 1024 && vw > 600 ? (
@@ -85,7 +87,7 @@ const PlayListPage = () => {
                     <Header imgName={"rightArrow"} />
                     {selectedPlaylist && (
                         <NewsComponent
-                            title={selectedPlaylist.name} 
+                            title={selectedPlaylist.name}
                             image={selectedPlaylist.img}
                             count={"300,000"}
                         />

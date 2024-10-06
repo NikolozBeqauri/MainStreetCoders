@@ -19,14 +19,16 @@ const ArtistPage = () => {
     const [data, setData] = useState<Album | null>(null);
     const [dataBase, setDataBase] = useState<any>([]);
     const token = Cookies.get("token")
-    useEffect(() => {axios.get("https://project-spotify-1.onrender.com/authors/topArtists", {
+    useEffect(() => {axios.get("https://project-spotify-1.onrender.com/authors", {
         headers: {
             "Content-Type": "multipart/form-data",
             "Authorization": `Bearer ${token}`
         }})
     .then((r => {
+        
         setDataBase(r.data)
     }))}, [])
+    console.log(dataBase)
     
 
     return (
@@ -48,8 +50,8 @@ const ArtistPage = () => {
                         {dataBase.map((album: SetStateAction<Album | any>, index: Key | null | undefined) => (
                             <AlbumCard
                                 key={index}
-                                author={album.author}
-                                img={album.authorImage}
+                                author={album.fullName}
+                                img={album.image}
                                 onClick={() => setData(album)}
                             />
                         ))}
