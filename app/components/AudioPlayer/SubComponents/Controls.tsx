@@ -95,6 +95,13 @@ const Controls = ({
       audioRef.current.src = prevTrack.filePath;
       audioRef.current.play();
     }
+
+    if(isPlaying) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(true)
   };  
 
   const nextTrack = () => {
@@ -113,6 +120,13 @@ const Controls = ({
       audioRef.current.src = nextTrack.filePath;
       audioRef.current.play();
     }
+
+    if(isPlaying) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(true)
   };
 
   const repeatIt = () => {
