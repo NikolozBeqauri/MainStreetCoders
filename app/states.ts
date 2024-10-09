@@ -20,11 +20,11 @@ export const modalState = atom({
     default: true,
 });
 
-// export const recordState = atom({
-//     key: "record",
-//     default: [],
-// });
-
+export const globalClickerState = atom<number | null>({
+    key: "globalClicker",
+    default: null,
+  });
+  
 // export const currentRecordState = atom({
 //     key: "currentRecord",
 //     default: null,
