@@ -8,14 +8,15 @@ type Props = {
     trackTitle: string;
     authorName: string;
     duration: string;
-    filePath: string;
+    onClick?: () => void;
+    id?: number | null;
 }
 
 export const MusicCard = (props: Props) => {
 
 
     return (
-        <div className={styles.cardWrapper}>
+        <div className={styles.cardWrapper} onClick={props.onClick}>
             <div className={styles.cardinfo}>
                 <Image
                     className={styles.cardImg}
