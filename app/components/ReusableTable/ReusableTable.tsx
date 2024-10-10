@@ -13,7 +13,7 @@ import { globalClickerState } from "@/app/states";
 
 type Props = {
   heartActive?: boolean;
-  pageName: string; 
+  pageName?: string; 
   id?: string; 
 };
 

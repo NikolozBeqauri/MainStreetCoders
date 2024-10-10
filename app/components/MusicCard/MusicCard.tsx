@@ -4,10 +4,11 @@ import styles from "./MusicCard.module.scss"
 import Image from 'next/image';
 
 type Props = {
-    imgName: string;
-    title: string;
-    author: string;
-    timing: string;
+    trackImage: string;
+    trackTitle: string;
+    authorName: string;
+    duration: string;
+    filePath: string;
 }
 
 export const MusicCard = (props: Props) => {
@@ -18,19 +19,19 @@ export const MusicCard = (props: Props) => {
             <div className={styles.cardinfo}>
                 <Image
                     className={styles.cardImg}
-                    src={`/images/${props.imgName}.png`}
+                    src={`/images/${props.trackImage}.png`}
                     alt="musician image"
                     width={72}
                     height={72}
                 />
                 <div className={styles.cardTitles}>
-                    <h3>{props.title}</h3>
-                    <span>{props.author}</span>
+                    <h3>{props.trackTitle}</h3>
+                    <span>{props.authorName}</span>
                 </div>
             </div>
 
             <div className={styles.cardAditionalInfo}>
-                <span className={styles.timing}>{props.timing}</span>
+                <span className={styles.timing}>{props.duration}</span>
                 <div>
                     <HeartIcon/>
                     <ReusableIcon imgName={'threeDots'}/>
