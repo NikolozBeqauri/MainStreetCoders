@@ -1,34 +1,32 @@
 "use client"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ReusableButton from "../ReusableButton/ReusableButton";
 import styles from "./NewsComponent.module.scss";
-import axios from "axios";
-import Cookies from 'js-cookie';
-
 
 type Props = {
-    title: string,
-    count?: string;
+    title: string;
+    count?: number | string;
     image?: string;
+    musicId?: number;
 }
 
 export const NewsComponent = (props: Props) => {
+    const [musicId, setMusicId] = useState<number | null>(null);  
+    let backgroundImage = `url(/images/${props.image}.png)`; 
 
-    
-    let backgroundImage = `url(${props.image})`;
-
+    const handleClick = () => {
+        setMusicId(props.musicId ?? null); 
+        console.log(musicId);
+    }
     return( 
-        <div className={styles.container}  style={{ 
-            backgroundImage
-         }}>
+        <div className={styles.container} style={{ backgroundImage }}>
             <div className={styles.componentHeader}>
                 <h1 className={styles.h1Style}>{props.title}</h1>
-                <p className={styles.playCount}>{props.count} Plays</p>
-                <div className={styles.buttonElement}>
-                    <ReusableButton title={"Listen Now"} icon={"playIcon"}/>
+                <p className={styles.playCount}>{props.count ?? '0'} Plays</p>  
+                <div className={styles.buttonElement} onClick={handleClick}>
+                    <ReusableButton title={"Listen Now"} icon={"playIcon"} />
                 </div>
             </div>
-            
         </div>
-    )
+    );
 }
