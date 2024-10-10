@@ -44,45 +44,45 @@ export const ReusableTable = (props: Props) => {
   }, [token, props.pageName]);
 
   
-  useEffect(() => {
-    if (props.pageName === "albums" && props.id) {
-      axios
-        .get(`https://project-spotify-1.onrender.com/albums/${props.id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          const albumData = response.data;
-          setRecords([albumData]); 
-          setLoading(false);
-          // console.log("Album Data:", albumData);
-        })
-        .catch((error) => {
-          console.error("Error fetching album data:", error);
-          setLoading(false);
-        });
-    }
-  }, [token, props.pageName, props.id]);
+  // useEffect(() => {
+  //   if (props.pageName === "albums" && props.id) {
+  //     axios
+  //       .get(`https://project-spotify-1.onrender.com/albums/${props.id}`, {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       })
+  //       .then((response) => {
+  //         const albumData = response.data;
+  //         setRecords([albumData]); 
+  //         setLoading(false);
+  //         // console.log("Album Data:", albumData);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching album data:", error);
+  //         setLoading(false);
+  //       });
+  //   }
+  // }, [token, props.pageName, props.id]);
 
-  useEffect(() => {
-    if (globalClicker) {
-      axios
-      .get(`https://project-spotify-1.onrender.com/musics/${globalClicker}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        const idDataBase = response.data;
-        setGlobalClickerState(idDataBase.id);
-        // console.log(idDataBase.id, ' data here e e e e e e e e e e e e e');
-        })
-        .catch((error) => {
-          console.error("Error fetching album data:", error);
-        });
-    }
-  }, [globalClicker, setGlobalClickerState, token]);
+  // useEffect(() => {
+  //   if (globalClicker) {
+  //     axios
+  //     .get(`https://project-spotify-1.onrender.com/musics/${globalClicker}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       const idDataBase = response.data;
+  //       setGlobalClickerState(idDataBase.id);
+  //       // console.log(idDataBase.id, ' data here e e e e e e e e e e e e e');
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching album data:", error);
+  //       });
+  //   }
+  // }, [globalClicker, setGlobalClickerState, token]);
 
   if (loading) {
     return <Loading width="" />;

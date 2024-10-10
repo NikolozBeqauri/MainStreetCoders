@@ -11,6 +11,9 @@ import { Header } from "@/app/components/Header/Header";
 import { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import { globalClickerState } from "@/app/states";
+import Loading from "@/app/components/Loading/Loading";
 
 interface MusicItem {
   id: number;
@@ -19,7 +22,6 @@ interface MusicItem {
   authorId: number;
   trackImage: string;
   duration: string;
-  filePath: string;
 }
 
 interface topHitOfWeek {
@@ -31,11 +33,15 @@ export default function Home() {
   const token = Cookies.get("token");
   const [topWeekMusics, setTopWeekMusics] = useState<MusicItem[]>([])
   const [topHits, setTopHits] = useState<MusicItem[]>([])
+  const [topWeekMusicsId, setTopWeekMusicsId] = useState<number | null>(null);
+  const [topHitsId, setTopHitsId] = useState<number | null>(null);
+
+  const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
   const [topHitOfWeek, setTopHitOfWeek] = useState<topHitOfWeek | undefined>(undefined)
   useEffect(() => {
     axios.get(`https://project-spotify-1.onrender.com/musics/topweek`, {
       headers: {
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       }
     })
       .then((res) => {
@@ -43,34 +49,44 @@ export default function Home() {
       })
       .catch((err) => {
         console.log(err);
-      })
+      });
 
     axios.get(`https://project-spotify-1.onrender.com/musics/tophits`, {
       headers: {
-        "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       }
     })
       .then((res) => {
         setTopHits(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-
-      axios.get(`https://project-spotify-1.onrender.com/musics/tophits`, {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        }
-      })
-      .then((res) => {
-        if (res.data.length > 0) {
+      if (res.data.length > 0) {
           setTopHitOfWeek(res.data[0]);
         }
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [token])  
+  }, [token]);
+
+  const handleRowClickTopHits = async (trackId: number) => {
+    try {
+      const response = await axios.get(`https://project-spotify-1.onrender.com/musics/${trackId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+
+      const selectedTrack = response.data;
+      setGlobalClickerState(selectedTrack.id);
+
+      setTopHitsId(selectedTrack.id);
+
+      console.log(selectedTrack, 'Selected Track for Playing');
+    } catch (error) {
+      console.error("Error fetching and playing the track:", error);
+    }
+  };
+    
+      })
 
   return (
     <main className={styles.wholeWrapper} >
@@ -93,10 +109,11 @@ export default function Home() {
             {topHits.slice(0, 4).map((album, index) => (
               <AlbumCard
                 key={index}
+                id={globalClicker}
                 author={album.authorName}
                 title={album.trackTitle}
                 img={album.trackImage}
-                filePath={album.filePath}
+                onClick={() => handleRowClickTopHits(album.id)}
               />
             ))}
 
@@ -116,7 +133,7 @@ export default function Home() {
                 trackTitle={musicCard.trackTitle}
                 authorName={musicCard.authorName}
                 duration={musicCard.duration}
-                filePath={musicCard.filePath}
+                onClick={() => handleRowClickTopHits(musicCard.id)}
               />
             ))}
           </div>
@@ -132,9 +149,9 @@ export default function Home() {
             {popularArtists.map((album, index) => (
               <AlbumCard
                 key={index}
+                id={globalClicker}
                 author={album.author}
                 img={album.img}
-                filePath={""}
               />
             ))}
           </div>
@@ -152,7 +169,6 @@ export default function Home() {
                 author={album.author}
                 title={album.title}
                 img={album.img}
-                filePath={""}
               />
             ))}
           </div>
