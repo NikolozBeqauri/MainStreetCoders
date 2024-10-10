@@ -8,6 +8,7 @@ type Props = {
     author: string;
     img: string;
     onClick?: () => void;
+    filePath:string;
 }
 
 export const AlbumCard = (props: Props) => {

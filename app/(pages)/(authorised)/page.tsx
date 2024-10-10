@@ -26,7 +26,7 @@ interface MusicItem {
 export default function Home() {
   const token = Cookies.get("token");
   const [topWeekMusics, setTopWeekMusics] = useState<MusicItem[]>([])
-  console.log(topWeekMusics);
+  const [topHits, setTopHits] = useState<MusicItem[]>([])
 
   useEffect(() => {
     axios.get(`https://project-spotify-1.onrender.com/musics/topweek`, {
@@ -40,10 +40,22 @@ export default function Home() {
       .catch((err) => {
         console.log(err);
       })
+
+    axios.get(`https://project-spotify-1.onrender.com/musics/tophits`, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      }
+    })
+      .then((res) => {
+        setTopHits(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }, [token])
 
 
-  
+
 
   return (
     <main className={styles.wholeWrapper} >
@@ -63,14 +75,16 @@ export default function Home() {
             <span>See all</span>
           </div>
           <div className={styles.generalCardItem}>
-            {albumsData.map((album, index) => (
+            {topHits.slice(0, 4).map((album, index) => (
               <AlbumCard
                 key={index}
-                author={album.author}
-                title={album.title}
-                img={album.img}
+                author={album.authorName}
+                title={album.trackTitle}
+                img={album.trackImage}
+                filePath={album.filePath}
               />
             ))}
+
           </div>
         </section>
 
@@ -89,7 +103,8 @@ export default function Home() {
                 duration={musicCard.duration}
                 filePath={musicCard.filePath}
               />
-            ))}          </div>
+            ))}
+          </div>
         </section>
 
 
@@ -104,6 +119,7 @@ export default function Home() {
                 key={index}
                 author={album.author}
                 img={album.img}
+                filePath={""}
               />
             ))}
           </div>
@@ -121,6 +137,7 @@ export default function Home() {
                 author={album.author}
                 title={album.title}
                 img={album.img}
+                filePath={""}
               />
             ))}
           </div>
