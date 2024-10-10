@@ -1,7 +1,6 @@
 'use client'
 
 import { AlbumCard } from "@/app/components/AlbumCard/AlbumCard";
-import { albumsData } from "@/app/components/AlbumCard/albumData/albumData";
 import { popularAlbums } from "@/app/components/AlbumCard/popularAlbums/popularAlbums";
 import { popularArtists } from "@/app/components/AlbumCard/popularArtistsData/popularArtistsData";
 import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
@@ -25,17 +24,20 @@ interface MusicItem {
   duration: string;
 }
 
+interface topHitOfWeek {
+  id: number;
+  count: number;
+}
+
 export default function Home() {
   const token = Cookies.get("token");
   const [topWeekMusics, setTopWeekMusics] = useState<MusicItem[]>([])
   const [topHits, setTopHits] = useState<MusicItem[]>([])
-
   const [topWeekMusicsId, setTopWeekMusicsId] = useState<number | null>(null);
   const [topHitsId, setTopHitsId] = useState<number | null>(null);
 
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
-
-
+  const [topHitOfWeek, setTopHitOfWeek] = useState<topHitOfWeek | undefined>(undefined)
   useEffect(() => {
     axios.get(`https://project-spotify-1.onrender.com/musics/topweek`, {
       headers: {
@@ -56,6 +58,9 @@ export default function Home() {
     })
       .then((res) => {
         setTopHits(res.data);
+      if (res.data.length > 0) {
+          setTopHitOfWeek(res.data[0]);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -81,6 +86,7 @@ export default function Home() {
     }
   };
     
+      })
 
   return (
     <main className={styles.wholeWrapper} >
@@ -91,7 +97,7 @@ export default function Home() {
         </section>
 
         <section className={styles.newsComponentWrapper}>
-          <NewsComponent title={"Top Hit Of the week"} count={"795,900"} image="newsimage" />
+          <NewsComponent  musicId={topHitOfWeek?.id} title={"Top Hit Of the week"} count={topHitOfWeek?.count ?? '795,900'} image="newsimage" />
         </section>
 
         <section className={styles.generalCardWrapper}>
