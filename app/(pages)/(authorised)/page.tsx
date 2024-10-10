@@ -85,8 +85,6 @@ export default function Home() {
       console.error("Error fetching and playing the track:", error);
     }
   };
-    
-      })
 
   return (
     <main className={styles.wholeWrapper} >
