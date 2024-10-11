@@ -38,6 +38,7 @@ export default function Home() {
 
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
   const [topHitOfWeek, setTopHitOfWeek] = useState<topHitOfWeek | undefined>(undefined)
+  
   useEffect(() => {
     axios.get(`https://project-spotify-1.onrender.com/musics/topweek`, {
       headers: {

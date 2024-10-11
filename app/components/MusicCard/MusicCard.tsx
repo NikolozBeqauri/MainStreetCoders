@@ -13,14 +13,13 @@ type Props = {
 }
 
 export const MusicCard = (props: Props) => {
-
-
+    
     return (
         <div className={styles.cardWrapper} onClick={props.onClick}>
             <div className={styles.cardinfo}>
                 <Image
                     className={styles.cardImg}
-                    src={`/images/${props.trackImage}.png`}
+                    src={`${props.trackImage}`}
                     alt="musician image"
                     width={72}
                     height={72}

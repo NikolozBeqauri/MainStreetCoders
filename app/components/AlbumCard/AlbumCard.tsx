@@ -14,15 +14,14 @@ type Props = {
 };
 
 export const AlbumCard = (props: Props) => {
-  const [globalClicker, setGlobalClickerState] =
-    useRecoilState(globalClickerState);
+  const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
 
   const stylesClass = [styles.cardIconsBackground];
   if (!props.title) stylesClass.push(styles.cardIconsCircleBackground);
 
   const cardImageStyle = [styles.defaultCardStyles];
   if (!props.title) cardImageStyle.push(styles.cardImage);
-
+ 
 
   return (
     <div className={styles.cardWrapper} onClick={props.onClick}>
