@@ -32,7 +32,10 @@ export const ReusableTable = (props: Props) => {
         const data = response.data;
         setRecords(data);
         setLoading(false);
+<<<<<<< Updated upstream
         console.log("General Data:", data);
+=======
+>>>>>>> Stashed changes
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
