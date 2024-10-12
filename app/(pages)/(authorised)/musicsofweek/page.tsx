@@ -12,10 +12,10 @@ const TopCharactersPage = () => {
                 <BurgerMenu/>
                 <Header imgName='rightArrow'/>
             </div>
-            <NewsComponent title='Top Charts  Of the week' count={'999'} image='chartBackground' />
+            <NewsComponent title='Top Musics  Of the week' onlyTitle image='chartBackground' />
             <div className={styles.contentOfSongs}>
                 <Search />
-                <ReusableTable pageName="musics/topHits"/>
+                <ReusableTable pageName="musics/topweeks"/>
             </div>
         </div>
     )

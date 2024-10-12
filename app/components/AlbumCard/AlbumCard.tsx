@@ -1,9 +1,22 @@
+<<<<<<< HEAD
 import Image from "next/image";
+=======
+<<<<<<< Updated upstream
+import Image from 'next/image';
+import styles from './AlbumCard.module.scss'
+import { HeartIcon } from '../HeartIcon/HeartIcon';
+import { ReusableIcon } from '../ReusableIcon/ReusableIcon';
+=======
+>>>>>>> fix/home-page
 import styles from "./AlbumCard.module.scss";
 import { HeartIcon } from "../HeartIcon/HeartIcon";
 import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
 import { useRecoilState } from "recoil";
 import { globalClickerState } from "@/app/states";
+<<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
+>>>>>>> fix/home-page
 
 type Props = {
   title?: string;
@@ -14,15 +27,14 @@ type Props = {
 };
 
 export const AlbumCard = (props: Props) => {
-  const [globalClicker, setGlobalClickerState] =
-    useRecoilState(globalClickerState);
+  const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
 
   const stylesClass = [styles.cardIconsBackground];
   if (!props.title) stylesClass.push(styles.cardIconsCircleBackground);
 
   const cardImageStyle = [styles.defaultCardStyles];
   if (!props.title) cardImageStyle.push(styles.cardImage);
-
+ 
 
   return (
     <div className={styles.cardWrapper} onClick={props.onClick}>
