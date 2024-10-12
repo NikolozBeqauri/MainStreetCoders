@@ -1,15 +1,7 @@
-<<<<<<< Updated upstream
 import Image from 'next/image';
 import styles from './AlbumCard.module.scss'
 import { HeartIcon } from '../HeartIcon/HeartIcon';
 import { ReusableIcon } from '../ReusableIcon/ReusableIcon';
-=======
-import styles from "./AlbumCard.module.scss";
-import { HeartIcon } from "../HeartIcon/HeartIcon";
-import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
-import { useRecoilState } from "recoil";
-import { globalClickerState } from "@/app/states";
->>>>>>> Stashed changes
 
 type Props = {
     title?: string;
