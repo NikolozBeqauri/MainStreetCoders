@@ -18,7 +18,7 @@
 
 .titleWrapper h2 {
     color: $defaultWhite;
-    font-family: "Plus Jakarta Sans";
+    font-family: var(--font-jakarta-sans);
     font-size: 16px;
     font-style: normal;
     font-weight: 600;
@@ -43,7 +43,7 @@
 .form input[type="text"]::placeholder,
 .form input[type="text"] {
     color: $defaultWhite;
-    font-family: "Plus Jakarta Sans";
+    font-family: var(--font-jakarta-sans);
     font-size: 16px;
     font-style: normal;
     font-weight: 400;

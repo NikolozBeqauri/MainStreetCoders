@@ -16,12 +16,14 @@ const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, nex
         progressBarRef.current.max = seconds;
     }
 
+    
+
     const [modal, setModalState] = useRecoilState(modalState);
 
     return (
         <div>
             <audio  
-                src={currentTrack.src}
+                src={currentTrack.filePath}
                 ref={audioRef} 
                 onLoadedMetadata={onLoadedMetadata}
                 onEnded={nextTrack}
@@ -30,7 +32,7 @@ const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, nex
                 <div className={modal === true ? styles.audioImage : style.mobileAudioImage}>
                     {
                         currentTrack.thumbnail ? 
-                        (<img src={currentTrack.thumbnail} alt="Avatar" />) : 
+                        (<img src={currentTrack.thumbnail || '/placeholder-image.jpg'} alt="Track Thumbnail" />) : 
                         (<div className={modal === true ? styles.iconWrapper : style.mobileIconWrapper}>
                             <span className={styles.audioIcon}>
                               <BsMusicNoteBeamed />
@@ -41,8 +43,8 @@ const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, nex
                 <div className={modal === true ? styles.audioTitle : style.mobileAudioTitle}>
                     <HeartIcon height={26} width={26} padding={0}/>
                     <div>
-                        <p className={styles.title}>{currentTrack.title}</p>
-                        <p className={styles.author}>{currentTrack.author}</p>
+                        <p className={styles.title}>{currentTrack.trackTitle || 'Unknown Title'}</p>
+                        <p className={styles.author}>{currentTrack.authorName || 'Unknown Artist'}</p>
                     </div>
                 </div>
             </div>

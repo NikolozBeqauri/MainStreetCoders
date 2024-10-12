@@ -5,6 +5,7 @@ import styles from './page.module.scss'
 import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
 import { ReusableTable } from "@/app/components/ReusableTable/ReusableTable";
 const TopCharactersPage = () => {
+    
     return (
         <div className={styles.content}>
             <div className={styles.headerMover}>
@@ -14,7 +15,7 @@ const TopCharactersPage = () => {
             <NewsComponent title='Top Charts  Of the week' count={'999'} image='chartBackground' />
             <div className={styles.contentOfSongs}>
                 <Search />
-                <ReusableTable />
+                <ReusableTable pageName="musics/topHits"/>
             </div>
         </div>
     )

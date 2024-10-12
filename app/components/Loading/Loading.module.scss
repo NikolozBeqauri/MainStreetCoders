@@ -1,0 +1,141 @@
+@import "/app/colors.scss";
+
+.beforeSection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 19vh;
+    background-color: $dynamicBlack;
+}
+
+.beforeLoader {
+    position: relative;
+    cursor: default;
+    -webkit-box-reflect: below 20px linear-gradient(transparent, $loadingBlack);
+}
+
+.beforeLoader span {
+    position: relative;
+    display: inline-flex;
+    font-size: 30px;
+    color: translate;
+    -webkit-text-stroke: 1px $loading;
+    text-transform: uppercase;
+    font-weight: 800;
+    animation: animateLoading 2s ease-in-out infinite;
+    animation-delay: calc(0.15s * var(--i));
+}
+
+@keyframes animateLoading {
+    0% {
+        transform: translateY(0px);
+        color: transparent;
+        text-shadow: none;
+    }
+    20% {
+        transform: translateY(-40px);
+        color: $defaultWhite;
+        text-shadow: 0 0 5px $defaultWhite,
+        0 0 25px $defaultWhite,
+        0 0 50px $defaultWhite;
+    } 
+    40%,100% {
+        transform: translateY(0px);
+        color: transparent;
+        text-shadow: none;
+
+    }
+}
+
+
+
+.section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 19vh;
+    animation: animateBg 8s linear infinite;
+    overflow: hidden;
+}
+
+@keyframes animateBg {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+
+    0% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+.section .loader {
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
+
+.section .loader span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(calc(18deg * var(--i)));
+}
+
+.section .loader span::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: $defaultWhite;
+    box-shadow: 0 0 10px $defaultWhite,
+                0 0 20px $defaultWhite,
+                0 0 40px $defaultWhite,
+                0 0 60px $defaultWhite,
+                0 0 80px $defaultWhite,
+                0 0 100px $defaultWhite;
+    animation: animate 1s linear infinite;
+    animation-delay: calc(0.1s * var(--i));
+}
+
+@keyframes animate {
+    0% {
+        transform: scale(1);
+    }
+
+    80%, 100% {
+        transform: scale(0);
+    }
+}
+
+
+@media (max-width: 1024px) {
+    .beforeLoader span {
+        font-size: 25px;
+    }
+
+    @keyframes animateLoading {
+        0% {
+            transform: translateY(0px);
+            color: transparent;
+            text-shadow: none;
+        }
+        20% {
+            transform: translateY(-30px);
+            color: $defaultWhite;
+            text-shadow: 0 0 5px $defaultWhite,
+            0 0 25px $defaultWhite,
+            0 0 50px $defaultWhite;
+        } 
+        40%,100% {
+            transform: translateY(0px);
+            color: transparent;
+            text-shadow: none;
+    
+        }
+    }
+}

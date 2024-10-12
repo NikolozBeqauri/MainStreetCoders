@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 const plusJakartaPlus = Plus_Jakarta_Sans({
-  weight: ["500", "600", "800"],
+  weight: ["500", "600", "800", "200"],
   style: "normal",  
   variable: "--font-jakarta-sans",
   subsets: ["latin"]
@@ -22,6 +22,7 @@ const manrope = Manrope({
   variable: "--Manrope",
   subsets: ["latin"]
 });
+
 
 
 export default function RootLayout({
