@@ -1,89 +1,85 @@
 @import "../../colors.scss";
 
+/* || cotainer layout */
+
 .container {
-  height: 393px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.onlyTitle {
-  justify-content: center;
-}
-
-.onlyTitle .componentHeader {
-  padding: 0 32px;
-  justify-content: center;
+    height: 393px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-size: cover;       
+    background-position: center;  
+    background-repeat: no-repeat;
 }
 
 .componentHeader {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 32px;
-  gap: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 32px;
+    gap: 16px;
 }
 
 .buttonElement {
-  margin-top: 16px;
+    margin-top: 16px;
 }
 
+
+/* || font styles */
+
 .h1Style {
-  color: $defaultWhite;
-  font-family: var(--font-jakarta-sans);
-  font-size: 64px;
-  font-style: normal;
-  font-weight: 800;
-  line-height: 64px;
+    color: $defaultWhite;
+    font-family: var(--font-jakarta-sans);
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 64px;
 }
 
 .playCount {
-  color: $glacierGrey;
-  font-family: var(--font-jakarta-sans);
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 24px;
+    color: $glacierGrey;
+    font-family: var(--font-jakarta-sans);
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
 }
 
 @media (max-width: 755px) {
-  .componentHeader {
-    padding: 24px;
-  }
+    .componentHeader {
+        padding: 24px;
+    }
+    .h1Style {
+        font-size: 48px;
+        font-style: normal;
+        font-weight: 800;
+        line-height: 48px;
+    }
 
-  .h1Style {
-    font-size: 48px;
-    font-weight: 800;
-    line-height: 48px;
-  }
-
-  .playCount {
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 20px;
-  }
+    .playCount {
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px
+    }
 }
 
 @media (max-width: 500px) {
-  .componentHeader {
-    padding: 16px;
-    gap: 4px;
-  }
+    .componentHeader {
+        padding: 16px;
+        gap: 4px;
+    }
+    .h1Style {
+        font-size: 24px;
+    }
 
-  .h1Style {
-    font-size: 24px;
-  }
-
-  .playCount {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 14px;
-  }
-
-  .buttonElement {
-    margin-top: 12px;
-  }
+    .playCount {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 14px;
+    }
+    .buttonElement {
+        margin-top: 12px;
+    }
 }
