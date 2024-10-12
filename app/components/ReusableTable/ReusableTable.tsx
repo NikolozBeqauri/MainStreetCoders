@@ -7,23 +7,22 @@ import { HeartIcon } from "../HeartIcon/HeartIcon";
 import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
 import axios from "axios";
 import Loading from "../Loading/Loading";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import { useRecoilState } from "recoil";
 import { globalClickerState } from "@/app/states";
 
 type Props = {
   heartActive?: boolean;
-  pageName?: string; 
-  id?: string; 
+  pageName?: string;
+  setAudioPlayerData?: (trackData: any) => void;
 };
 
 export const ReusableTable = (props: Props) => {
-  const [records, setRecords] = useState<any[]>([]); 
-  const [loading, setLoading] = useState(true); 
-  const token = Cookies.get("token"); 
+  const [records, setRecords] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const token = Cookies.get("token");
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
 
-  
   useEffect(() => {
     axios
       .get(`https://project-spotify-1.onrender.com/${props.pageName}`, {
@@ -35,68 +34,43 @@ export const ReusableTable = (props: Props) => {
         const data = response.data;
         setRecords(data);
         setLoading(false);
-<<<<<<< HEAD
-        // console.log("General Data:", data);
-=======
-<<<<<<< Updated upstream
-        console.log("General Data:", data);
-=======
->>>>>>> Stashed changes
->>>>>>> fix/home-page
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
         setLoading(false);
       });
   }, [token, props.pageName]);
-
   
-  // useEffect(() => {
-  //   if (props.pageName === "albums" && props.id) {
-  //     axios
-  //       .get(`https://project-spotify-1.onrender.com/albums/${props.id}`, {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       })
-  //       .then((response) => {
-  //         const albumData = response.data;
-  //         setRecords([albumData]); 
-  //         setLoading(false);
-  //         // console.log("Album Data:", albumData);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching album data:", error);
-  //         setLoading(false);
-  //       });
-  //   }
-  // }, [token, props.pageName, props.id]);
-
-  // useEffect(() => {
-  //   if (globalClicker) {
-  //     axios
-  //     .get(`https://project-spotify-1.onrender.com/musics/${globalClicker}`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       const idDataBase = response.data;
-  //       setGlobalClickerState(idDataBase.id);
-  //       // console.log(idDataBase.id, ' data here e e e e e e e e e e e e e');
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching album data:", error);
-  //       });
-  //   }
-  // }, [globalClicker, setGlobalClickerState, token]);
-
   if (loading) {
     return <Loading width="" />;
   }
 
-  const handleRowClick = (record: { id: number | ((currVal: number | null) => number | null) | null; }) => {
-    setGlobalClickerState(record.id);
+  const handleRowClick = async (record: { id: number }) => {
+    try {
+      const response = await axios.get(`https://project-spotify-1.onrender.com/albums/${record.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const albumData = response.data;
+      if (albumData && albumData.musics && albumData.musics.length > 0) {
+        const firstTrack = albumData.musics[0];
+        setGlobalClickerState(firstTrack.id);
+
+        if (props.setAudioPlayerData) {
+          props.setAudioPlayerData({
+            authorName: firstTrack.authorName,
+            duration: firstTrack.duration,
+            filePath: firstTrack.filePath,
+            trackImage: firstTrack.trackImage,
+            trackTitle: firstTrack.trackTitle,
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching album details:", error);
+    }
   };
 
   const columns = [
@@ -108,25 +82,33 @@ export const ReusableTable = (props: Props) => {
       ),
     },
     {
+      title: "Album Cover",
+      key: "albumCover",
+      render: (record: any) => {
+        const albumCover = record.coverImage || record.album?.coverImage;
+        return (
+          <img
+            src={albumCover || "/default-album-cover.png"}
+            alt="Album Cover"
+            width={48}
+            height={48}
+          />
+        );
+      },
+    },
+    {
       title: "Song Name",
       key: "songName",
       render: (record: any) => {
+        const firstMusic = record.musics && record.musics.length > 0 ? record.musics[0] : null;
         return (
           <div className={styles.infoWrapper}>
-            <img
-              src={
-                record.coverImage || record.album?.coverImage || undefined
-              }
-              alt="Album Cover"
-              width={48}
-              height={48}
-            />
             <div className={styles.wrapper}>
               <div className={styles.songName}>
-                {record.trackTitle || "Unknown Track"}
+                {firstMusic ? firstMusic.trackTitle : "Unknown Track"}
               </div>
               <div className={styles.author}>
-                {record.authorName}
+                {firstMusic ? firstMusic.authorName : "Unknown Author"}
               </div>
             </div>
           </div>
@@ -143,17 +125,13 @@ export const ReusableTable = (props: Props) => {
       ),
     },
     {
-      title: "Time",
-      key: "time",
+      title: "Duration",
+      key: "duration",
       render: (record: any) => {
-        const randomTrack =
-          record.musics && record.musics.length
-            ? record.musics[Math.floor(Math.random() * record.musics.length)]
-            : null;
-
+        const firstMusic = record.musics && record.musics.length > 0 ? record.musics[0] : null;
         return (
           <div className={styles.time}>
-            {randomTrack ? randomTrack.duration : record.duration || "Unknown Duration"}
+            {firstMusic ? firstMusic.duration : "Unknown Duration"}
           </div>
         );
       },
@@ -171,14 +149,15 @@ export const ReusableTable = (props: Props) => {
 
   return (
     <div className={styles.wrapper}>
-      <Table columns={columns} 
-      dataSource={records} 
-      rowKey="id"
-      onRow={(record) => {
-        return {
-          onClick: () => handleRowClick(record),
-        };
-      }}
+      <Table
+        columns={columns}
+        dataSource={records}
+        rowKey="id"
+        onRow={(record) => {
+          return {
+            onClick: () => handleRowClick(record),
+          };
+        }}
       />
     </div>
   );
