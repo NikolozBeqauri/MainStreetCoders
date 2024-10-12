@@ -1,8 +1,8 @@
-// import axios from "axios";
-// import { log } from "console";
-// import { useState } from "react";
+import axios from "axios";
+import { log } from "console";
+import { useState } from "react";
 
-// const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJ1c2VyRW1haWwiOiJ0b3JuaWtlc3VhcmlzaHZpbGlAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3Mjc1MzIxOTEsImV4cCI6MTcyODEzNjk5MX0.LvQ68AHiDAoDbNMIH0iUd04orMM5a8gfPqWgEi5zbvA';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEwLCJ1c2VyRW1haWwiOiJ0b3JuaWtlc3VhcmlzaHZpbGlAZ21haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3Mjc1MzIxOTEsImV4cCI6MTcyODEzNjk5MX0.LvQ68AHiDAoDbNMIH0iUd04orMM5a8gfPqWgEi5zbvA';
 
 // export const tracks = [
 //     {
@@ -43,26 +43,26 @@
 //     }
 // ]
 
-// axios.get("https://project-spotify-1.onrender.com/musics", {
-//   headers: {
-//     "Content-Type": "multipart/form-data",
-//     "Authorization": `Bearer ${token}`,
-//   },
-// })
-//   .then((response) => {
-//     const data = response.data;
+axios.get("https://project-spotify-1.onrender.com/musics", {
+  headers: {
+    "Content-Type": "multipart/form-data",
+    "Authorization": `Bearer ${token}`,
+  },
+})
+  .then((response) => {
+    const data = response.data;
 
-//     const tracks = Object.keys(data).map((key) => {
-//       const track = data[key];
-//       return {
-//         title: track.title,
-//         src: track.filePath,
-//         author: track.authorName,
-//       };
-//     });
-//   console.log(tracks, "zdddd");
+    const tracks = Object.keys(data).map((key) => {
+      const track = data[key];
+      return {
+        title: track.title,
+        src: track.filePath,
+        author: track.authorName,
+      };
+    });
+  console.log(tracks, "zdddd");
 
-//   })
-//   .catch((err) => {
-//     console.log("Error:", err.response ? err.response.data : err.message);
-//   });
+  })
+  .catch((err) => {
+    console.log("Error:", err.response ? err.response.data : err.message);
+  });
