@@ -30,12 +30,38 @@
   font-family: var(--font-jakarta-sans);
 }
 
+.titleWrapper {
+  width: 140px;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+}
+
 .title {
-  color: $defaultWhite;
+  color: #fff;
   font-family: var(--font-jakarta-sans);
   font-weight: 600;
   font-size: 16px;
   line-height: 20.16px;
+  display: inline-block;
+  transition: transform 0.2s ease-in-out;
+}
+
+.scrolling {
+  animation: scrollTitle 10s linear infinite;
+}
+
+@keyframes scrollTitle {
+  0% {
+    transform: translateX(90%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.titleWrapper:hover .title {
+  animation-play-state: paused;
 }
 
 /* audio image */
@@ -273,7 +299,7 @@
 
   .audioInfo {
     flex-direction: row;
-    gap: 12px;
+    gap: 0px;
     align-items: center;
     height: 65px;
   }
@@ -293,7 +319,6 @@
   .audioImage~div {
     flex-direction: row-reverse;
     align-items: center;
-    min-width: 195px;
     justify-content: space-between;
   }
 
