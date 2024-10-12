@@ -27,7 +27,7 @@ const ArtistPage = () => {
     .then((r => {
         
         setDataBase(r.data)
-    }))}, [token])
+    }))}, [])
     console.log(dataBase)
     
 
