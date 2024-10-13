@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "antd";
 import styles from "./ReusubleTable.module.scss";
 import { HeartIcon } from "../HeartIcon/HeartIcon";
@@ -20,14 +20,8 @@ type Props = {
 export const ReusableTable = (props: Props) => {
   const [records, setRecords] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isScrolling, setIsScrolling] = useState(false);
-  
   const token = Cookies.get("token");
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
-
-  const checkTitleOverflow = (title: string) => {
-    return title.length > 20; // Adjust this threshold based on your title length
-  };
 
   useEffect(() => {
     axios
@@ -81,13 +75,12 @@ export const ReusableTable = (props: Props) => {
       render: (record: any) => {
         const firstMusic = record.musics && record.musics.length > 0 ? record.musics[0] : null;
         const trackTitle = firstMusic ? firstMusic.trackTitle : record.trackTitle || 'Unknown Track';
-        const shouldScroll = checkTitleOverflow(trackTitle);
 
         return (
           <div className={styles.infoWrapper}>
             <div className={styles.wrapper}>
               <div className={styles.titleWrapper}>
-                <div className={`${styles.authorTitle} ${shouldScroll ? styles.scrolling : ''}`}>
+                <div id={`authorTitle-${record.id}`} className={styles.authorTitle}>
                   {trackTitle}
                 </div>
               </div>
@@ -135,6 +128,18 @@ export const ReusableTable = (props: Props) => {
         dataSource={records}
         rowKey="id"
         onRow={(record) => ({
+          onMouseEnter: () => {
+            const titleElement = document.getElementById(`authorTitle-${record.id}`);
+            if (titleElement) {
+              titleElement.classList.add(styles.scrolling);
+            }
+          },
+          onMouseLeave: () => {
+            const titleElement = document.getElementById(`authorTitle-${record.id}`);
+            if (titleElement) {
+              titleElement.classList.remove(styles.scrolling);
+            }
+          },
           onClick: () => handleRowClick(record),
         })}
       />
