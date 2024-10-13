@@ -18,7 +18,6 @@ import Cookies from 'js-cookie';
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { globalClickerState } from "@/app/states";
-import Loading from "@/app/components/Loading/Loading";
 
 <<<<<<< HEAD
 =======
@@ -70,6 +69,7 @@ interface topHitOfWeek {
   id: number;
   count: number;
 }
+<<<<<<< Updated upstream
 <<<<<<< HEAD
 =======
 interface PopularArtist {
@@ -81,6 +81,38 @@ interface PopularArtist {
 }
 >>>>>>> Stashed changes
 >>>>>>> fix/home-page
+=======
+interface PopularArtist {
+  authorFullName: string; 
+  authorId: number;       
+  authorImage: string;    
+  musicId: number;        
+  totalListener: string;  
+}
+
+
+interface MusicItem {
+  authorId: number;
+  duration: string;
+  filePath: string;
+  id: number;
+  listenerCount: number;
+  trackImage: string;
+  trackTitle: string;
+  updateAt: string;
+}
+
+interface PopularAlbum {
+  author: {fullName: string};
+  authorId: number;
+  count: number;
+  coverImage: string;
+  id: number;
+  musics: MusicItem[];
+  title: string;
+}
+
+>>>>>>> Stashed changes
 
 export default function Home() {
   const token = Cookies.get("token");
@@ -88,10 +120,13 @@ export default function Home() {
   const [topHits, setTopHits] = useState<MusicItem[]>([])
   const [topWeekMusicsId, setTopWeekMusicsId] = useState<number | null>(null);
   const [topHitsId, setTopHitsId] = useState<number | null>(null);
+  const [topArtists, setTopArtists] = useState<PopularArtist[]>([]);
+  const [topAlbums, setTopAlbums] = useState<PopularAlbum[]>([]);
 
 <<<<<<< HEAD
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
   const [topHitOfWeek, setTopHitOfWeek] = useState<topHitOfWeek | undefined>(undefined)
+<<<<<<< Updated upstream
 =======
 <<<<<<< Updated upstream
 >>>>>>> fix/home-page
@@ -103,6 +138,9 @@ export default function Home() {
   const [popularAlbums, setPopularAlbums] = useState<PopularAlbum[]>([]);
   console.log(popularAlbums,'asdasdasd');
   const router = useRouter();
+
+>>>>>>> Stashed changes
+=======
 
 >>>>>>> Stashed changes
   useEffect(() => {
@@ -198,13 +236,41 @@ export default function Home() {
     })
       .then((res) => {
         setTopHits(res.data);
-      if (res.data.length > 0) {
+        if (res.data.length > 0) {
           setTopHitOfWeek(res.data[0]);
         }
       })
       .catch((err) => {
         console.log(err);
       });
+
+    axios.get(`https://project-spotify-1.onrender.com/authors/topArtists`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    })
+      .then((res) => {
+        setTopArtists(res.data)
+        
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+      axios.get(`https://project-spotify-1.onrender.com/albums/top-Albums`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      })
+        .then((res) => {
+          console.log(res.data);
+          
+          setTopAlbums(res.data);                    
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+   
   }, [token]);
 
   const handleRowClickTopHits = async (trackId: number) => {
@@ -214,12 +280,9 @@ export default function Home() {
           Authorization: `Bearer ${token}`,
         }
       });
-
       const selectedTrack = response.data;
       setGlobalClickerState(selectedTrack.id);
-
       setTopHitsId(selectedTrack.id);
-
       console.log(selectedTrack, 'Selected Track for Playing');
     } catch (error) {
       console.error("Error fetching and playing the track:", error);
@@ -235,6 +298,7 @@ export default function Home() {
         </section>
 
         <section className={styles.newsComponentWrapper}>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
           <NewsComponent  musicId={topHitOfWeek?.id} title={"Top Hit Of the week"} count={topHitOfWeek?.count ?? '795,900'} image="newsimage" />
 =======
@@ -250,6 +314,9 @@ export default function Home() {
           <NewsComponent musicId={topHitOfWeek?.id} title={"Top Hit Of the week"} count={topHitOfWeek?.count ?? '795,900'} image="newsimage" />
 >>>>>>> Stashed changes
 >>>>>>> fix/home-page
+=======
+          <NewsComponent musicId={topHitOfWeek?.id} title={"Top Hit Of the week"} count={topHitOfWeek?.count ?? '795,900'} image="newsimage" />
+>>>>>>> Stashed changes
         </section>
 
         <section className={styles.generalCardWrapper}>
@@ -307,6 +374,7 @@ export default function Home() {
             <span>See all</span>
           </div>
           <div className={styles.generalCardItem}>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
             {popularArtists.map((album, index) => (
               <AlbumCard
@@ -335,6 +403,14 @@ export default function Home() {
                 author={album.authorFullName}
                 img={album.authorImage}
 >>>>>>> fix/home-page
+=======
+            {topArtists.slice(0, 5).map((album, index) => (
+              <AlbumCard
+                key={index}
+                id={globalClicker}
+                author={album.authorFullName}
+                img={album.authorImage}
+>>>>>>> Stashed changes
               />
             ))}
           </div>
@@ -346,16 +422,21 @@ export default function Home() {
             <span>See all</span>
           </div>
           <div className={styles.generalCardItem}>
+<<<<<<< Updated upstream
 <<<<<<< HEAD
             {popularAlbums.map((album, index) => (
 =======
 <<<<<<< Updated upstream
             {fiveAlbum.map((album: any, index: any) => (
 >>>>>>> fix/home-page
+=======
+            {topAlbums.slice(0, 5).map((album, index) => (
+>>>>>>> Stashed changes
               <AlbumCard
                 key={index}
-                author={album.author}
+                author={album.author.fullName}
                 title={album.title}
+<<<<<<< Updated upstream
 <<<<<<< HEAD
                 img={album.img}
 =======
@@ -368,6 +449,9 @@ export default function Home() {
 >>>>>>> Stashed changes
                 img={album.coverImage}
 >>>>>>> fix/home-page
+=======
+                img={album.coverImage}
+>>>>>>> Stashed changes
               />
             ))}
           </div>
