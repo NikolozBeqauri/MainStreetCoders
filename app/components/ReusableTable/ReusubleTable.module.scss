@@ -2,35 +2,42 @@
 
 
 .titleWrapper {
-    width: 195px;
+    width: 180px;
     overflow: hidden;
-    position: relative;
-}
-
-.authorTitle {
+    position: relative; 
+  }
+  
+  .authorTitle {
     font-family: var(--font-jakarta-sans);
     white-space: nowrap;
     transition: transform 0.2s ease-in-out;
     color: $defaultWhite;
     display: inline-block;
-}
-
-.scrolling {
-    animation: scrollAuthorTitle 10s linear infinite;
-}
+  }
+  
+  .scrolling {
+    animation: scrollAuthorTitle 4s linear infinite; 
+  }
 
 @keyframes scrollAuthorTitle {
     0% {
-        transform: translateX(90%);
+      transform: translateX(100%); 
     }
-
+    20% {
+        transform: translateX(25%);
+    }
+    40% {
+        transform: translateX(0%);
+    }
+    60% {
+      transform: translateX(-25%); 
+    }
+    80% {
+        transform: translateX(-50%); 
+      }
     100% {
-        transform: translateX(-100%);
+    transform: translateX(-100%); 
     }
-}
-
-.titleWrapper:hover .authorTitle {
-    animation-play-state: paused;
   }
 
 .author {
