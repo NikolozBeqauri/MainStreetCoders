@@ -8,11 +8,11 @@ import { modalState } from '@/app/states';
 
 const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, nextTrack, idDate }: any) => {
 
-    const titleRef = useRef<HTMLParagraphElement | null>(null);  // Correctly typed ref for title element
-    const titleWrapperRef = useRef<HTMLDivElement | null>(null);  // Correctly typed ref for titleWrapper
+    const titleRef = useRef<HTMLParagraphElement | null>(null); 
+    const titleWrapperRef = useRef<HTMLDivElement | null>(null); 
 
     useEffect(() => {
-        checkTitleOverflow();  // Run the check when the component is updated
+        checkTitleOverflow(); 
     }, [idDate, currentTrack]);
 
     const onLoadedMetadata = () => {
@@ -24,11 +24,10 @@ const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, nex
     const [modal, setModalState] = useRecoilState(modalState);
 
     const checkTitleOverflow = () => {
-        const titleElement = titleRef.current;  // Access title element
-        const titleWrapper = titleWrapperRef.current;  // Access title wrapper
+        const titleElement = titleRef.current; 
+        const titleWrapper = titleWrapperRef.current; 
 
         if (titleElement && titleWrapper) {
-            // Check if title is wider than its container
             if (titleElement.scrollWidth > titleWrapper.clientWidth) {
                 titleElement.classList.add(styles.scrolling);
             } else {
@@ -40,7 +39,7 @@ const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, nex
     return (
         <div>
             <audio  
-                src={idDate.file || currentTrack.filePath || ''}
+                src={idDate.filePath || currentTrack.filePath || ''}
                 ref={audioRef} 
                 onLoadedMetadata={onLoadedMetadata}
                 onEnded={nextTrack}
@@ -59,9 +58,9 @@ const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, nex
                 </div>
                 <div className={modal === true ? styles.audioTitle : style.mobileAudioTitle}>
                     <HeartIcon height={26} width={26} padding={0}/>
-                    <div className={styles.titleWrapper} ref={titleWrapperRef}>  {/* Attach ref to the wrapper */}
+                    <div className={styles.titleWrapper} ref={titleWrapperRef}> 
                         <p className={styles.title} ref={titleRef} id="title">{idDate.trackTitle ?  idDate.trackTitle : 'Unknown Title'}</p>
-                        <p className={styles.author}>{idDate.authorName ?  idDate.authorName : currentTrack.authorName}</p>
+                        <p className={styles.author}>{idDate.authorName ?  idDate.authorName : currentTrack.authorName || 'Unknown Author'}</p>
                     </div>
                 </div>
             </div>

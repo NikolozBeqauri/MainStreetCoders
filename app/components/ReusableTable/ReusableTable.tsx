@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Table } from "antd";
 import styles from "./ReusubleTable.module.scss";
 import { HeartIcon } from "../HeartIcon/HeartIcon";
@@ -20,8 +20,14 @@ type Props = {
 export const ReusableTable = (props: Props) => {
   const [records, setRecords] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isScrolling, setIsScrolling] = useState(false);
+  
   const token = Cookies.get("token");
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
+
+  const checkTitleOverflow = (title: string) => {
+    return title.length > 20; // Adjust this threshold based on your title length
+  };
 
   useEffect(() => {
     axios
@@ -31,8 +37,7 @@ export const ReusableTable = (props: Props) => {
         },
       })
       .then((response) => {
-        const data = response.data;
-        setRecords(data);
+        setRecords(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -40,37 +45,14 @@ export const ReusableTable = (props: Props) => {
         setLoading(false);
       });
   }, [token, props.pageName]);
-  
+
   if (loading) {
     return <Loading width="" />;
   }
 
   const handleRowClick = async (record: { id: number }) => {
-    try {
-      const response = await axios.get(`https://project-spotify-1.onrender.com/albums/${record.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const albumData = response.data;
-      if (albumData && albumData.musics && albumData.musics.length > 0) {
-        const firstTrack = albumData.musics[0];
-        setGlobalClickerState(firstTrack.id);
-
-        if (props.setAudioPlayerData) {
-          props.setAudioPlayerData({
-            authorName: firstTrack.authorName,
-            duration: firstTrack.duration,
-            filePath: firstTrack.filePath,
-            trackImage: firstTrack.trackImage,
-            trackTitle: firstTrack.trackTitle,
-          });
-        }
-      }
-    } catch (error) {
-      console.error("Error fetching album details:", error);
-    }
+    setGlobalClickerState(record.id);
+    // Fetch album details if needed...
   };
 
   const columns = [
@@ -84,31 +66,33 @@ export const ReusableTable = (props: Props) => {
     {
       title: "Album Cover",
       key: "albumCover",
-      render: (record: any) => {
-        const albumCover = record.coverImage || record.album?.coverImage;
-        return (
-          <img
-            src={albumCover || "/default-album-cover.png"}
-            alt="Album Cover"
-            width={48}
-            height={48}
-          />
-        );
-      },
+      render: (record: any) => (
+        <img
+          src={record.coverImage || record.album?.coverImage || "/default-album-cover.png"}
+          alt=""
+          width={48}
+          height={48}
+        />
+      ),
     },
     {
       title: "Song Name",
       key: "songName",
       render: (record: any) => {
         const firstMusic = record.musics && record.musics.length > 0 ? record.musics[0] : null;
+        const trackTitle = firstMusic ? firstMusic.trackTitle : record.trackTitle || 'Unknown Track';
+        const shouldScroll = checkTitleOverflow(trackTitle);
+
         return (
           <div className={styles.infoWrapper}>
             <div className={styles.wrapper}>
-              <div className={styles.songName}>
-                {firstMusic ? firstMusic.trackTitle : "Unknown Track"}
+              <div className={styles.titleWrapper}>
+                <div className={`${styles.authorTitle} ${shouldScroll ? styles.scrolling : ''}`}>
+                  {trackTitle}
+                </div>
               </div>
               <div className={styles.author}>
-                {firstMusic ? firstMusic.authorName : "Unknown Author"}
+                {firstMusic ? firstMusic.authorName : record.authorName || 'Unknown Author'}
               </div>
             </div>
           </div>
@@ -127,14 +111,11 @@ export const ReusableTable = (props: Props) => {
     {
       title: "Duration",
       key: "duration",
-      render: (record: any) => {
-        const firstMusic = record.musics && record.musics.length > 0 ? record.musics[0] : null;
-        return (
-          <div className={styles.time}>
-            {firstMusic ? firstMusic.duration : "Unknown Duration"}
-          </div>
-        );
-      },
+      render: (record: any) => (
+        <div className={styles.time}>
+          {record.duration || 'Unknown Duration'}
+        </div>
+      ),
     },
     {
       key: "actions",
@@ -153,11 +134,9 @@ export const ReusableTable = (props: Props) => {
         columns={columns}
         dataSource={records}
         rowKey="id"
-        onRow={(record) => {
-          return {
-            onClick: () => handleRowClick(record),
-          };
-        }}
+        onRow={(record) => ({
+          onClick: () => handleRowClick(record),
+        })}
       />
     </div>
   );
