@@ -124,7 +124,7 @@ export default function Home() {
     try {
       const response = await axios.get(`https://project-spotify-1.onrender.com/musics/${trackId}`, {
         headers: {
-          Authorization: `Bearer ${token}`
+          'Authorization': `Bearer ${token}`
         }
       });
       const selectedTrack = response.data;

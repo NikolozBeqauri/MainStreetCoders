@@ -17,7 +17,7 @@ type Props = {
 
 export const ReusableIcon = (props: Props) => {
   const imageName = props.active ? `${props.imgName}Active` : props.imgName;
-
+  const stylesClasses = [styles.generalStyles];
   const [isFocused, setIsFocused] = useState(false);
   const [threeDotClicked, setThreeDotClicked] = useState(false);
 
@@ -26,22 +26,23 @@ export const ReusableIcon = (props: Props) => {
     if (props.onFocus) props.onFocus();
   };
 
-  useEffect(() => {
-    if (threeDotClicked) {
-      document.body.style.overflow = 'hidden'; // Disable scroll
-    } else {
-      document.body.style.overflow = ''; // Enable scroll
-    }
-
-    // Cleanup: ensure scrolling is re-enabled when component unmounts or when threeDotClicked is false
-    return () => {
-      document.body.style.overflow = ''; // Reset scroll on cleanup
-    };
-  }, [threeDotClicked]);
-
-  const stylesClasses = [styles.generalStyles];
+  
   if (props.background) stylesClasses.push(styles.whiteBackground);
   if (props.active || isFocused || props.isHovered) stylesClasses.push(styles.active);
+  useEffect(() => {
+    if(isThreeDots){
+      if (threeDotClicked) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = ''; 
+      }
+  
+      return () => {
+        document.body.style.overflow = ''; 
+      };
+    }
+  }, [threeDotClicked]);
+
 
   const isThreeDots = props.imgName === 'threeDots' ? true : false;
   const isWhiteThreeDots = props.imgName === 'whiteThreeDots' ? true : false;
@@ -53,7 +54,7 @@ export const ReusableIcon = (props: Props) => {
   return (
     <div className={styles.wholeWrapper}>
       <div className={styles.iconWrapper}>
-        {threeDotClicked && createPortal(
+        {threeDotClicked && isThreeDots && createPortal(
           <div className={styles.backgroundOfPopup} onClick={() => setThreeDotClicked(false)}>
             <div className={isThreeDots ? styles.AddPlaylist : styles.AddWhitePlaylist} onClick={(e) => e.stopPropagation()}>
               <AddPlaylist />
