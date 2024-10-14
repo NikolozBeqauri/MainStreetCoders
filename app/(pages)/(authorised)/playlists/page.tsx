@@ -1,40 +1,45 @@
 "use client";
 
 import Styles from "./page.module.scss";
-
 import { SquareCard } from "@/app/components/SquareCard/SquareCard";
 import { Search } from "@/app/components/Search/Search";
 import ReusableButton from "@/app/components/ReusableButton/ReusableButton";
 import { Header } from "@/app/components/Header/Header";
 import { useViewport } from "react-viewport-hooks";
-import { ReusableIcon } from "@/app/components/ReusableIcon/ReusableIcon";
 import { useEffect, useState } from "react";
 import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import { ReusableTable } from "@/app/components/ReusableTable/ReusableTable";
 import axios from "axios";
 import Cookies from 'js-cookie';
+import { ReusableIcon } from "@/app/components/ReusableIcon/ReusableIcon";
+import UploadFile from "@/app/components/AddPlaylist/UploadFile/UploadFile";
 
 const PlayListPage = () => {
     const { vw } = useViewport();
     const [playlistContentActive, setPlaylistContentActive] = useState(true);
     const [selectedPlaylist, setSelectedPlaylist] = useState<any>(null);
     const [data, setData] = useState<any>([]);
+    const [showUploadFile, setShowUploadFile] = useState(false); 
     const token = Cookies.get("token");
 
-
-    useEffect(() => {
+    const fetchPlaylists = () => {
         axios.get(`https://project-spotify-1.onrender.com/playlist`, {
             headers: {
                 "Content-Type": "multipart/form-data",
                 "Authorization": `Bearer ${token}`,
             }
         })
-            .then((r) => {
-                setData(r.data);
-            })
-    }, [])
+        .then((r) => {
+            setData(r.data);
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+    };
 
-
+    useEffect(() => {
+        fetchPlaylists();
+    }, [token]);
 
     const handleCardClick = (playList: any) => {
         setSelectedPlaylist(playList);
@@ -63,11 +68,14 @@ const PlayListPage = () => {
                     </div>
 
                     <div className={Styles.searchLayout}>
-                        <Search />
                         {vw < 1024 ? (
-                            <ReusableButton title={"+"} />
+                            <div onClick={() => setShowUploadFile(true)}>
+                                <ReusableButton title={"+"}  /> 
+                            </div>
                         ) : (
-                            <ReusableButton title={"+ New Playlist"} />
+                            <div onClick={() => setShowUploadFile(true)}>
+                                <ReusableButton title={"+ New Playlist"} />
+                            </div>
                         )}
                     </div>
 
@@ -77,7 +85,10 @@ const PlayListPage = () => {
                                 key={index}
                                 title={playList.name}
                                 img={playList.image}
-                                onClick={() => handleCardClick(playList)}
+                                onClick={() => handleCardClick(playList)} 
+                                iconImage={"trash"} 
+                                playListId={playList.id} 
+                                refetchPlaylists={fetchPlaylists} 
                             />
                         ))}
                     </div>
@@ -94,6 +105,14 @@ const PlayListPage = () => {
                     )}
                     <Search />
                     <ReusableTable />
+                </div>
+            )}
+
+            {showUploadFile && (
+                <div className={Styles.modalOverlay} onClick={() => setShowUploadFile(false)}>
+                    <div className={Styles.modalContent} onClick={(e) => e.stopPropagation()}>
+                        <UploadFile withOutArrow={true} setActiveComponent={setShowUploadFile} refetchPlaylists={fetchPlaylists} />
+                    </div>
                 </div>
             )}
         </div>
