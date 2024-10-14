@@ -21,7 +21,6 @@ export const AlbumCard = (props: Props) => {
 
   const cardImageStyle = [styles.defaultCardStyles];
   if (!props.title) cardImageStyle.push(styles.cardImage);
- 
 
   return (
     <div className={styles.cardWrapper} onClick={props.onClick}>
@@ -37,9 +36,7 @@ export const AlbumCard = (props: Props) => {
             <HeartIcon background />
             <ReusableIcon imgName={"threeDots"} background />
           </div>
-          <div
-            className={stylesClass.join(" ").trim()}
-          ></div>
+          <div className={stylesClass.join(" ").trim()}></div>
         </div>
       </div>
 

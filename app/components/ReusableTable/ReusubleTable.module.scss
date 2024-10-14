@@ -1,9 +1,44 @@
 @import "/app/colors.scss";
 
-.songName {
+
+.titleWrapper {
+    width: 180px;
+    overflow: hidden;
+    position: relative; 
+  }
+  
+  .authorTitle {
+    font-family: var(--font-jakarta-sans);
+    white-space: nowrap;
+    transition: transform 0.2s ease-in-out;
     color: $defaultWhite;
-    display: flex;
-}
+    display: inline-block;
+  }
+  
+  .scrolling {
+    animation: scrollAuthorTitle 4s linear infinite; 
+  }
+
+@keyframes scrollAuthorTitle {
+    0% {
+      transform: translateX(100%); 
+    }
+    20% {
+        transform: translateX(25%);
+    }
+    40% {
+        transform: translateX(0%);
+    }
+    60% {
+      transform: translateX(-25%); 
+    }
+    80% {
+        transform: translateX(-50%); 
+      }
+    100% {
+    transform: translateX(-100%); 
+    }
+  }
 
 .author {
     color: $shadyLady;
@@ -74,6 +109,14 @@
 
 .wrapper :global .ant-table-row {
     background: $blackMetal !important;
+}
+
+
+.wrapper :global .ant-table-row> :nth-child(2)>img {
+    background-color: $shadyLady;
+    width: 48px;
+    height: 48px;
+    margin-top: 19px;
 }
 
 .wrapper :global .ant-table-row-level-0:hover {

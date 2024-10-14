@@ -1,19 +1,17 @@
 'use client'
 
 import { AlbumCard } from "@/app/components/AlbumCard/AlbumCard";
-import { popularAlbums } from "@/app/components/AlbumCard/popularAlbums/popularAlbums";
-import { popularArtists } from "@/app/components/AlbumCard/popularArtistsData/popularArtistsData";
 import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
 import { MusicCard } from "@/app/components/MusicCard/MusicCard";
 import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
-import styles from "./page.module.scss"
+import styles from "./page.module.scss";
 import { Header } from "@/app/components/Header/Header";
-import { useEffect, useState } from "react";
-import Cookies from 'js-cookie';
 import axios from "axios";
-import { useRecoilState } from "recoil";
 import { globalClickerState } from "@/app/states";
-import Loading from "@/app/components/Loading/Loading";
+import Cookies from 'js-cookie';
+import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { useRouter } from "next/navigation";
 
 interface MusicItem {
   id: number;
@@ -22,6 +20,24 @@ interface MusicItem {
   authorId: number;
   trackImage: string;
   duration: string;
+  filePath: string;
+  listenerCount: number;
+  listeners: any[];
+  createAt: string;
+  deleteAt: string | null;
+  updateAt: string;
+}
+
+interface PopularAlbum {
+  authorId: number;
+  count: number;
+  title: string;
+  coverImage: string;
+  createAt: string;
+  deleteAt: string | null;
+  id: number;
+  musics: MusicItem[];
+  author: { fullName: string };
 }
 
 interface topHitOfWeek {
@@ -29,15 +45,25 @@ interface topHitOfWeek {
   count: number;
 }
 
+interface PopularArtist {
+  authorFullName: string;
+  authorId: number;
+  authorImage: string;
+  musicId: number;
+  totalListener: string;
+}
+
 export default function Home() {
   const token = Cookies.get("token");
-  const [topWeekMusics, setTopWeekMusics] = useState<MusicItem[]>([])
-  const [topHits, setTopHits] = useState<MusicItem[]>([])
-  const [topWeekMusicsId, setTopWeekMusicsId] = useState<number | null>(null);
-  const [topHitsId, setTopHitsId] = useState<number | null>(null);
-
+  const [topWeekMusics, setTopWeekMusics] = useState<MusicItem[]>([]);
+  const [topHits, setTopHits] = useState<MusicItem[]>([]);
+  const [topHitOfWeek, setTopHitOfWeek] = useState<topHitOfWeek | undefined>(undefined);
+  const [popularArtists, setPopularArtists] = useState<PopularArtist[]>([]);
+  const [popularAlbums, setPopularAlbums] = useState<PopularAlbum[]>([]);
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
-  const [topHitOfWeek, setTopHitOfWeek] = useState<topHitOfWeek | undefined>(undefined)
+
+
+  const router = useRouter(); 
   
   useEffect(() => {
     axios.get(`https://project-spotify-1.onrender.com/musics/topweek`, {
@@ -51,18 +77,44 @@ export default function Home() {
       .catch((err) => {
         console.log(err);
       });
+  }, [token]);
 
-    axios.get(`https://project-spotify-1.onrender.com/musics/tophits`, {
+  useEffect(() => {
+    axios.get("https://project-spotify-1.onrender.com/musics/topHits", {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`
       }
 <<<<<<< Updated upstream
     })
       .then((res) => {
         setTopHits(res.data);
-      if (res.data.length > 0) {
+        if (res.data.length > 0) {
           setTopHitOfWeek(res.data[0]);
         }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    axios.get("https://project-spotify-1.onrender.com/authors/topArtists", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then((res) => {
+        setPopularArtists(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    axios.get("https://project-spotify-1.onrender.com/albums/top-albums", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then((res) => {
+        setPopularAlbums(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -73,15 +125,11 @@ export default function Home() {
     try {
       const response = await axios.get(`https://project-spotify-1.onrender.com/musics/${trackId}`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`
         }
       });
-
       const selectedTrack = response.data;
       setGlobalClickerState(selectedTrack.id);
-
-      setTopHitsId(selectedTrack.id);
-
       console.log(selectedTrack, 'Selected Track for Playing');
     } catch (error) {
       console.error("Error fetching and playing the track:", error);
@@ -232,7 +280,7 @@ export default function Home() {
 console.log(hits)
 >>>>>>> Stashed changes
   return (
-    <main className={styles.wholeWrapper} >
+    <main className={styles.wholeWrapper}>
       <section className={styles.container}>
         <section className={styles.headerWrapper}>
           <BurgerMenu />
@@ -240,13 +288,18 @@ console.log(hits)
         </section>
 
         <section className={styles.newsComponentWrapper}>
-          <NewsComponent  musicId={topHitOfWeek?.id} title={"Top Hit Of the week"} count={topHitOfWeek?.count ?? '795,900'} image="newsimage" />
+          <NewsComponent
+            musicId={topHitOfWeek?.id}
+            title="Top Hit Of the week"
+            count={topHitOfWeek?.count ?? '795,900'}
+            image="newsimage"
+          />
         </section>
 
         <section className={styles.generalCardWrapper}>
           <div className={styles.secondaryTitleDiv}>
-            <h2>Top Hits</h2>
-            <span>See all</span>
+            <h2 onClick={()=>router.push('/tophits')}>Top Hits</h2>
+            <span onClick={()=>router.push('/tophits')}>See all</span>
           </div>
           <div className={styles.generalCardItem}>
             {topHits.slice(0, 4).map((album, index) => (
@@ -259,14 +312,13 @@ console.log(hits)
                 onClick={() => handleRowClickTopHits(album.id)}
               />
             ))}
-
           </div>
         </section>
 
         <section className={styles.musicCardWrapper}>
           <div className={styles.secondaryTitleDiv}>
-            <h2>Top Musics Of Week</h2>
-            <span>See all</span>
+            <h2 onClick={()=>router.push('/musicsofweek')}>Top Musics Of Week</h2>
+            <span onClick={()=>router.push('/musicsofweek')}>See all</span>
           </div>
           <div className={styles.musicCards}>
             {topWeekMusics.slice(0, 6).map((musicCard) => (
@@ -282,19 +334,18 @@ console.log(hits)
           </div>
         </section>
 
-
         <section className={styles.generalCardWrapper}>
           <div className={styles.secondaryTitleDiv}>
-            <h2>Popular Artists</h2>
-            <span>See all</span>
+            <h2 onClick={()=>router.push('/artist')}>Popular Artists</h2>
+            <span onClick={()=>router.push('/artist')}>See all</span>
           </div>
           <div className={styles.generalCardItem}>
-            {popularArtists.map((album, index) => (
+            {popularArtists.slice(0, 5).map((artist, index) => (
               <AlbumCard
                 key={index}
                 id={globalClicker}
-                author={album.author}
-                img={album.img}
+                author={artist.authorFullName}
+                img={artist.authorImage}
               />
             ))}
           </div>
@@ -302,16 +353,16 @@ console.log(hits)
 
         <section className={styles.generalCardWrapper}>
           <div className={styles.secondaryTitleDiv}>
-            <h2>Popular Albums</h2>
-            <span>See all</span>
+            <h2 onClick={()=>router.push('/album')}>Popular Albums</h2>
+            <span onClick={()=>router.push('/album')}>See all</span>
           </div>
           <div className={styles.generalCardItem}>
-            {popularAlbums.map((album, index) => (
+            {popularAlbums.slice(0, 4).map((album, index) => (
               <AlbumCard
                 key={index}
-                author={album.author}
+                author={album.author.fullName}
                 title={album.title}
-                img={album.img}
+                img={album.coverImage}
               />
             ))}
           </div>
@@ -320,4 +371,3 @@ console.log(hits)
     </main>
   );
 }
-

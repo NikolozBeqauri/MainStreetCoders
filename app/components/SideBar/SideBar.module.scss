@@ -93,12 +93,18 @@
     z-index: 1;
     cursor: pointer;
 }
+@media (max-width: 1080px) and (min-width: 1024px) {
+    .sideBarWrapper {
+        padding: 40px 0px;
+    }
+}
 
 @media (max-width: 1024px) {
     .sideBarWrapper{
         display: flex;
         position: absolute;
         height: 100%;
+        padding: 40px 20px;
         top: 0;
         left: 0;
     }
