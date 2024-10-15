@@ -2,26 +2,26 @@
 
 import Styles from "./page.module.scss";
 import { SquareCard } from "@/app/components/SquareCard/SquareCard";
-import { Search } from "@/app/components/Search/Search";
 import ReusableButton from "@/app/components/ReusableButton/ReusableButton";
 import { Header } from "@/app/components/Header/Header";
 import { useViewport } from "react-viewport-hooks";
 import { useEffect, useState } from "react";
 import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
-import { ReusableTable } from "@/app/components/ReusableTable/ReusableTable";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import { ReusableIcon } from "@/app/components/ReusableIcon/ReusableIcon";
 import UploadFile from "@/app/components/AddPlaylist/UploadFile/UploadFile";
+import { PlaylistTable } from "@/app/components/PlaylistTable/PlaylistTable";
 
 const PlayListPage = () => {
     const { vw } = useViewport();
     const [playlistContentActive, setPlaylistContentActive] = useState(true);
     const [selectedPlaylist, setSelectedPlaylist] = useState<any>(null);
     const [data, setData] = useState<any>([]);
-    const [showUploadFile, setShowUploadFile] = useState(false); 
+    const [showUploadFile, setShowUploadFile] = useState(false);
+    console.log(selectedPlaylist,'fdsafdsfdafdsafdafda');
+    
     const token = Cookies.get("token");
-
     const fetchPlaylists = () => {
         axios.get(`https://project-spotify-1.onrender.com/playlist`, {
             headers: {
@@ -29,12 +29,12 @@ const PlayListPage = () => {
                 "Authorization": `Bearer ${token}`,
             }
         })
-        .then((r) => {
-            setData(r.data);
-        })
-        .catch((err) => {
-            console.error(err);
-        });
+            .then((r) => {
+                setData(r.data);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     };
 
     useEffect(() => {
@@ -45,6 +45,7 @@ const PlayListPage = () => {
         setSelectedPlaylist(playList);
         setPlaylistContentActive(false);
     };
+
 
     return (
         <div className={Styles.container}>
@@ -70,7 +71,7 @@ const PlayListPage = () => {
                     <div className={Styles.searchLayout}>
                         {vw < 1024 ? (
                             <div onClick={() => setShowUploadFile(true)}>
-                                <ReusableButton title={"+"}  /> 
+                                <ReusableButton title={"+"} />
                             </div>
                         ) : (
                             <div onClick={() => setShowUploadFile(true)}>
@@ -85,26 +86,29 @@ const PlayListPage = () => {
                                 key={index}
                                 title={playList.name}
                                 img={playList.image}
-                                onClick={() => handleCardClick(playList)} 
-                                iconImage={"trash"} 
-                                playListId={playList.id} 
-                                refetchPlaylists={fetchPlaylists} 
+                                onClick={() => handleCardClick(playList)}
+                                iconImage={"trash"}
+                                playListId={playList.id}
+                                refetchPlaylists={fetchPlaylists}
                             />
                         ))}
                     </div>
                 </div>
             ) : (
                 <div className={Styles.childrenContainer}>
-                    <Header imgName={"rightArrow"} />
+                    <Header imgName={"rightArrow"} isPlaylistPage setPlaylistContentActive={setPlaylistContentActive}/>
                     {selectedPlaylist && (
-                        <NewsComponent
-                            title={selectedPlaylist.name}
-                            image={selectedPlaylist.img}
-                            count={"300,000"}
-                        />
+                        <>
+                            <NewsComponent
+                                title={selectedPlaylist.name}
+                                image={selectedPlaylist.img}
+                                count={"300,000"}
+                            />
+                            <PlaylistTable records={selectedPlaylist.music} />
+                        </>
+
                     )}
-                    <Search />
-                    <ReusableTable />
+
                 </div>
             )}
 

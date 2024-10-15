@@ -7,11 +7,12 @@ import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import styles from "./page.module.scss";
 import { Header } from "@/app/components/Header/Header";
 import axios from "axios";
-import { globalClickerState } from "@/app/states";
+import { globalClickerState, selectedMusicToAddInAlbumState } from "@/app/states";
 import Cookies from 'js-cookie';
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
+import { useViewport } from "react-viewport-hooks"; 
 
 interface MusicItem {
   id: number;
@@ -61,10 +62,10 @@ export default function Home() {
   const [popularArtists, setPopularArtists] = useState<PopularArtist[]>([]);
   const [popularAlbums, setPopularAlbums] = useState<PopularAlbum[]>([]);
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
+  const [, setSelectedMusicToAddInAlbum] = useRecoilState(selectedMusicToAddInAlbumState);
+  const router = useRouter();
+  const { vw } = useViewport(); 
 
-
-  const router = useRouter(); 
-  
   useEffect(() => {
     axios.get(`https://project-spotify-1.onrender.com/musics/topweek`, {
       headers: {
@@ -129,6 +130,8 @@ export default function Home() {
       });
       const selectedTrack = response.data;
       setGlobalClickerState(selectedTrack.id);
+      setSelectedMusicToAddInAlbum(selectedTrack.id) 
+
       console.log(selectedTrack, 'Selected Track for Playing');
     } catch (error) {
       console.error("Error fetching and playing the track:", error);
@@ -154,8 +157,8 @@ export default function Home() {
 
         <section className={styles.generalCardWrapper}>
           <div className={styles.secondaryTitleDiv}>
-            <h2 onClick={()=>router.push('/tophits')}>Top Hits</h2>
-            <span onClick={()=>router.push('/tophits')}>See all</span>
+            <h2 onClick={() => router.push('/tophits')}>Top Hits</h2>
+            <span onClick={() => router.push('/tophits')}>See all</span>
           </div>
           <div className={styles.generalCardItem}>
             {topHits.slice(0, 4).map((album, index) => (
@@ -173,30 +176,32 @@ export default function Home() {
 
         <section className={styles.musicCardWrapper}>
           <div className={styles.secondaryTitleDiv}>
-            <h2 onClick={()=>router.push('/musicsofweek')}>Top Musics Of Week</h2>
-            <span onClick={()=>router.push('/musicsofweek')}>See all</span>
+            <h2 onClick={() => router.push('/musicsofweek')}>Top Musics Of Week</h2>
+            <span onClick={() => router.push('/musicsofweek')}>See all</span>
           </div>
           <div className={styles.musicCards}>
-            {topWeekMusics.slice(0, 6).map((musicCard) => (
-              <MusicCard
-                key={musicCard.id}
-                trackImage={musicCard.trackImage}
-                trackTitle={musicCard.trackTitle}
-                authorName={musicCard.authorName}
-                duration={musicCard.duration}
-                onClick={() => handleRowClickTopHits(musicCard.id)}
-              />
-            ))}
+            {topWeekMusics
+              .slice(0, 6) 
+              .map((musicCard) => (
+                <MusicCard
+                  key={musicCard.id}
+                  trackImage={musicCard.trackImage}
+                  trackTitle={musicCard.trackTitle}
+                  authorName={musicCard.authorName}
+                  duration={musicCard.duration}
+                  onClick={() => handleRowClickTopHits(musicCard.id)}
+                />
+              ))}
           </div>
         </section>
 
         <section className={styles.generalCardWrapper}>
           <div className={styles.secondaryTitleDiv}>
-            <h2 onClick={()=>router.push('/artist')}>Popular Artists</h2>
-            <span onClick={()=>router.push('/artist')}>See all</span>
+            <h2 onClick={() => router.push('/artist')}>Popular Artists</h2>
+            <span onClick={() => router.push('/artist')}>See all</span>
           </div>
           <div className={styles.generalCardItem}>
-            {popularArtists.slice(0, 5).map((artist, index) => (
+            {popularArtists.slice(0,vw < 900 ? 4 : 5).map((artist, index) => (
               <AlbumCard
                 key={index}
                 id={globalClicker}
@@ -209,8 +214,8 @@ export default function Home() {
 
         <section className={styles.generalCardWrapper}>
           <div className={styles.secondaryTitleDiv}>
-            <h2 onClick={()=>router.push('/album')}>Popular Albums</h2>
-            <span onClick={()=>router.push('/album')}>See all</span>
+            <h2 onClick={() => router.push('/album')}>Popular Albums</h2>
+            <span onClick={() => router.push('/album')}>See all</span>
           </div>
           <div className={styles.generalCardItem}>
             {popularAlbums.slice(0, 4).map((album, index) => (

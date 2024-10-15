@@ -61,3 +61,8 @@
     height: 16px;
     accent-color: $primaryGradient;
 }
+.saveButtonWrapper {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+}

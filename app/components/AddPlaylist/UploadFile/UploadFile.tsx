@@ -16,11 +16,13 @@ type FormValues = {
 
 type Props = {
     setActiveComponent: Function;
-    refetchPlaylists: () => void; 
+    refetchPlaylists?: () => void; 
     withOutArrow?: boolean;
 }
 
 export const UploadFile = (props: Props) => {
+
+
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
 
     const onSubmit: SubmitHandler<FormValues> = (values) => {
@@ -37,7 +39,9 @@ export const UploadFile = (props: Props) => {
         })
             .then(res => {
                 console.log(res); 
-                props.refetchPlaylists();  
+                if(props.refetchPlaylists){
+                    props.refetchPlaylists(); 
+                }
                 props.setActiveComponent(null);
             })
             .catch(err => {
