@@ -9,31 +9,35 @@ type Props = {
   burger?: boolean;
   imgWidth?: number;
   imgHeight?: number;
+  isPlaylistPage?: boolean;
+  setPlaylistContentActive?: Function;
 };
 export const Header = (props: Props) => {
   if (props.burger) {
     return (
       <div className={styles.headerWrapper}>
         <BurgerMenu />
-        <UserProfileIcon/>
+        <UserProfileIcon />
       </div>
     )
   } else {
-  return (
-    <div className={styles.headerWrapper}>
-      {props.imgName ? (
-        <Image
-          src={`/icons/${props.imgName}.svg`}
-          alt="icon"
-          width={props.imgWidth ? props.imgWidth : 24}
-          height={props.imgHeight ? props.imgHeight : 24}
-        />
-      ) : (
-        <Search />
-      )}
-      <UserProfileIcon/>
-    </div>
-  );
+    return (
+      <div className={styles.headerWrapper}>
+        {props.imgName ? (
+          <div onClick={()=>{props?.setPlaylistContentActive ? props?.setPlaylistContentActive(true) : ''}}>
+            <Image
+              src={`/icons/${props.imgName}.svg`}
+              alt="icon"
+              width={props.imgWidth ? props.imgWidth : 24}
+              height={props.imgHeight ? props.imgHeight : 24}
+            />
+          </div>
+        ) : (
+          <Search />
+        )}
+        <UserProfileIcon />
+      </div>
+    );
 
   }
 

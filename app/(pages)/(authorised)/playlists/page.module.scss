@@ -70,7 +70,11 @@
     z-index: 200;
     box-sizing: border-box;
 }
-
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 @media (max-width: 768px) {
     .containerWrapper {
         grid-template-columns: repeat(3, 1fr);

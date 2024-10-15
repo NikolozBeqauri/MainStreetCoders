@@ -21,7 +21,7 @@ export const ReusableTable = (props: Props) => {
   const [records, setRecords] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const token = Cookies.get("token");
-  const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
+  const [, setGlobalClickerState] = useRecoilState(globalClickerState);
 
   useEffect(() => {
     axios

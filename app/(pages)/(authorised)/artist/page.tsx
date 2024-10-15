@@ -1,13 +1,11 @@
 'use client'
 import { Header } from "@/app/components/Header/Header";
 import styles from "./page.module.scss";
-import { artistPageData } from "./artistPageData/artistPageData";
 import { AlbumCard } from "@/app/components/AlbumCard/AlbumCard";
 import { TopSongs } from "@/app/components/TopSongs/TopSongs";
 import { Key, SetStateAction, useEffect, useState } from "react";
 import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
 import axios from "axios";
-
 import Cookies from 'js-cookie';
 
 type Album = {
@@ -24,11 +22,9 @@ const ArtistPage = () => {
             "Content-Type": "multipart/form-data",
             "Authorization": `Bearer ${token}`
         }})
-    .then((r => {
-        
+    .then(r => {
         setDataBase(r.data)
-    }))}, [token])
-    console.log(dataBase)
+    })}, [token])
     
 
     return (

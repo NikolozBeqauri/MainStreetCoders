@@ -29,3 +29,14 @@ export const globalClickerState = atom<number | null>({
 //     key: "currentRecord",
 //     default: null,
 // });
+
+
+export const selectedPlaylistIDToAddTrackState = atom<number | null>({
+    key: 'selectedPlaylistIDToAddTrackState', 
+    default: undefined, 
+});
+
+export const selectedMusicToAddInAlbumState = atom<number | undefined>({
+    key: 'selectedMusicToAddInAlbumState', 
+    default: undefined,
+});

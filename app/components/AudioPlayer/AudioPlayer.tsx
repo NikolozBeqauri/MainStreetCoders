@@ -33,7 +33,6 @@ const AudioPlayer = () => {
   const [duration, setDuration] = useState(0);
   const [modal, setModalState] = useRecoilState(modalState);
   const [idDate, setIdDate] = useState([]);
-
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
 
   const { vw } = useViewport();
@@ -105,6 +104,7 @@ const AudioPlayer = () => {
           setDuration(0);
   
           console.log(idDataBase, 'data here');
+               
         } catch (error) {
           console.error("Error fetching album data:", error);
         }

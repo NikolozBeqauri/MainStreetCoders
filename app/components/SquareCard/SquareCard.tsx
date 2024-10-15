@@ -17,7 +17,6 @@ export const SquareCard = (props: Props) => {
     const stylesClass = [styles.cardIconsBackground];    
     const cardImageStyle = [styles.defaultCardStyles];
     const token = Cookies.get("token");
-    
     const handleDelete = () => {
         if (props.playListId && props.iconImage === "trash") {
             axios.delete(`https://project-spotify-1.onrender.com/playlist/${props.playListId}`, {
