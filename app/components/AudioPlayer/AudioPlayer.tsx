@@ -1,46 +1,36 @@
 "use client";
+
 import DisplayTrack from "./SubComponents/DisplayTrack";
 import Controls from "./SubComponents/Controls";
 import ProgressBar from "./SubComponents/ProgressBar";
 import { useEffect, useRef, useState } from "react";
 import "./src/styles/customizeProgressBar.scss";
 import { useRecoilState } from "recoil";
-import { globalClickerState, modalState } from "@/app/states";
+import { globalClickerState, modalState, albumOnState } from "@/app/states";
 import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
 import Different from "../MobileAudioPlayer/Different";
 import { useViewport } from "react-viewport-hooks";
-
 import styles from "./src/styles/styles.module.scss";
 import style from "./src/styles/mobile.module.scss";
 import Loading from "../Loading/Loading";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import axios from "axios";
-
-type Track = {
-  id: number;
-  title: string;
-  author: string;
-  duration: string;
-};
 
 const AudioPlayer = () => {
   const [trackIndex, setTrackIndex] = useState(0);
-  const [tracks, setTracks] = useState<Track[]>([]);
-  const [currentTrack, setCurrentTrack] = useState<Track | null>(null); 
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const progressBarRef = useRef<HTMLInputElement>(null);
+  const [tracks, setTracks] = useState<any[]>([]);
+  const [currentTrack, setCurrentTrack] = useState<any | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const progressBarRef = useRef<HTMLInputElement | null>(null);
   const [timeProgress, setTimeProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [modal, setModalState] = useRecoilState(modalState);
-  const [idDate, setIdDate] = useState([]);
+  const [idDate, setIdDate] = useState<any>(null);
+
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
+  const [albumOn, setAlbumOnState] = useRecoilState(albumOnState);
 
-  const { vw } = useViewport();
   const token = Cookies.get("token");
-
-  if (JSON.stringify(vw) > "490px") {
-    setModalState(true);
-  }
 
   useEffect(() => {
     const fetchTracks = async () => {
@@ -53,7 +43,7 @@ const AudioPlayer = () => {
             },
           }
         );
-        const data: Track[] = await response.json();
+        const data: any[] = await response.json();
         setTracks(data);
         setCurrentTrack(data[0]);
         setGlobalClickerState(data[0].id);
@@ -62,58 +52,65 @@ const AudioPlayer = () => {
         console.error("Error fetching tracks:", error);
       }
     };
-    
+
     fetchTracks();
   }, [setGlobalClickerState, token]);
-  
-  useEffect(() => {
-    if (currentTrack) {
-      setGlobalClickerState(currentTrack.id);
-    }
-  }, [currentTrack, setGlobalClickerState]);
-  
+
   useEffect(() => {
     const fetchTrackData = async () => {
       if (globalClicker) {
         try {
-
           if (audioRef.current) {
             audioRef.current.pause();
             audioRef.current.currentTime = 0;
           }
-  
-          const response = await axios.get(
-            `https://project-spotify-1.onrender.com/music/${globalClicker}`,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
+          let response;
+          if (albumOn) {
+            response = await axios.get(
+              `https://project-spotify-1.onrender.com/album/${globalClicker}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+            const firstTrack = response.data.musics[0];
+            setIdDate(response.data);
+            setCurrentTrack(firstTrack);
+            console.log(response.data);
+            
+            if (audioRef.current) {
+              audioRef.current.src = firstTrack.filePath;
             }
-          );
-  
-          const idDataBase = response.data;
-          setIdDate(idDataBase);
+          } else {
+            response = await axios.get(
+              `https://project-spotify-1.onrender.com/music/${globalClicker}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+            setIdDate(response.data);
+            
+            if (audioRef.current) {
+              audioRef.current.src = response.data.filePath;
+            }
+          }
 
           if (audioRef.current) {
-            audioRef.current.src = response.data.filePath || '';
-            audioRef.current.load(); 
-            audioRef.current.play(); 
+            audioRef.current.load();
+            await audioRef.current.play();
           }
-  
-          setTimeProgress(0);
-          setDuration(0);
-  
-          console.log(idDataBase, 'data here');
-               
         } catch (error) {
-          console.error("Error fetching album data:", error);
+          console.error("Error fetching track data:", error);
         }
       }
     };
-  
+
     fetchTrackData();
-  }, [globalClicker, token]);
-  
+  }, [globalClicker, token, albumOn]);
+
   if (!currentTrack) {
     return <Loading width="100%" background="#1D1D1D" />;
   }
@@ -142,7 +139,6 @@ const AudioPlayer = () => {
             progressBarRef={progressBarRef}
             idDate={idDate}
           />
-
           <div
             className={
               modal === true
@@ -160,15 +156,14 @@ const AudioPlayer = () => {
               trackIndex={trackIndex}
               setTrackIndex={setTrackIndex}
               tracks={tracks}
+              setAlbumOnState={setAlbumOnState}
             />
-
             <ProgressBar
               progressBarRef={progressBarRef}
               audioRef={audioRef}
               timeProgress={timeProgress}
               duration={duration}
             />
-
           </div>
         </div>
       </div>

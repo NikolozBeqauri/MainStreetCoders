@@ -5,11 +5,8 @@ import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import styles from "./page.module.scss";
 import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
 import { ReusableTable } from "@/app/components/ReusableTable/ReusableTable";
-import { useState } from "react";
 
 const AlbumPage = () => {
-  const [audioPlayerData, setAudioPlayerData] = useState<any | null>(null);
-
   return (
     <div className={styles.album}>
       <div className={styles.album2}>
