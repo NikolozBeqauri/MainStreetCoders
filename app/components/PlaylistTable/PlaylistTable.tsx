@@ -1,15 +1,32 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "antd";
 import styles from "./PlaylistTable.module.scss";
-import { HeartIcon } from "../HeartIcon/HeartIcon";
 import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
+import axios from "axios";
+import Cookies from 'js-cookie';
+
+interface MusicTrack {
+  authorId: number;
+  createAt: string; 
+  deleteAt: string | null;  
+  duration: string;  
+  filePath: string;  
+  id: number; 
+  listenerCount: number; 
+  trackImage: string;  
+  trackTitle: string;  
+  updateAt: string;  
+}
 
 type Props = {
-  records: any[]; 
+  records: MusicTrack[]; 
   heartActive?: boolean;
   pageName?: string;
+  selectedPlaylistId?: number;
+  refetchPlaylists: () => void;
+  refetchSelectedPlaylist: () => void;
 };
 
 const formatDate = (dateString: string) => {
@@ -18,6 +35,30 @@ const formatDate = (dateString: string) => {
 };
 
 export const PlaylistTable = (props: Props) => {
+  const [selectedMusicIdToDelete, setSelectedMusicIdToDelete] = useState<number | null>(null);
+  const token = Cookies.get("token");
+
+  const handleTrashClick = (id: number) => {
+    setSelectedMusicIdToDelete(id);
+  };
+
+  useEffect(() => {
+    if (selectedMusicIdToDelete) {
+      axios
+        .delete(`https://project-spotify-1.onrender.com/playlist/${props.selectedPlaylistId}/music/${selectedMusicIdToDelete}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        })
+        .then((res) => {
+          console.log(res);
+          props.refetchSelectedPlaylist(); 
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }, [selectedMusicIdToDelete, props.selectedPlaylistId, token]);
 
   const columns = [
     {
@@ -30,7 +71,7 @@ export const PlaylistTable = (props: Props) => {
     {
       title: "Track Image",
       key: "trackImage",
-      render: (record: any) => (
+      render: (record: MusicTrack) => (
         <img
           src={record.trackImage || "/default-album-cover.png"}
           alt="Track"
@@ -42,7 +83,7 @@ export const PlaylistTable = (props: Props) => {
     {
       title: "Song Name",
       key: "songName",
-      render: (record: any) => (
+      render: (record: MusicTrack) => (
         <div className={styles.infoWrapper}>
           <div className={styles.wrapper}>
             <div className={styles.titleWrapper}>
@@ -60,7 +101,7 @@ export const PlaylistTable = (props: Props) => {
     {
       title: "Duration",
       key: "duration",
-      render: (record: any) => (
+      render: (record: MusicTrack) => (
         <div className={styles.time}>
           {record.duration || 'Unknown Duration'}
         </div>
@@ -69,7 +110,7 @@ export const PlaylistTable = (props: Props) => {
     {
       title: "Created At",
       key: "createAt",
-      render: (record: any) => (
+      render: (record: MusicTrack) => (
         <div className={styles.createdAt}>
           {record.createAt ? formatDate(record.createAt) : 'Unknown Date'}
         </div>
@@ -77,8 +118,8 @@ export const PlaylistTable = (props: Props) => {
     },
     {
       key: "actions",
-      render: () => (
-        <div className={styles.icon}>
+      render: (record: MusicTrack) => (
+        <div className={styles.icon} onClick={() => handleTrashClick(record.id)}>
           <ReusableIcon imgName={"trash"} />
         </div>
       ),

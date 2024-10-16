@@ -19,9 +19,8 @@ const PlayListPage = () => {
     const [selectedPlaylist, setSelectedPlaylist] = useState<any>(null);
     const [data, setData] = useState<any>([]);
     const [showUploadFile, setShowUploadFile] = useState(false);
-    console.log(selectedPlaylist,'fdsafdsfdafdsafdafda');
-    
     const token = Cookies.get("token");
+
     const fetchPlaylists = () => {
         axios.get(`https://project-spotify-1.onrender.com/playlist`, {
             headers: {
@@ -29,12 +28,26 @@ const PlayListPage = () => {
                 "Authorization": `Bearer ${token}`,
             }
         })
-            .then((r) => {
-                setData(r.data);
-            })
-            .catch((err) => {
-                console.error(err);
-            });
+        .then((r) => {
+            setData(r.data);
+        })
+        .catch((err) => {
+            console.error(err);
+        });
+    };
+
+    const fetchSelectedPlaylist = (playlistId: number) => {
+        axios.get(`https://project-spotify-1.onrender.com/playlist/${playlistId}`, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            }
+        })
+        .then((r) => {
+            setSelectedPlaylist(r.data);
+        })
+        .catch((err) => {
+            console.error(err);
+        });
     };
 
     useEffect(() => {
@@ -45,7 +58,6 @@ const PlayListPage = () => {
         setSelectedPlaylist(playList);
         setPlaylistContentActive(false);
     };
-
 
     return (
         <div className={Styles.container}>
@@ -96,19 +108,22 @@ const PlayListPage = () => {
                 </div>
             ) : (
                 <div className={Styles.childrenContainer}>
-                    <Header imgName={"rightArrow"} isPlaylistPage setPlaylistContentActive={setPlaylistContentActive}/>
+                    <Header imgName={"rightArrow"} isPlaylistPage setPlaylistContentActive={setPlaylistContentActive} />
                     {selectedPlaylist && (
                         <>
                             <NewsComponent
                                 title={selectedPlaylist.name}
-                                image={selectedPlaylist.img}
+                                image={selectedPlaylist.image}
                                 count={"300,000"}
                             />
-                            <PlaylistTable records={selectedPlaylist.music} />
+                            <PlaylistTable
+                                selectedPlaylistId={selectedPlaylist.id}
+                                records={selectedPlaylist.music}
+                                refetchPlaylists={fetchPlaylists}
+                                refetchSelectedPlaylist={() => fetchSelectedPlaylist(selectedPlaylist.id)} 
+                            />
                         </>
-
                     )}
-
                 </div>
             )}
 
