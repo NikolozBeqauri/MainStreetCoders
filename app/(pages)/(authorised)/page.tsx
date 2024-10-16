@@ -67,7 +67,7 @@ export default function Home() {
   const { vw } = useViewport(); 
 
   useEffect(() => {
-    axios.get(`https://project-spotify-1.onrender.com/musics/topweek`, {
+    axios.get(`https://project-spotify-1.onrender.com/music/topweek`, {
       headers: {
         Authorization: `Bearer ${token}`,
       }
@@ -81,7 +81,7 @@ export default function Home() {
   }, [token]);
 
   useEffect(() => {
-    axios.get("https://project-spotify-1.onrender.com/musics/topHits", {
+    axios.get("https://project-spotify-1.onrender.com/music/topHits", {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -96,7 +96,7 @@ export default function Home() {
         console.log(err);
       });
 
-    axios.get("https://project-spotify-1.onrender.com/authors/topArtists", {
+    axios.get("https://project-spotify-1.onrender.com/author/topArtists", {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -108,7 +108,7 @@ export default function Home() {
         console.log(err);
       });
 
-    axios.get("https://project-spotify-1.onrender.com/albums/top-albums", {
+    axios.get("https://project-spotify-1.onrender.com/album/top-albums", {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -123,7 +123,7 @@ export default function Home() {
 
   const handleRowClickTopHits = async (trackId: number) => {
     try {
-      const response = await axios.get(`https://project-spotify-1.onrender.com/musics/${trackId}`, {
+      const response = await axios.get(`https://project-spotify-1.onrender.com/music/${trackId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

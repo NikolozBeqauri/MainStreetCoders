@@ -15,7 +15,7 @@ const TopCharactersPage = () => {
             <NewsComponent title='Top Musics  Of the week' onlyTitle image='chartBackground' />
             <div className={styles.contentOfSongs}>
                 <Search />
-                <ReusableTable pageName="musics/topweeks"/>
+                <ReusableTable pageName="music/topweeks"/>
             </div>
         </div>
     )

@@ -24,7 +24,7 @@ const AlbumPage = () => {
             image={"artistDemoImage"}
           />
           <div className={styles.table}>
-            <ReusableTable pageName="albums" setAudioPlayerData={setAudioPlayerData} />
+            <ReusableTable pageName="album" setAudioPlayerData={setAudioPlayerData} />
           </div>
         </div>
       </div>

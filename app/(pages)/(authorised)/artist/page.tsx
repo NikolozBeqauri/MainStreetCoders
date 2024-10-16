@@ -17,7 +17,7 @@ const ArtistPage = () => {
     const [data, setData] = useState<Album | null>(null);
     const [dataBase, setDataBase] = useState<any>([]);
     const token = Cookies.get("token")
-    useEffect(() => {axios.get("https://project-spotify-1.onrender.com/authors", {
+    useEffect(() => {axios.get("https://project-spotify-1.onrender.com/author", {
         headers: {
             "Content-Type": "multipart/form-data",
             "Authorization": `Bearer ${token}`

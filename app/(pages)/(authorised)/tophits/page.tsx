@@ -21,7 +21,7 @@ const TopHitPage = () => {
       />
       <div className={styles.contentOfSongs}>
         <Search />
-        <ReusableTable pageName="musics/topHits" />
+        <ReusableTable pageName="music/topHits" />
       </div>
     </div>
   );
