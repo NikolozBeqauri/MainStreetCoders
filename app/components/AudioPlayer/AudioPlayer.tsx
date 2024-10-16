@@ -46,7 +46,7 @@ const AudioPlayer = () => {
         const data: any[] = await response.json();
         setTracks(data);
         setCurrentTrack(data[0]);
-        console.log(data, 'music dataaaa');
+        // console.log(data, 'music dataaaa');
         setGlobalClickerState(data[0].id);
         
       } catch (error) {
@@ -78,7 +78,7 @@ const AudioPlayer = () => {
             const firstTrack = response.data.musics[0];
             setIdDate(response.data);
             setCurrentTrack(firstTrack);
-            console.log(response.data);
+            // console.log(response.data);
             
             if (audioRef.current) {
               audioRef.current.src = firstTrack.filePath;
@@ -93,7 +93,6 @@ const AudioPlayer = () => {
               }
             );
             setIdDate(response.data);
-            console.log(response.data, 'music data only');
             
             if (audioRef.current) {
               audioRef.current.src = response.data.filePath;
@@ -112,6 +111,7 @@ const AudioPlayer = () => {
 
     fetchTrackData();
   }, [globalClicker, token, albumOn]);
+
 
   if (!currentTrack) {
     return <Loading width="100%" background="#1D1D1D" />;

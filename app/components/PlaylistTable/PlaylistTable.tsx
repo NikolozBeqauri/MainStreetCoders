@@ -6,6 +6,8 @@ import styles from "./PlaylistTable.module.scss";
 import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
 import axios from "axios";
 import Cookies from 'js-cookie';
+import { useRecoilState } from "recoil";
+import { globalClickerState } from "@/app/states";
 
 interface MusicTrack {
   authorId: number;
@@ -38,6 +40,8 @@ export const PlaylistTable = (props: Props) => {
   const [selectedMusicIdToDelete, setSelectedMusicIdToDelete] = useState<number | null>(null);
   const token = Cookies.get("token");
 
+  const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
+
   const handleTrashClick = (id: number) => {
     setSelectedMusicIdToDelete(id);
   };
@@ -58,7 +62,7 @@ export const PlaylistTable = (props: Props) => {
           console.error(err);
         });
     }
-  }, [selectedMusicIdToDelete, props.selectedPlaylistId, token]);
+  }, [selectedMusicIdToDelete, props.selectedPlaylistId, token, props]);
 
   const columns = [
     {
@@ -132,6 +136,14 @@ export const PlaylistTable = (props: Props) => {
         columns={columns}
         dataSource={props.records}
         rowKey="id"
+        onRow={(record) => {
+          return {
+            onClick: () => {
+              console.log(`Music Track ID: ${record.id}`);
+              setGlobalClickerState(record.id); 
+            },
+          };
+        }}
       />
     </div>
   );

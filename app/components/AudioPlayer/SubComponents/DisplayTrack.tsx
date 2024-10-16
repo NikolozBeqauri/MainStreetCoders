@@ -53,7 +53,7 @@ const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, idD
                 <div className={modal ? styles.audioImage : style.mobileAudioImage}>
                     {
                         (idDate?.album?.coverImage || currentTrack.filePath) ? (
-                            <img src={albumOn === false ? idDate?.trackImage : currentTrack.trackImage || idDate?.coverImage} alt="" />
+                            <img src={albumOn === false ? idDate?.trackImage : currentTrack.trackImage || idDate?.coverImage || "/images/default-album-cover.png"} alt="" />
                         ) : (
                             <div className={modal ? styles.iconWrapper : style.mobileIconWrapper}>
                                 <span className={styles.audioIcon}>
