@@ -9,12 +9,15 @@ type Props = {
   image?: string;
   musicId?: number;
   onlyTitle?: boolean; 
+  playlistBackground?: string;
 };
 
 export const NewsComponent = (props: Props) => {
   const [musicId, setMusicId] = useState<number | null>(null);
   let backgroundImage = `url(/images/${props.image}.png)`;
-
+  if(props.playlistBackground){    
+    backgroundImage = `url(${props.playlistBackground})`
+  }
   const handleClick = () => {
     setMusicId(props.musicId ?? null);
     console.log(musicId);

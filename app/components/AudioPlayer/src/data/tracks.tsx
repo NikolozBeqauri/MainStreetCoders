@@ -43,7 +43,7 @@
 //     }
 // ]
 
-// axios.get("https://project-spotify-1.onrender.com/musics", {
+// axios.get("https://project-spotify-1.onrender.com/music", {
 //   headers: {
 //     "Content-Type": "multipart/form-data",
 //     "Authorization": `Bearer ${token}`,

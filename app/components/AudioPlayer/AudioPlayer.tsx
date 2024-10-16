@@ -36,7 +36,7 @@ const AudioPlayer = () => {
     const fetchTracks = async () => {
       try {
         const response = await fetch(
-          "https://project-spotify-1.onrender.com/musics",
+          "https://project-spotify-1.onrender.com/music",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -64,11 +64,10 @@ const AudioPlayer = () => {
             audioRef.current.pause();
             audioRef.current.currentTime = 0;
           }
-
           let response;
           if (albumOn) {
             response = await axios.get(
-              `https://project-spotify-1.onrender.com/albums/${globalClicker}`,
+              `https://project-spotify-1.onrender.com/album/${globalClicker}`,
               {
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -85,7 +84,7 @@ const AudioPlayer = () => {
             }
           } else {
             response = await axios.get(
-              `https://project-spotify-1.onrender.com/musics/${globalClicker}`,
+              `https://project-spotify-1.onrender.com/music/${globalClicker}`,
               {
                 headers: {
                   Authorization: `Bearer ${token}`,

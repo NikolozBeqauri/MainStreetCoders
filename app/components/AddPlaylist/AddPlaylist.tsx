@@ -24,6 +24,7 @@ export const AddPlaylist = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [wrapperRef]);
+    
 
     return (
         <div ref={wrapperRef} className={styles.wholeWrapper}>

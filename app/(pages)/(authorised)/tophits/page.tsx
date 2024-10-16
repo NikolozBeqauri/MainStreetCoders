@@ -21,7 +21,7 @@ const TopHitPage = () => {
       />
       <div className={styles.contentOfSongs}>
         <Search />
-        <ReusableTable pageName="musics/topHits" isTopHitPage={true} /> {/* Pass the new prop */}
+        <ReusableTable pageName="music/topHits" isTopHitPage={true} />
       </div>
     </div>
   );
