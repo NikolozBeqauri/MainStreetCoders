@@ -9,13 +9,14 @@ import axios from "axios";
 import Loading from "../Loading/Loading";
 import Cookies from "js-cookie";
 import { useRecoilState } from "recoil";
-import { globalClickerState, albumOnState } from "@/app/states";
+import { globalClickerState, albumOnState, isPlayingState } from "@/app/states";
 
 type Props = {
   heartActive?: boolean;
   pageName?: string;
   isTopHitPage?: boolean;
   albumMusics?:boolean;
+  isTopHitPage?: boolean; 
 };
 
 export const ReusableTable = (props: Props) => {
@@ -25,6 +26,7 @@ export const ReusableTable = (props: Props) => {
   const token = Cookies.get("token");
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
   const [albumOn, setAlbumOnState] = useRecoilState(albumOnState);
+  const [isPlaying, setIsPlayingState] = useRecoilState(isPlayingState);
 
   useEffect(() => {
     const fetchRecords = async () => {
@@ -57,6 +59,7 @@ export const ReusableTable = (props: Props) => {
   const handleRowClick = async (record: { id: number }) => {
     setGlobalClickerState(record.id);
     setAlbumOnState(props.pageName === "album");
+    setIsPlayingState(true)
   };
 
   const columns = [

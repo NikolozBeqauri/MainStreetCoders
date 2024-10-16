@@ -1,4 +1,6 @@
-'use client'
+
+"use client";
+
 import { Header } from "@/app/components/Header/Header";
 import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import styles from './page.module.scss'
