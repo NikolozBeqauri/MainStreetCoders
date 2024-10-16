@@ -26,6 +26,7 @@ export const Header = (props: Props) => {
         {props.imgName ? (
           <div onClick={()=>{props?.setPlaylistContentActive ? props?.setPlaylistContentActive(true) : ''}}>
             <Image
+              style={{'cursor': 'pointer'}}
               src={`/icons/${props.imgName}.svg`}
               alt="icon"
               width={props.imgWidth ? props.imgWidth : 24}

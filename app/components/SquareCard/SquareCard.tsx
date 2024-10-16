@@ -10,7 +10,7 @@ type Props = {
     onClick?: () => void; 
     iconImage?: string;
     playListId?: string; 
-    refetchPlaylists: () => void; 
+    refetchPlaylists?: () => void; 
 };
 
 export const SquareCard = (props: Props) => {
@@ -26,7 +26,9 @@ export const SquareCard = (props: Props) => {
             })
             .then((res) => {
                 console.log("Playlist deleted:", res);
-                props.refetchPlaylists();
+                if(props.refetchPlaylists){
+                    props.refetchPlaylists();
+                }
             })
             .catch((err) => {
                 console.error("Error deleting playlist:", err);

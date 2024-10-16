@@ -15,6 +15,7 @@ type Props = {
   heartActive?: boolean;
   pageName?: string;
   isTopHitPage?: boolean;
+  albumMusics?:boolean;
 };
 
 export const ReusableTable = (props: Props) => {
@@ -33,8 +34,12 @@ export const ReusableTable = (props: Props) => {
             'Authorization': `Bearer ${token}`,
           },
         });
-        console.log(response.data, 'hereeeee');
-        setRecords(response.data);
+        console.log(response.data, 'hereeeeess');
+        if(props.albumMusics){
+          setRecords(response.data.musics);
+        }else{
+          setRecords(response.data);
+        }
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -67,7 +72,7 @@ export const ReusableTable = (props: Props) => {
       key: "albumCover",
       render: (record: any) => (
         <img
-          src={record.coverImage || record.album?.coverImage || "/default-album-cover.png"}
+          src={record.coverImage || record.album?.coverImage || record?.trackImage || "/default-album-cover.png"}
           alt=""
           width={48}
           height={48}
