@@ -7,7 +7,7 @@ import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import styles from "./page.module.scss";
 import { Header } from "@/app/components/Header/Header";
 import axios from "axios";
-import { globalClickerState, selectedMusicToAddInAlbumState } from "@/app/states";
+import { albumOnState, globalClickerState, selectedMusicToAddInAlbumState } from "@/app/states";
 import Cookies from 'js-cookie';
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -65,6 +65,8 @@ export default function Home() {
   const [, setSelectedMusicToAddInAlbum] = useRecoilState(selectedMusicToAddInAlbumState);
   const router = useRouter();
   const { vw } = useViewport(); 
+  const [albumOn, setAlbumOnState] = useRecoilState(albumOnState);
+
 
   useEffect(() => {
     axios.get(`https://project-spotify-1.onrender.com/music/topweek`, {
@@ -120,6 +122,20 @@ export default function Home() {
         console.log(err);
       });
   }, [token]);
+
+  const getMusicId = async (albumId: number) => {
+    try {
+      const response = await axios.get(`https://project-spotify-1.onrender.com/album/${albumId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const albumData = response.data;
+      setGlobalClickerState(albumData.musics[0].id);
+    } catch (error) {
+      console.error("Error fetching and playing the track:", error);
+    }
+  };
 
   const handleRowClickTopHits = async (trackId: number) => {
     try {
@@ -224,6 +240,7 @@ export default function Home() {
                 author={album.author.fullName}
                 title={album.title}
                 img={album.coverImage}
+                onClick={() => getMusicId(album.id)}
               />
             ))}
           </div>

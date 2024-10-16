@@ -34,12 +34,6 @@ export const albumIdState = atom<number | null>({
     key: "albumId",
     default: null,
   });
-  
-// export const currentRecordState = atom({
-//     key: "currentRecord",
-//     default: null,
-// });
-
 
 export const selectedPlaylistIDToAddTrackState = atom<number | null>({
     key: 'selectedPlaylistIDToAddTrackState', 
@@ -50,3 +44,14 @@ export const selectedMusicToAddInAlbumState = atom<number | undefined>({
     key: 'selectedMusicToAddInAlbumState', 
     default: undefined,
 });
+
+
+export const isPlayingState = atom({
+    key: 'isPlaying', 
+    default: false,
+});
+
+// export const currentPlaylistState = atom({
+//     key: 'currentPlaylist',
+//     default: [],
+// });

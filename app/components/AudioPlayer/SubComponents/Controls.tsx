@@ -17,7 +17,7 @@ import {
   IoVolumeHighOutline,
 } from "react-icons/io5";
 import { useRecoilState } from "recoil";
-import { modalState } from "@/app/states";
+import { isPlayingState, modalState } from "@/app/states";
 
 const Controls = ({
   audioRef,
@@ -30,7 +30,7 @@ const Controls = ({
   setCurrentTrack,
   setAlbumOnState,
 }: any) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlayingState] = useRecoilState(isPlayingState);
   const [isShuffle, setIsShuffle] = useState(false);
   const [isRepeat, setIsRepeat] = useState(false);
   const playAnimationRef = useRef<number | null>(null);
@@ -71,7 +71,7 @@ const Controls = ({
     } else {
       audioRef.current.play();
     }
-    setIsPlaying(!isPlaying);
+    setIsPlayingState(!isPlaying);
   };
 
   const previousTrack = () => {
@@ -85,7 +85,7 @@ const Controls = ({
       audioRef.current.play();
     }
 
-    setIsPlaying(true);
+    setIsPlayingState(true);
   };
 
   const nextTrack = () => {
@@ -99,7 +99,7 @@ const Controls = ({
       audioRef.current.play();
     }
 
-    setIsPlaying(true);
+    setIsPlayingState(true);
   };
 
   const shuffleIt = () => {
@@ -120,6 +120,7 @@ const Controls = ({
     }
   }, [volume, audioRef, muteVolume]);
 
+  
   const [modal, setModalState] = useRecoilState(modalState);
 
   return (
