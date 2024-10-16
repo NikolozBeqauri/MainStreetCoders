@@ -100,7 +100,7 @@ const AudioPlayer = () => {
 
           if (audioRef.current) {
             audioRef.current.load();
-            await audioRef.current.play();
+            // await audioRef.current.play();
           }
         } catch (error) {
           console.error("Error fetching track data:", error);
