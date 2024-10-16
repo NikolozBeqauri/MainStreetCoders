@@ -9,35 +9,40 @@ import axios from "axios";
 import Loading from "../Loading/Loading";
 import Cookies from "js-cookie";
 import { useRecoilState } from "recoil";
-import { globalClickerState } from "@/app/states";
+import { globalClickerState, albumOnState } from "@/app/states";
 
 type Props = {
   heartActive?: boolean;
   pageName?: string;
-  setAudioPlayerData?: (trackData: any) => void;
+  isTopHitPage?: boolean; // New prop to indicate if it's the Top Hits page
 };
 
 export const ReusableTable = (props: Props) => {
   const [records, setRecords] = useState<any[]>([]);
+  const [authorName, setAuthorName] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const token = Cookies.get("token");
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
+  const [albumOn, setAlbumOnState] = useRecoilState(albumOnState);
 
   useEffect(() => {
-    axios
-      .get(`https://project-spotify-1.onrender.com/${props.pageName}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
+    const fetchRecords = async () => {
+      try {
+        const response = await axios.get(`https://project-spotify-1.onrender.com/${props.pageName}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+        console.log(response.data, 'hereeeee');
         setRecords(response.data);
         setLoading(false);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error fetching data:", error);
         setLoading(false);
-      });
+      }
+    };    
+
+    fetchRecords();
   }, [token, props.pageName]);
 
   if (loading) {
@@ -46,7 +51,7 @@ export const ReusableTable = (props: Props) => {
 
   const handleRowClick = async (record: { id: number }) => {
     setGlobalClickerState(record.id);
-    // Fetch album details if needed...
+    setAlbumOnState(props.pageName === "albums");
   };
 
   const columns = [
@@ -75,7 +80,7 @@ export const ReusableTable = (props: Props) => {
       render: (record: any) => {
         const firstMusic = record.musics && record.musics.length > 0 ? record.musics[0] : null;
         const trackTitle = firstMusic ? firstMusic.trackTitle : record.trackTitle || 'Unknown Track';
-
+    
         return (
           <div className={styles.infoWrapper}>
             <div className={styles.wrapper}>
@@ -85,7 +90,7 @@ export const ReusableTable = (props: Props) => {
                 </div>
               </div>
               <div className={styles.author}>
-                {firstMusic ? firstMusic.authorName : record.authorName || 'Unknown Author'}
+                {firstMusic ? firstMusic.author?.fullName : record.author?.fullName || 'Unknown Author'}
               </div>
             </div>
           </div>
@@ -106,7 +111,7 @@ export const ReusableTable = (props: Props) => {
       key: "duration",
       render: (record: any) => (
         <div className={styles.time}>
-          {record.duration || 'Unknown Duration'}
+          {record.duration || record.musics[0]?.duration || 'Unknown Duration'}
         </div>
       ),
     },

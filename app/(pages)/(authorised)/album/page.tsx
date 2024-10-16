@@ -5,11 +5,8 @@ import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import styles from "./page.module.scss";
 import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
 import { ReusableTable } from "@/app/components/ReusableTable/ReusableTable";
-import { useState } from "react";
 
 const AlbumPage = () => {
-  const [audioPlayerData, setAudioPlayerData] = useState<any | null>(null);
-
   return (
     <div className={styles.album}>
       <div className={styles.album2}>
@@ -24,7 +21,7 @@ const AlbumPage = () => {
             image={"artistDemoImage"}
           />
           <div className={styles.table}>
-            <ReusableTable pageName="albums" setAudioPlayerData={setAudioPlayerData} />
+            <ReusableTable pageName="albums" />
           </div>
         </div>
       </div>

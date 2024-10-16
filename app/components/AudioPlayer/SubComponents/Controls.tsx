@@ -1,9 +1,10 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+"use client";
 
+import { useState, useEffect, useRef, useCallback } from "react";
 import styles from "../src/styles/styles.module.scss";
 import style from "../src/styles/mobile.module.scss";
 
-// icons
+// Icons
 import {
   IoPlaySkipBackOutline,
   IoPlaySkipForwardOutline,
@@ -27,11 +28,11 @@ const Controls = ({
   trackIndex,
   setTrackIndex,
   setCurrentTrack,
+  setAlbumOnState,
 }: any) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isShuffle, setIsShuffle] = useState(false);
   const [isRepeat, setIsRepeat] = useState(false);
-
   const playAnimationRef = useRef<number | null>(null);
 
   const repeat = useCallback(() => {
@@ -46,21 +47,20 @@ const Controls = ({
     playAnimationRef.current = requestAnimationFrame(repeat);
   }, [audioRef, duration, progressBarRef, setTimeProgress]);
 
-
   useEffect(() => {
     if (isPlaying) {
-      audioRef.current.play(); 
-      playAnimationRef.current = requestAnimationFrame(repeat); 
+      audioRef.current.play();
+      playAnimationRef.current = requestAnimationFrame(repeat);
     } else {
-      audioRef.current.pause(); 
+      audioRef.current.pause();
       if (playAnimationRef.current !== null) {
-        cancelAnimationFrame(playAnimationRef.current); 
+        cancelAnimationFrame(playAnimationRef.current);
       }
     }
 
     return () => {
       if (playAnimationRef.current !== null) {
-        cancelAnimationFrame(playAnimationRef.current); 
+        cancelAnimationFrame(playAnimationRef.current);
       }
     };
   }, [audioRef, isPlaying, repeat]);
@@ -72,62 +72,39 @@ const Controls = ({
       audioRef.current.play();
     }
     setIsPlaying(!isPlaying);
-    
-  };
-
-  const shuffleIt = () => {
-    setIsShuffle(!isShuffle);
   };
 
   const previousTrack = () => {
-    let prevIndex;
-    if (trackIndex > 0) {
-      prevIndex = trackIndex - 1;
-    } else {
-      prevIndex = tracks.length - 1;
-    }
+    setAlbumOnState(false);
+    let prevIndex = trackIndex > 0 ? trackIndex - 1 : tracks.length - 1;
     setTrackIndex(prevIndex);
-    const prevTrack = tracks[prevIndex];
-
-    setCurrentTrack(prevTrack);
+    setCurrentTrack(tracks[prevIndex]);
 
     if (audioRef.current) {
-      audioRef.current.src = prevTrack.filePath;
+      audioRef.current.src = tracks[prevIndex].filePath;
       audioRef.current.play();
     }
 
-    if(isPlaying) {
-      audioRef.current.play();
-    } else {
-      audioRef.current.play();
-    }
-    setIsPlaying(true)
-  };  
+    setIsPlaying(true);
+  };
 
   const nextTrack = () => {
-    let nextIndex;
-    if (trackIndex < tracks.length - 1) {
-      nextIndex = trackIndex + 1;
-    } else {
-      nextIndex = 0;
-    }
+    setAlbumOnState(false);
+    let nextIndex = trackIndex < tracks.length - 1 ? trackIndex + 1 : 0;
     setTrackIndex(nextIndex);
-    const nextTrack = tracks[nextIndex];
-
-    setCurrentTrack(nextTrack);
+    setCurrentTrack(tracks[nextIndex]);
 
     if (audioRef.current) {
-      audioRef.current.src = nextTrack.filePath;
+      audioRef.current.src = tracks[nextIndex].filePath;
       audioRef.current.play();
     }
 
-    if(isPlaying) {
-      audioRef.current.play();
-    } else {
-      audioRef.current.play();
-    }
-    setIsPlaying(true)
+    setIsPlaying(true);
   };
+
+  const shuffleIt = () => {
+    
+  }
 
   const repeatIt = () => {
     setIsRepeat(!isRepeat);
@@ -146,11 +123,7 @@ const Controls = ({
   const [modal, setModalState] = useRecoilState(modalState);
 
   return (
-    <div
-      className={
-        modal === true ? styles.controlsWrapper : style.mobileControlsWrapper
-      }
-    >
+    <div className={modal === true ? styles.controlsWrapper : style.mobileControlsWrapper}>
       <div className={styles.controls}>
         <button
           className={modal === true ? styles.butto : style.mobileButto}
