@@ -51,7 +51,7 @@ export const ReusableTable = (props: Props) => {
 
   const handleRowClick = async (record: { id: number }) => {
     setGlobalClickerState(record.id);
-    setAlbumOnState(props.pageName === "albums");
+    setAlbumOnState(props.pageName === "album");
   };
 
   const columns = [
