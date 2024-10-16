@@ -14,7 +14,7 @@ import { globalClickerState, albumOnState } from "@/app/states";
 type Props = {
   heartActive?: boolean;
   pageName?: string;
-  isTopHitPage?: boolean; // New prop to indicate if it's the Top Hits page
+  isTopHitPage?: boolean;
 };
 
 export const ReusableTable = (props: Props) => {

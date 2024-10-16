@@ -46,6 +46,7 @@ const AudioPlayer = () => {
         const data: any[] = await response.json();
         setTracks(data);
         setCurrentTrack(data[0]);
+        console.log(data, 'music dataaaa');
         setGlobalClickerState(data[0].id);
         
       } catch (error) {
@@ -92,6 +93,7 @@ const AudioPlayer = () => {
               }
             );
             setIdDate(response.data);
+            console.log(response.data, 'music data only');
             
             if (audioRef.current) {
               audioRef.current.src = response.data.filePath;
@@ -100,7 +102,7 @@ const AudioPlayer = () => {
 
           if (audioRef.current) {
             audioRef.current.load();
-            // await audioRef.current.play();
+            await audioRef.current.pause();
           }
         } catch (error) {
           console.error("Error fetching track data:", error);

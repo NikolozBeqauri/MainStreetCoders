@@ -4,11 +4,13 @@ import { HeartIcon } from "../../HeartIcon/HeartIcon";
 import styles from "../src/styles/styles.module.scss";
 import style from "../src/styles/mobile.module.scss";
 import { useRecoilState } from "recoil";
-import { modalState } from "@/app/states";
+import { albumOnState, modalState } from "@/app/states";
 
 const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, idDate }: any) => {
     const titleRef = useRef<HTMLParagraphElement | null>(null);
     const titleWrapperRef = useRef<HTMLDivElement | null>(null);
+
+    const [albumOn, setAlbumOnState] = useRecoilState(albumOnState);
 
     useEffect(() => {
         checkTitleOverflow();
@@ -51,7 +53,7 @@ const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, idD
                 <div className={modal ? styles.audioImage : style.mobileAudioImage}>
                     {
                         (idDate?.album?.coverImage || currentTrack.filePath) ? (
-                            <img src={idDate?.trackImage || currentTrack.trackImage || idDate?.album?.coverImage || idDate?.coverImage || currentTrack.album?.coverImage} alt="" />
+                            <img src={albumOn === false ? idDate?.trackImage : currentTrack.trackImage || idDate?.coverImage} alt="" />
                         ) : (
                             <div className={modal ? styles.iconWrapper : style.mobileIconWrapper}>
                                 <span className={styles.audioIcon}>
@@ -65,10 +67,10 @@ const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, idD
                     <HeartIcon height={26} width={26} padding={0} />
                     <div className={styles.titleWrapper} ref={titleWrapperRef}>
                         <p className={styles.title} ref={titleRef} id="title">
-                            {idDate?.trackTitle || currentTrack.trackTitle || 'Unknown Title'}
+                            {albumOn === false ? idDate?.trackTitle : currentTrack.trackTitle ? currentTrack.trackTitle : 'Unknown Title'}
                         </p>
                         <p className={styles.author}>
-                            {idDate?.author?.fullName || currentTrack?.authorName || 'Unknown Author'}
+                            {  albumOn === false ? idDate?.author?.fullName : currentTrack?.author?.fullName || idDate?.author?.fullName}
                         </p>
                     </div>
                 </div>
