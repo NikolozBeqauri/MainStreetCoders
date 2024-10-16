@@ -10,7 +10,7 @@ export const ArtistBiography = (props:Props) => {
     return (
         <div className={styles.cardWrapper}>
             <Image
-                src={`/images/${props.image}.png`}
+                src={`${props.image}`}
                 alt="artist image"
                 width={360}
                 height={325}

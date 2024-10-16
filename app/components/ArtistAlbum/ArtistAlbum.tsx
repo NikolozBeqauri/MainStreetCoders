@@ -1,11 +1,18 @@
 import artistAlbumData from "./artistAlbumData/artistAlbumData"
 import styles from "./ArtistAlbum.module.scss"
 import { SquareCard } from "../SquareCard/SquareCard"
-export const ArtistAlbum = () => {
+import { Key } from "react";
+
+type Props = {
+    albumsOfArtist: any;
+}
+
+export const ArtistAlbum = (props:Props) => {
+    const s = props.albumsOfArtist
     return (
         <div className={styles.artistAlbumWrapper}>
-            {artistAlbumData.map((album, index) => (
-                <SquareCard  key={index} title={album.title} img={album.image}/>
+            {props.albumsOfArtist.map((album: { id: Key | null | undefined; title: string; image: string; }) => (
+                <SquareCard  key={album.id} title={album.title} img={album.image}/>
              ))}
         </div>
     )

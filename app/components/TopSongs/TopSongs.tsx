@@ -1,26 +1,82 @@
 'use client'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NewsComponent } from "../NewsComponent/NewsComponent";
 import styles from "./TopSongs.module.scss";
 import artistNav from '@/app/enums/artistNav';
 import { ArtistBiography } from '../ArtistPiography/ArtistPiography';
 import { ArtistAlbum } from '../ArtistAlbum/ArtistAlbum';
 import { ReusableTable } from '../ReusableTable/ReusableTable';
+import Cookies from 'js-cookie';
+import axios from 'axios';
+
 
 type Props = {
     image: string;
     title: string;
     count: string;
+    data?: any;
 };
 
+interface album {
+    id: number;
+    title: string;
+    coverImage: string
+}
+
 export const TopSongs = (props: Props) => {
-    const [activeButton, setActiveButton] = useState(artistNav.topSongs);    
+    const token = Cookies.get("token")
+
+    const [activeButton, setActiveButton] = useState(artistNav.topSongs); 
+    const [albumsOfArtist, setAlbumsOfArtist] = useState<album[]>([])
+    
+    useEffect(()=>{
+        axios.get("https://project-spotify-1.onrender.com/author/topArtists", {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },[])
+
+    useEffect(()=>{
+            axios.get(`https://project-spotify-1.onrender.com/author/find-all-album-of-author/${props.data?.id}`, {
+                headers: {
+                Authorization: `Bearer ${token}`
+                }
+            })
+            .then((res) => {
+                console.log(res.data.albums, 'asdsadasdsadsadasd');
+                setAlbumsOfArtist(res.data.albums)
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    },[])
+
+    useEffect(()=>{
+        axios.get(`https://project-spotify-1.onrender.com/author/find-all-music-of-author/${props.data?.id}`, {
+            headers: {
+            Authorization: `Bearer ${token}`
+            }
+        })
+        .then((res) => {
+            console.log(res.data.musics, 'gela');
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    },[])
     return (
         <div className={styles.wrapper}>
             <NewsComponent 
                 title={props.title} 
                 count={props.count} 
-                image={props.image} 
+                playlistBackground={props.image}
             />
             <div>
                 <div className={styles.navigationWrapper}>
@@ -46,15 +102,15 @@ export const TopSongs = (props: Props) => {
                 {(() => {
                     switch (activeButton) {
                         case artistNav.topSongs:
-                            return <ReusableTable />;
+                            return <ReusableTable pageName={`author/find-all-music-of-author/${props.data?.id}`} albumMusics/>;
                         case artistNav.album:
-                            return <ArtistAlbum />;
+                            return <ArtistAlbum albumsOfArtist={albumsOfArtist}/>;
                         case artistNav.biography:
                             return (
                                 <ArtistBiography
-                                    image={'billieEilish'}
-                                    title={'barkala'}
-                                    paragraph={`Peggy Gou (born July 3, 1991) is a South Korean DJ and producer based in Berlin. Originally from Incheon, South Korea, she began taking piano lessons at the age of 8 and moved to London during her teenage years to study English. After a brief return to South Korea, Gou returned to England to study at the London College of Fashion. During this time, she also honed her skills in music production, a hobby she had started in her younger years. Upon moving to Berlin, Gou made her official debut in 2016 with the EPs Art of War and Art of War II, both released by the independent label Rekids, releasing a third EP titled Seek for Maktoop the same year. As her reputation grew, she landed gigs at some of the world's most iconic venues, becoming the first Korean DJ to perform at the legendary Berlin nightclub Berghain. She has also shared the stage with renowned artists such as DJ Koze, Moodymann, The Blessed Madonna, and secured spots at festivals like Coachella, Glastonbury, and Primavera Sound. In 2018, Peggy Gou released the EP Once via Ninja Tune Records, followed by the DJ mix album DJ-Kicks: Peggy Gou (2019), released by !K7 Records. In addition to receiving rave reviews, the album marked her first appearance on the Billboard chart, peaking at number 9. Heavily inspired by 90s dance music, the single "I Go" was released in 2021 and reached number 39 on the Hot Dance/Electronic Songs chart. Her debut album I Hear You was released in July, 2024 through XL Recordings.`} 
+                                    image={props.image}
+                                    title={props.title}
+                                    paragraph={`${props.data?.biography}`} 
                                 />
                             );
                         default:

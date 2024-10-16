@@ -5,13 +5,14 @@
     flex-direction: column;
     margin: 0 auto;
     gap: 40px;
-    max-width: 1400px;
+    max-width: 1300px;
     width: 100%;
     padding: 40px 24px;
 }
 .headerWrapper {
     display: flex; 
     align-items: center;
+    justify-content: space-between;
     gap: 24px;
 }
 .artistCardsWrapper>h2 {
