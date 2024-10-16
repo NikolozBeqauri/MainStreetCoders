@@ -35,7 +35,8 @@ const PlayListPage = () => {
             console.error(err);
         });
     };
-
+    console.log(selectedPlaylist,'zzzzzzz');
+    
     const fetchSelectedPlaylist = (playlistId: number) => {
         axios.get(`https://project-spotify-1.onrender.com/playlist/${playlistId}`, {
             headers: {
@@ -113,8 +114,8 @@ const PlayListPage = () => {
                         <>
                             <NewsComponent
                                 title={selectedPlaylist.name}
-                                image={selectedPlaylist.image}
-                                count={"300,000"}
+                                playlistBackground={selectedPlaylist?.image}
+                                count={selectedPlaylist?.count}
                             />
                             <PlaylistTable
                                 selectedPlaylistId={selectedPlaylist.id}
