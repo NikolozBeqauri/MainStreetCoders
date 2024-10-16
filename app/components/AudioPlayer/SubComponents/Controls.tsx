@@ -75,7 +75,7 @@ const Controls = ({
   };
 
   const previousTrack = () => {
-    setAlbumOnState(false);
+    setAlbumOnState(true);
     let prevIndex = trackIndex > 0 ? trackIndex - 1 : tracks.length - 1;
     setTrackIndex(prevIndex);
     setCurrentTrack(tracks[prevIndex]);
@@ -89,7 +89,7 @@ const Controls = ({
   };
 
   const nextTrack = () => {
-    setAlbumOnState(false);
+    setAlbumOnState(true);
     let nextIndex = trackIndex < tracks.length - 1 ? trackIndex + 1 : 0;
     setTrackIndex(nextIndex);
     setCurrentTrack(tracks[nextIndex]);
