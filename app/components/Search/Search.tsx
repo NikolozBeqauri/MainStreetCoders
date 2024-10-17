@@ -1,8 +1,5 @@
-<<<<<<< Updated upstream
 'use client'
-=======
-"use client"
->>>>>>> Stashed changes
+
 import Image from 'next/image';
 import styles from "./Search.module.scss";
 import axios from 'axios';

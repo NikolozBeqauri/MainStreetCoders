@@ -6,13 +6,14 @@ import { useState, useEffect, useRef } from "react";
 import popUpNav from "@/app/enums/popUpNav";
 import UploadFile from "./UploadFile/UploadFile";
 import { AddPlaylistChackBox } from "./AddPlaylistChackBox/AddPlaylistChackBox";
-
+import { useRecoilState } from "recoil";
+import { threeDotClickedState } from "@/app/states";
 
 export const AddPlaylist = () => {
     const router = useRouter();
     const [activeComponent, setActiveComponent] = useState<null | string>(popUpNav.addPlaylist);
-
     const wrapperRef = useRef<HTMLDivElement>(null);
+    const [, setThreeDotClicked] = useRecoilState(threeDotClickedState);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -33,8 +34,8 @@ export const AddPlaylist = () => {
             {activeComponent === popUpNav.addPlaylist && (
                 <div className={`${styles.container} ${styles.background}`}>
                     <AddLine onClick={() => setActiveComponent(popUpNav.addChackBox)} title="Add to playlists" image={"addPlaylistIcon"} />
-                    <AddLine onClick={() => { router.push('/album') }} title="View Album" image={"viewAlbumIcon"} />
-                    <AddLine onClick={() => { router.push('/artist') }} title="viewArtist" image={"viewArtistIcon"} />
+                    <AddLine onClick={() => { router.push('/album');setThreeDotClicked(false) }} title="View Album" image={"viewAlbumIcon"} />
+                    <AddLine onClick={() => { router.push('/artist');setThreeDotClicked(false) }} title="viewArtist" image={"viewArtistIcon"} />
                 </div>
             )}
 
