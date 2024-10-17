@@ -127,7 +127,7 @@ export const ReusableTable = (props: Props) => {
       render: () => (
         <div className={styles.icon}>
           <HeartIcon active={props.heartActive} />
-          <ReusableIcon imgName={"whiteThreeDots"} />
+          <ReusableIcon imgName={"threeDots"} />
         </div>
       ),
     },
