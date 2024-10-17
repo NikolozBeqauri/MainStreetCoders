@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 'use client'
+=======
+"use client"
+>>>>>>> Stashed changes
 import Image from 'next/image';
 import styles from "./Search.module.scss";
 import axios from 'axios';
@@ -12,6 +16,7 @@ export const Search = (props: Props) => {
     const token = Cookies.get("token");
     const [suggestions, setSuggestions] = useState<any>(null);
     const [value, setValue] = useState<any>(null);
+    const [trackId, setTrackId] = useState<any>(null);
     
     
     const placeHolder = props.placeHolder ? props.placeHolder : "Artists, tracks, albums";
@@ -26,6 +31,9 @@ export const Search = (props: Props) => {
           .then((r) => {
             console.log(r.data.music);
             setSuggestions(r.data.music);
+            setSuggestions(r.data.albums);
+            setSuggestions(r.data.Artists);
+            setTrackId(r.data)
           })
     };
 
