@@ -8,6 +8,8 @@ import { ReusableIcon } from '../../ReusableIcon/ReusableIcon';
 import ReusableButton from '../../ReusableButton/ReusableButton';
 import popUpNav from '@/app/enums/popUpNav';
 import Cookies from 'js-cookie';
+import { useRecoilState } from 'recoil';
+import { threeDotClickedState } from '@/app/states';
 
 type FormValues = {
     name: string;
@@ -21,6 +23,7 @@ type Props = {
 }
 
 export const UploadFile = (props: Props) => {
+    const [, setThreeDotClicked] = useRecoilState(threeDotClickedState);
 
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
@@ -43,6 +46,7 @@ export const UploadFile = (props: Props) => {
                     props.refetchPlaylists(); 
                 }
                 props.setActiveComponent(null);
+                setThreeDotClicked(false);
             })
             .catch(err => {
                 console.log(err);
