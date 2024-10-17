@@ -45,7 +45,7 @@ const Loading = (props: Props) => {
           className={styles.section}
           style={{
             width: props.width,
-            "--background-color": props["background-color"] || "transparent", // Set background-color using CSS variable
+            background: props.background,
           } as React.CSSProperties}
         >
           <div className={styles.loader}>
