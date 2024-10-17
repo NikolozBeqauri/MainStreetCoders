@@ -7,7 +7,7 @@ import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import { useRecoilState } from "recoil";
-import { globalClickerState } from "@/app/states";
+import { globalClickerState, threeDotClickedState } from "@/app/states";
 
 interface MusicTrack {
   authorId: number;
@@ -39,6 +39,7 @@ const formatDate = (dateString: string) => {
 export const PlaylistTable = (props: Props) => {
   const [selectedMusicIdToDelete, setSelectedMusicIdToDelete] = useState<number | null>(null);
   const token = Cookies.get("token");
+  const [, setThreeDotClicked] = useRecoilState(threeDotClickedState);
 
   const [, setGlobalClickerState] = useRecoilState(globalClickerState);
 
@@ -62,6 +63,7 @@ export const PlaylistTable = (props: Props) => {
             placement: 'top',
           });
           props.refetchSelectedPlaylist(); 
+          setThreeDotClicked(false)
         })
         .catch((err) => {
           console.error(err);
