@@ -51,6 +51,11 @@ export const isPlayingState = atom({
     default: false,
 });
 
+export const trackIdState = atom ({
+    key: 'trackId',
+    default: null,
+})
+
 // export const currentPlaylistState = atom({
 //     key: 'currentPlaylist',
 //     default: [],

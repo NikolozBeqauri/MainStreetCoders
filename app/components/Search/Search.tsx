@@ -1,5 +1,5 @@
-'use client'
 
+'use client'
 import Image from 'next/image';
 import styles from "./Search.module.scss";
 import axios from 'axios';
@@ -12,8 +12,11 @@ type Props = {
 export const Search = (props: Props) => {
     const token = Cookies.get("token");
     const [suggestions, setSuggestions] = useState<any>(null);
+    const [authorSuggestion, setAuthorSuggestion] = useState<any>(null);
+    const [album, setAlbum] = useState<any>(null);
     const [value, setValue] = useState<any>(null);
-    const [trackId, setTrackId] = useState<any>(null);
+    // const [trackId, setTrackId] = useState<any>(null);
+    
     
     
     const placeHolder = props.placeHolder ? props.placeHolder : "Artists, tracks, albums";
@@ -26,11 +29,12 @@ export const Search = (props: Props) => {
             }
           })
           .then((r) => {
-            console.log(r.data.music);
             setSuggestions(r.data.music);
-            setSuggestions(r.data.albums);
-            setSuggestions(r.data.Artists);
-            setTrackId(r.data)
+            setAuthorSuggestion(r.data.author);
+            setAlbum(r.data.albums);
+            
+            
+            
           })
     };
 
@@ -48,7 +52,7 @@ export const Search = (props: Props) => {
                     height={24}
                 />
             </div>
-            {value && value.length != 0 && <SearchSuggestions suggestions={suggestions} />}
+            {value && value.length != 0 && <SearchSuggestions musicSuggestions={suggestions} authorSuggestion={authorSuggestion} albumSuggestion={album} />}
         </>
     )
 }
