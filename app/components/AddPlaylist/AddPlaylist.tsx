@@ -7,9 +7,11 @@ import popUpNav from "@/app/enums/popUpNav";
 import UploadFile from "./UploadFile/UploadFile";
 import { AddPlaylistChackBox } from "./AddPlaylistChackBox/AddPlaylistChackBox";
 
+
 export const AddPlaylist = () => {
     const router = useRouter();
     const [activeComponent, setActiveComponent] = useState<null | string>(popUpNav.addPlaylist);
+
     const wrapperRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
