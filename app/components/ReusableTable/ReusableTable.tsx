@@ -16,6 +16,7 @@ type Props = {
   pageName?: string;
   isTopHitPage?: boolean;
   albumMusics?:boolean;
+
 };
 
 export const ReusableTable = (props: Props) => {
@@ -26,8 +27,8 @@ export const ReusableTable = (props: Props) => {
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
   const [albumOn, setAlbumOnState] = useRecoilState(albumOnState);
   const [isPlaying, setIsPlayingState] = useRecoilState(isPlayingState);
-
   useEffect(() => {
+    
     const fetchRecords = async () => {
       try {
         const response = await axios.get(`https://project-spotify-1.onrender.com/${props.pageName}`, {
@@ -35,7 +36,7 @@ export const ReusableTable = (props: Props) => {
             'Authorization': `Bearer ${token}`,
           },
         });
-        console.log(response.data, 'hereeeeess');
+        console.log(response.data, 'hereeeeesszz');
         if(props.albumMusics){
           setRecords(response.data.musics);
         }else{
@@ -87,7 +88,8 @@ export const ReusableTable = (props: Props) => {
       render: (record: any) => {
         const firstMusic = record.musics && record.musics.length > 0 ? record.musics[0] : null;
         const trackTitle = firstMusic ? firstMusic.trackTitle : record.trackTitle || 'Unknown Track';
-    
+        console.log(record,'tatiana');
+        
         return (
           <div className={styles.infoWrapper}>
             <div className={styles.wrapper}>
@@ -97,7 +99,7 @@ export const ReusableTable = (props: Props) => {
                 </div>
               </div>
               <div className={styles.author}>
-                {firstMusic ? firstMusic.author?.fullName : record.author?.fullName || 'Unknown Author'}
+                {firstMusic ? firstMusic.author?.fullName : record.author?.fullName || record.authorFullName || `Unknow Artist`}
               </div>
             </div>
           </div>
