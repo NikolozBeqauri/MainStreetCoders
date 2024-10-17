@@ -19,7 +19,8 @@ type Album = {
 const ArtistPage = () => {
     const [data, setData] = useState<Album | null>(null);
     const [dataBase, setDataBase] = useState<any>([]);
-
+    console.log(data,'gela');
+    
     const token = Cookies.get("token")
     useEffect(() => {
         axios.get("https://project-spotify-1.onrender.com/author", {

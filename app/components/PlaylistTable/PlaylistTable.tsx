@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Table } from "antd";
+import { Table, notification } from "antd";
 import styles from "./PlaylistTable.module.scss";
 import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
 import axios from "axios";
@@ -40,7 +40,7 @@ export const PlaylistTable = (props: Props) => {
   const [selectedMusicIdToDelete, setSelectedMusicIdToDelete] = useState<number | null>(null);
   const token = Cookies.get("token");
 
-  const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
+  const [, setGlobalClickerState] = useRecoilState(globalClickerState);
 
   const handleTrashClick = (id: number) => {
     setSelectedMusicIdToDelete(id);
@@ -56,6 +56,11 @@ export const PlaylistTable = (props: Props) => {
         })
         .then((res) => {
           console.log(res);
+          notification.success({
+            message: 'Music Deleted',
+            description: 'The music has been successfully deleted from the playlist.',
+            placement: 'top',
+          });
           props.refetchSelectedPlaylist(); 
         })
         .catch((err) => {

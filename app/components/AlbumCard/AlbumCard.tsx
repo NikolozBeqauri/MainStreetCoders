@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "./AlbumCard.module.scss";
 import { HeartIcon } from "../HeartIcon/HeartIcon";
 import { ReusableIcon } from "../ReusableIcon/ReusableIcon";

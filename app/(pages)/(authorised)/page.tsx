@@ -66,7 +66,7 @@ export default function Home() {
   const router = useRouter();
   const { vw } = useViewport(); 
   const [albumOn, setAlbumOnState] = useRecoilState(albumOnState);
-
+  
 
   useEffect(() => {
     axios.get(`https://project-spotify-1.onrender.com/music/topweek`, {

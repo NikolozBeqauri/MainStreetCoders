@@ -16,7 +16,8 @@ const AlbumPage = () => {
         </div>
         <div>
           <NewsComponent
-            title={"Seek For Marktoop"}
+            onlyTitle
+            title={"All Albums"}
             count={"Released 07/12/2023"}
             image={"artistDemoImage"}
           />
