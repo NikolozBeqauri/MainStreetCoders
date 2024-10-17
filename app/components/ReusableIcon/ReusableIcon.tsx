@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import styles from "./ReusableIcon.module.scss";
 import { AddPlaylist } from "../AddPlaylist/AddPlaylist";
 import { createPortal } from "react-dom";
+import { useRecoilState } from "recoil";
+import { threeDotClickedState } from "@/app/states";
 
 type Props = {
   imgName: string;
@@ -19,7 +21,7 @@ export const ReusableIcon = (props: Props) => {
   const imageName = props.active ? `${props.imgName}Active` : props.imgName;
   const stylesClasses = [styles.generalStyles];
   const [isFocused, setIsFocused] = useState(false);
-  const [threeDotClicked, setThreeDotClicked] = useState(false);
+  const [threeDotClicked, setThreeDotClicked] = useRecoilState(threeDotClickedState);
 
   const handleFocus = () => {
     setIsFocused(true);

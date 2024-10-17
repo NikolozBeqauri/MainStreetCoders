@@ -55,3 +55,8 @@ export const isPlayingState = atom({
 //     key: 'currentPlaylist',
 //     default: [],
 // });
+
+export const threeDotClickedState = atom({
+    key: 'threeDotClickedState', 
+    default: false, 
+});
