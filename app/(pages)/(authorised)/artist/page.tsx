@@ -8,6 +8,8 @@ import axios from "axios";
 import Cookies from 'js-cookie';
 import { UserProfileIcon } from "@/app/components/UserProfileIcon/UserPrifileIcon";
 import Image from "next/image";
+import { useRecoilState } from "recoil";
+import { dataState } from "@/app/states";
 
 type Album = {
     totalSongsOfAuthor: string;
@@ -17,9 +19,12 @@ type Album = {
 };
 
 const ArtistPage = () => {
-    const [data, setData] = useState<Album | null>(null);
+    const [data, setData] = useRecoilState(dataState);
     const [dataBase, setDataBase] = useState<any>([]);
-    console.log(data,'gela');
+
+
+
+    console.log(data,'gelas');
     
     const token = Cookies.get("token")
     useEffect(() => {

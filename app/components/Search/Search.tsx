@@ -29,12 +29,15 @@ export const Search = (props: Props) => {
             }
           })
           .then((r) => {
-            setSuggestions(r.data.music);
+            console.log(r);
+            setSuggestions(r.data.music);     
+            console.log(r.data.author, 'asssaaa');
+                   
             setAuthorSuggestion(r.data.author);
             setAlbum(r.data.albums);
-            
-            
-            
+          })
+          .catch((err)=>{
+            console.log(err);
           })
     };
 

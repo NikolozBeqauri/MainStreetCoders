@@ -65,3 +65,13 @@ export const threeDotClickedState = atom({
     key: 'threeDotClickedState', 
     default: false, 
 });
+type Album = {
+    totalSongsOfAuthor: string;
+    fullName: string;
+    image: string;
+    count: number;
+};
+export const dataState = atom<Album | null>({
+    key: 'albumData',
+    default: null,    
+});
