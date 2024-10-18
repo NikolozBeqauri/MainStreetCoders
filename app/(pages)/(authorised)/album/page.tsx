@@ -13,9 +13,9 @@ import { useEffect } from "react";
 const AlbumPage = () => {
   const searchParams = useSearchParams()
   const id  = searchParams.get('albumId')
- console.log(id,'searchiddddddddd')
-  const [albumId, setAlbumId] = useRecoilState(albumIDState); 
+  const [, setAlbumId] = useRecoilState(albumIDState); 
   const pathname = usePathname(); 
+
   useEffect(() => {
     if (pathname !== '/album') {
       setAlbumId(null);
