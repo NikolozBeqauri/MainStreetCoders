@@ -4,7 +4,9 @@
     grid-gap: 16px;
     padding: 0;
 }
-
+.tableStyle{
+    display: flex;
+}
 @media (max-width: 744px) {
     .artistAlbumWrapper {
         grid-template-columns: repeat(4, 1fr);

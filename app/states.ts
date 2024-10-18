@@ -75,7 +75,6 @@ export const threeDotClickedState = atom({
     key: 'threeDotClickedState', 
     default: false, 
 });
-
 export const playlistIdState = atom<any>({
     key: 'playlistId', 
     default: null, 
@@ -89,4 +88,24 @@ export const selectedPlaylistTrackState = atom<any>({
 export const playlistDataState = atom<any>({
     key: 'playlistData', 
     default: {}, 
+type Album = {
+    totalSongsOfAuthor: string;
+    fullName: string;
+    image: string;
+    count: number;
+};
+export const dataState = atom<Album | null>({
+    key: 'albumData',
+    default: null,    
+});
+
+export const activeSearchState = atom({
+    key: 'activeSearchState',
+    default: false, 
+});
+
+export const albumIDState = atom<number | null>({
+    key: 'albumIDState',
+    default: null,
+
 });

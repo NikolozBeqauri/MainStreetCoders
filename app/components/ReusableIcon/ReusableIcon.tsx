@@ -47,7 +47,6 @@ export const ReusableIcon = (props: Props) => {
 
 
   const isThreeDots = props.imgName === 'threeDots' ? true : false;
-  const isWhiteThreeDots = props.imgName === 'whiteThreeDots' ? true : false;
 
   const handleClick = () => {
     setThreeDotClicked(!threeDotClicked);

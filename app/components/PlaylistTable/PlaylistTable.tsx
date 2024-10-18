@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Table } from "antd";
+import { Table, notification } from "antd";
 import styles from "./PlaylistTable.module.scss";
 import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import { useRecoilState } from "recoil";
-import { globalClickerState, musicOnState, playlistDataState, playlistIdState, playlistOnState, selectedPlaylistTrackState } from "@/app/states";
+import { globalClickerState, musicOnState, playlistDataState, playlistIdState, playlistOnState, selectedPlaylistTrackState, threeDotClickedState } from "@/app/states";
+
 
 interface MusicTrack {
   authorId: number;
@@ -39,6 +40,7 @@ const formatDate = (dateString: string) => {
 export const PlaylistTable = (props: Props) => {
   const [selectedMusicIdToDelete, setSelectedMusicIdToDelete] = useState<number | null>(null);
   const token = Cookies.get("token");
+  const [, setThreeDotClicked] = useRecoilState(threeDotClickedState);
 
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
   const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
@@ -60,7 +62,13 @@ export const PlaylistTable = (props: Props) => {
         })
         .then((res) => {
           console.log(res);
+          notification.success({
+            message: 'Music Deleted',
+            description: 'The music has been successfully deleted from the playlist.',
+            placement: 'top',
+          });
           props.refetchSelectedPlaylist(); 
+          setThreeDotClicked(false)
         })
         .catch((err) => {
           console.error(err);

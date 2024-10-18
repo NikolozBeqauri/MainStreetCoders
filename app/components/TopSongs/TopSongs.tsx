@@ -41,7 +41,7 @@ export const TopSongs = (props: Props) => {
         .catch((err) => {
           console.log(err);
         });
-    },[])
+    },[token])
 
     useEffect(()=>{
             axios.get(`https://project-spotify-1.onrender.com/author/find-all-album-of-author/${props.data?.id}`, {
@@ -56,7 +56,7 @@ export const TopSongs = (props: Props) => {
             .catch((err) => {
                 console.log(err);
             });
-    },[])
+    },[props.data?.id, token])
 
     useEffect(()=>{
         axios.get(`https://project-spotify-1.onrender.com/author/find-all-music-of-author/${props.data?.id}`, {
@@ -70,7 +70,7 @@ export const TopSongs = (props: Props) => {
         .catch((err) => {
             console.log(err);
         });
-    },[])
+    },[props.data?.id, token])
     return (
         <div className={styles.wrapper}>
             <NewsComponent 

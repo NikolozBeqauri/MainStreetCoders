@@ -28,9 +28,6 @@ const PlayListPage = () => {
     const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
 
 
-
-
-
     const fetchPlaylists = () => {
         axios.get(`https://project-spotify-1.onrender.com/playlist`, {
             headers: {
@@ -44,7 +41,9 @@ const PlayListPage = () => {
         .catch((err) => {
             console.error(err);
         });
-    };    
+
+    };
+    
     const fetchSelectedPlaylist = (playlistId: number) => {
         axios.get(`https://project-spotify-1.onrender.com/playlist/${playlistId}`, {
             headers: {
