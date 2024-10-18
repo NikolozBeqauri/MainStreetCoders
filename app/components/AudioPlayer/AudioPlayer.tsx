@@ -6,7 +6,7 @@ import ProgressBar from "./SubComponents/ProgressBar";
 import { useEffect, useRef, useState } from "react";
 import "./src/styles/customizeProgressBar.scss";
 import { useRecoilState } from "recoil";
-import { globalClickerState, modalState, albumOnState } from "@/app/states";
+import { globalClickerState, modalState, albumOnState, selectedPlaylistTrackState, playlistIdState, playlistOnState, musicOnState, playlistDataState } from "@/app/states";
 import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
 import Different from "../MobileAudioPlayer/Different";
 import { useViewport } from "react-viewport-hooks";
@@ -26,36 +26,44 @@ const AudioPlayer = () => {
   const [duration, setDuration] = useState(0);
   const [modal, setModalState] = useRecoilState(modalState);
   const [idDate, setIdDate] = useState<any>(null);
-
+  
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
   const [albumOn, setAlbumOnState] = useRecoilState(albumOnState);
+  const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
+  const [musicOn, setMusicOnState] = useRecoilState(musicOnState);
+  const [playlistId, setPlaylistIdState] = useRecoilState(playlistIdState);
+  
+  const [playlistTracks, setPlaylistTracks] = useState<any[]>([]);
+  const [playlistCurrentTracks, setPlaylistCurrentTracks] = useState<any[]>([]);
+  const [playlistData, setPlaylistDataState] = useRecoilState(playlistDataState)
+
+
 
   const token = Cookies.get("token");
 
-  useEffect(() => {
-    const fetchTracks = async () => {
-      try {
-        const response = await fetch(
-          "https://project-spotify-1.onrender.com/music",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        const data: any[] = await response.json();
-        setTracks(data);
-        setCurrentTrack(data[0]);
-        // console.log(data, 'music dataaaa');
-        setGlobalClickerState(data[0].id);
-        
-      } catch (error) {
-        console.error("Error fetching tracks:", error);
-      }
-    };
 
-    fetchTracks();
-  }, [setGlobalClickerState, token]);
+  useEffect(() => {
+    console.log(playlistId);
+    
+    if(playlistId && playlistOn) {
+      axios.get(`https://project-spotify-1.onrender.com/playlist/${playlistId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        }
+      })
+        .then((res) => {
+          const data = res.data  
+          setPlaylistTracks(data)
+          setTracks(data.music);
+          setCurrentTrack(data.music[0]);
+          setPlaylistCurrentTracks(playlistData)
+          console.log(data, ' playlist data');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [playlistId, playlistOn, playlistData, token]);
 
   useEffect(() => {
     const fetchTrackData = async () => {
@@ -77,13 +85,14 @@ const AudioPlayer = () => {
             );
             const firstTrack = response.data.musics[0];
             setIdDate(response.data);
+            setTracks(response.data.musics)
             setCurrentTrack(firstTrack);
-            // console.log(response.data);
+            console.log(response.data, 'album data');
             
             if (audioRef.current) {
               audioRef.current.src = firstTrack.filePath;
             }
-          } else {
+          } else if(musicOn) {
             response = await axios.get(
               `https://project-spotify-1.onrender.com/music/${globalClicker}`,
               {
@@ -93,6 +102,7 @@ const AudioPlayer = () => {
               }
             );
             setIdDate(response.data);
+            console.log(response.data, 'tophit data');
             
             if (audioRef.current) {
               audioRef.current.src = response.data.filePath;
@@ -110,12 +120,8 @@ const AudioPlayer = () => {
     };
 
     fetchTrackData();
-  }, [globalClicker, token, albumOn]);
+  }, [globalClicker, token, albumOn, musicOn]);
 
-
-  if (!currentTrack) {
-    return <Loading width="100%" background="#1D1D1D" />;
-  }
 
   return (
     <>
@@ -140,6 +146,10 @@ const AudioPlayer = () => {
             setDuration={setDuration}
             progressBarRef={progressBarRef}
             idDate={idDate}
+            playlistTracks={playlistTracks}
+            tracks={tracks}
+            playlistCurrentTracks={playlistCurrentTracks}
+            
           />
           <div
             className={

@@ -12,6 +12,8 @@ import Cookies from 'js-cookie';
 import { ReusableIcon } from "@/app/components/ReusableIcon/ReusableIcon";
 import UploadFile from "@/app/components/AddPlaylist/UploadFile/UploadFile";
 import { PlaylistTable } from "@/app/components/PlaylistTable/PlaylistTable";
+import { useRecoilState } from "recoil";
+import { albumOnState, playlistIdState, playlistOnState, selectedPlaylistTrackState } from "@/app/states";
 
 const PlayListPage = () => {
     const { vw } = useViewport();
@@ -20,7 +22,12 @@ const PlayListPage = () => {
     const [data, setData] = useState<any>([]);
     const [showUploadFile, setShowUploadFile] = useState(false);
     const token = Cookies.get("token");
-    
+
+    const [playlistId, setPlaylistIdState] = useRecoilState(playlistIdState);
+    const [albumOn, setAlbumOnState] = useRecoilState(albumOnState);
+    const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
+
+
     const fetchPlaylists = () => {
         axios.get(`https://project-spotify-1.onrender.com/playlist`, {
             headers: {
@@ -34,6 +41,7 @@ const PlayListPage = () => {
         .catch((err) => {
             console.error(err);
         });
+
     };
     
     const fetchSelectedPlaylist = (playlistId: number) => {
@@ -57,6 +65,9 @@ const PlayListPage = () => {
     const handleCardClick = (playList: any) => {
         setSelectedPlaylist(playList);
         setPlaylistContentActive(false);
+        setPlaylistIdState(playList.id);
+        setAlbumOnState(false);
+        setPlaylistOnState(true);
     };
 
     return (

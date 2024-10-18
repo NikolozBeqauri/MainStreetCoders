@@ -1,6 +1,7 @@
 import { useRecoilState } from "recoil";
 import { AddLine } from "../AddPlaylist/AddLIne/AddLine";
 import styles from "./SearchSuggestions.module.scss"
+import { globalClickerState, trackIdState } from "@/app/states";
 import { dataState, trackIdState } from "@/app/states";
 import { useRouter } from "next/navigation";
 
@@ -11,6 +12,8 @@ type Props = {
 }
 
 export const SearchSuggestions = (props: Props) => {
+
+    const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
     const [trackId, setTrackId] = useRecoilState(trackIdState);
     const [, setData] = useRecoilState(dataState);
     const router = useRouter();
@@ -22,7 +25,7 @@ export const SearchSuggestions = (props: Props) => {
                     key={title.id}
                     image={"addPlaylistIcon"} 
                     title={title.trackTitle} 
-                    onClick={(e: any) => setTrackId(title.id)} 
+                    onClick={(e: any) => {setTrackId(title.id); setGlobalClickerState(title.id)} 
                 />
             ))}
             {props.authorSuggestion != null && props.authorSuggestion.slice(0, 20).map((author: any) => (

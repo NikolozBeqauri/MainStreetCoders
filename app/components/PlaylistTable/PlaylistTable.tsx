@@ -7,7 +7,8 @@ import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import { useRecoilState } from "recoil";
-import { globalClickerState, threeDotClickedState } from "@/app/states";
+import { globalClickerState, musicOnState, playlistDataState, playlistIdState, playlistOnState, selectedPlaylistTrackState, threeDotClickedState } from "@/app/states";
+
 
 interface MusicTrack {
   authorId: number;
@@ -41,7 +42,11 @@ export const PlaylistTable = (props: Props) => {
   const token = Cookies.get("token");
   const [, setThreeDotClicked] = useRecoilState(threeDotClickedState);
 
-  const [, setGlobalClickerState] = useRecoilState(globalClickerState);
+  const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
+  const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
+  const [musicOn, setMusicOnState] = useRecoilState(musicOnState);
+  const [playlistData, setPlaylistDataState] = useRecoilState(playlistDataState)
+
 
   const handleTrashClick = (id: number) => {
     setSelectedMusicIdToDelete(id);
@@ -70,6 +75,7 @@ export const PlaylistTable = (props: Props) => {
         });
     }
   }, [selectedMusicIdToDelete, props.selectedPlaylistId, token, props]);
+  
 
   const columns = [
     {
@@ -147,7 +153,15 @@ export const PlaylistTable = (props: Props) => {
           return {
             onClick: () => {
               console.log(`Music Track ID: ${record.id}`);
-              setGlobalClickerState(record.id); 
+              setGlobalClickerState(record.id);
+              setPlaylistOnState(true);
+              setMusicOnState(false);
+              setPlaylistDataState({
+                title: record.trackTitle,
+                img: record.trackImage,
+                duration: record.duration,
+                path: record.filePath,
+              })
             },
           };
         }}
