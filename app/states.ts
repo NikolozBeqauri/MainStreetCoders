@@ -88,12 +88,15 @@ export const selectedPlaylistTrackState = atom<any>({
 export const playlistDataState = atom<any>({
     key: 'playlistData', 
     default: {}, 
+});
+
 type Album = {
     totalSongsOfAuthor: string;
     fullName: string;
     image: string;
-    count: number;
-};
+    count: number; 
+}
+
 export const dataState = atom<Album | null>({
     key: 'albumData',
     default: null,    
