@@ -1,9 +1,11 @@
 'use client'
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import styles from "./SignIn.module.scss"
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { setCookie } from "@/helpers/cookies";
+
 type FormValues = {
     email: string;
     password: string;
@@ -12,25 +14,27 @@ type FormValues = {
 
 export const SignIn = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
-
+    const [successMessage, setSuccessMessage] = useState<string | null>(null); 
+    const [errorMessage, setErrorMessage] = useState<string | null>(null); 
     const router = useRouter();
 
-    const onSubmit = (data: any) => {
-        axios.post(`https://project-spotify-1.onrender.com/auth/login`, data)
-            .then(response => {                
-                const dataString = response.config.data;               
-                const parsedData = JSON.parse(dataString);
-                
-                const email = parsedData.email;
-                
-                setCookie("token", response.data.access_token, 60)
-                localStorage.setItem("email", email);
-                
-                router.push("/")
-            })
-            .catch(error => {
-                console.error(error);
-            });
+    const onSubmit = async (data: any) => {
+        setErrorMessage(null); 
+        setSuccessMessage(null); 
+        try {
+            const response = await axios.post(`https://project-spotify-1.onrender.com/auth/login`, data);
+            const dataString = response.config.data;
+            const parsedData = JSON.parse(dataString);
+            const email = parsedData.email;
+
+            setCookie("token", response.data.access_token, 60);
+            localStorage.setItem("email", email);
+            setSuccessMessage("Login successful! Redirecting...");
+            router.push("/");
+        } catch (error) {
+            console.error(error);
+            setErrorMessage("Login failed. Please check your credentials and try again.");
+        }
     };
 
     const navigateToSignUp = () => {
@@ -54,8 +58,8 @@ export const SignIn = () => {
                     minLength: {
                         value: 8,
                         message: "Password must be at least 8 characters"
-                      },
-                      validate: {
+                    },
+                    validate: {
                         hasUpperCase: value => /[A-Z]/.test(value) || "Password must contain at least one uppercase letter",
                         hasNumber: (value: string) => /\d/.test(value) || "Password must contain at least one number"
                     }
@@ -71,9 +75,12 @@ export const SignIn = () => {
                 <span className={styles.forgotPassword}>Forgot your password?</span>
             </div>
 
-            <input type="submit" value="Sign Up" />
+            <input type="submit" value="Sign In" />
 
-            <p className={styles.haveAccount} >Already have  an account? <span onClick={navigateToSignUp}>Sign In</span></p>
+            {successMessage && <p className={styles.successMessage}>{successMessage}</p>}
+            {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>} 
+
+            <p className={styles.haveAccount}>Already have an account? <span onClick={navigateToSignUp}>Sign Up</span></p>
         </form>
-    ); 
+    );
 };
