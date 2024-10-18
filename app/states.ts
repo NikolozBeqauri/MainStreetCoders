@@ -75,3 +75,5 @@ export const dataState = atom<Album | null>({
     key: 'albumData',
     default: null,    
 });
+
+

@@ -23,7 +23,6 @@ const ArtistPage = () => {
     const [dataBase, setDataBase] = useState<any>([]);
 
 
-
     console.log(data,'gelas');
     
     const token = Cookies.get("token")

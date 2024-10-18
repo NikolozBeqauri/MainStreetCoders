@@ -20,7 +20,7 @@ const PlayListPage = () => {
     const [data, setData] = useState<any>([]);
     const [showUploadFile, setShowUploadFile] = useState(false);
     const token = Cookies.get("token");
-
+    
     const fetchPlaylists = () => {
         axios.get(`https://project-spotify-1.onrender.com/playlist`, {
             headers: {
@@ -35,7 +35,6 @@ const PlayListPage = () => {
             console.error(err);
         });
     };
-    console.log(selectedPlaylist,'zzzzzzz');
     
     const fetchSelectedPlaylist = (playlistId: number) => {
         axios.get(`https://project-spotify-1.onrender.com/playlist/${playlistId}`, {

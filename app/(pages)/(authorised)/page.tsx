@@ -1,5 +1,4 @@
 'use client'
-
 import { AlbumCard } from "@/app/components/AlbumCard/AlbumCard";
 import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
 import { MusicCard } from "@/app/components/MusicCard/MusicCard";
@@ -7,12 +6,12 @@ import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import styles from "./page.module.scss";
 import { Header } from "@/app/components/Header/Header";
 import axios from "axios";
-import { albumOnState, globalClickerState, selectedMusicToAddInAlbumState } from "@/app/states";
+import { albumOnState, dataState, globalClickerState, selectedMusicToAddInAlbumState } from "@/app/states";
 import Cookies from 'js-cookie';
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
-import { useViewport } from "react-viewport-hooks"; 
+import { useViewport } from "react-viewport-hooks";
 
 interface MusicItem {
   id: number;
@@ -64,16 +63,20 @@ export default function Home() {
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
   const [, setSelectedMusicToAddInAlbum] = useRecoilState(selectedMusicToAddInAlbumState);
   const router = useRouter();
-  const { vw } = useViewport(); 
+  const { vw } = useViewport();
   const [albumOn, setAlbumOnState] = useRecoilState(albumOnState);
-  
+
+
+  const [data, setData] = useRecoilState(dataState);
+
 
   useEffect(() => {
-    axios.get(`https://project-spotify-1.onrender.com/music/topweek`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      }
-    })
+    axios
+      .get(`https://project-spotify-1.onrender.com/music/topweek`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         setTopWeekMusics(res.data);
       })
@@ -83,11 +86,12 @@ export default function Home() {
   }, [token]);
 
   useEffect(() => {
-    axios.get("https://project-spotify-1.onrender.com/music/topHits", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+    axios
+      .get("https://project-spotify-1.onrender.com/music/topHits", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         setTopHits(res.data);
         if (res.data.length > 0) {
@@ -98,11 +102,12 @@ export default function Home() {
         console.log(err);
       });
 
-    axios.get("https://project-spotify-1.onrender.com/author/topArtists", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+    axios
+      .get("https://project-spotify-1.onrender.com/author/topArtists", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         setPopularArtists(res.data);
       })
@@ -110,11 +115,12 @@ export default function Home() {
         console.log(err);
       });
 
-    axios.get("https://project-spotify-1.onrender.com/album/top-albums", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
+    axios
+      .get("https://project-spotify-1.onrender.com/album/top-albums", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         setPopularAlbums(res.data);
       })
@@ -127,8 +133,8 @@ export default function Home() {
     try {
       const response = await axios.get(`https://project-spotify-1.onrender.com/album/${albumId}`, {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
       const albumData = response.data;
       setGlobalClickerState(albumData.musics[0].id);
@@ -141,17 +147,33 @@ export default function Home() {
     try {
       const response = await axios.get(`https://project-spotify-1.onrender.com/music/${trackId}`, {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
       const selectedTrack = response.data;
       setGlobalClickerState(selectedTrack.id);
-      setSelectedMusicToAddInAlbum(selectedTrack.id) 
-
-      console.log(selectedTrack, 'Selected Track for Playing');
+      setSelectedMusicToAddInAlbum(selectedTrack.id);
+      console.log(selectedTrack, "Selected Track for Playing");
     } catch (error) {
       console.error("Error fetching and playing the track:", error);
     }
+  };
+
+  const handleArtistClick = (artist: any) => {
+    console.log("Selected Artist ID: ", artist.authorId);
+    axios.get(`https://project-spotify-1.onrender.com/author/${artist.authorId}`, {
+      headers: {
+          "Content-Type": "multipart/form-data",
+          "Authorization": `Bearer ${token}`
+      }
+      })
+      .then(r => {
+          setData(r.data)
+          router.push('/artist')
+      })
+      .catch((err) => {
+          console.log(err);
+      })
   };
 
   return (
@@ -166,15 +188,15 @@ export default function Home() {
           <NewsComponent
             musicId={topHitOfWeek?.id}
             title="Top Hit Of the week"
-            count={topHitOfWeek?.count ?? '795,900'}
+            count={topHitOfWeek?.count ?? "795,900"}
             image="newsimage"
           />
         </section>
 
         <section className={styles.generalCardWrapper}>
           <div className={styles.secondaryTitleDiv}>
-            <h2 onClick={() => router.push('/tophits')}>Top Hits</h2>
-            <span onClick={() => router.push('/tophits')}>See all</span>
+            <h2 onClick={() => router.push("/tophits")}>Top Hits</h2>
+            <span onClick={() => router.push("/tophits")}>See all</span>
           </div>
           <div className={styles.generalCardItem}>
             {topHits.slice(0, 4).map((album, index) => (
@@ -192,37 +214,18 @@ export default function Home() {
 
         <section className={styles.musicCardWrapper}>
           <div className={styles.secondaryTitleDiv}>
-            <h2 onClick={() => router.push('/musicsofweek')}>Top Musics Of Week</h2>
-            <span onClick={() => router.push('/musicsofweek')}>See all</span>
+            <h2 onClick={() => router.push("/musicsofweek")}>Top Musics Of Week</h2>
+            <span onClick={() => router.push("/musicsofweek")}>See all</span>
           </div>
           <div className={styles.musicCards}>
-            {topWeekMusics
-              .slice(0, 6) 
-              .map((musicCard) => (
-                <MusicCard
-                  key={musicCard.id}
-                  trackImage={musicCard.trackImage}
-                  trackTitle={musicCard.trackTitle}
-                  authorName={musicCard.authorName}
-                  duration={musicCard.duration}
-                  onClick={() => handleRowClickTopHits(musicCard.id)}
-                />
-              ))}
-          </div>
-        </section>
-
-        <section className={styles.generalCardWrapper}>
-          <div className={styles.secondaryTitleDiv}>
-            <h2 onClick={() => router.push('/artist')}>Popular Artists</h2>
-            <span onClick={() => router.push('/artist')}>See all</span>
-          </div>
-          <div className={styles.generalCardItem}>
-            {popularArtists.slice(0,vw < 900 ? 4 : 5).map((artist, index) => (
-              <AlbumCard
-                key={index}
-                id={globalClicker}
-                author={artist.authorFullName}
-                img={artist.authorImage}
+            {topWeekMusics.slice(0, 6).map((musicCard) => (
+              <MusicCard
+                key={musicCard.id}
+                trackImage={musicCard.trackImage}
+                trackTitle={musicCard.trackTitle}
+                authorName={musicCard.authorName}
+                duration={musicCard.duration}
+                onClick={() => handleRowClickTopHits(musicCard.id)}
               />
             ))}
           </div>
@@ -230,8 +233,26 @@ export default function Home() {
 
         <section className={styles.generalCardWrapper}>
           <div className={styles.secondaryTitleDiv}>
-            <h2 onClick={() => router.push('/album')}>Popular Albums</h2>
-            <span onClick={() => router.push('/album')}>See all</span>
+            <h2 onClick={() => router.push("/artist")}>Popular Artists</h2>
+            <span onClick={() => router.push("/artist")}>See all</span>
+          </div>
+          <div className={styles.generalCardItem}>
+            {popularArtists.slice(0, vw < 900 ? 4 : 5).map((artist, index) => (
+              <AlbumCard
+                key={index}
+                id={globalClicker}
+                author={artist.authorFullName}
+                img={artist.authorImage}
+                onClick={() => handleArtistClick(artist)}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section className={styles.generalCardWrapper}>
+          <div className={styles.secondaryTitleDiv}>
+            <h2 onClick={() => router.push("/album")}>Popular Albums</h2>
+            <span onClick={() => router.push("/album")}>See all</span>
           </div>
           <div className={styles.generalCardItem}>
             {popularAlbums.slice(0, 4).map((album, index) => (
