@@ -6,7 +6,7 @@ import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import styles from "./page.module.scss";
 import { Header } from "@/app/components/Header/Header";
 import axios from "axios";
-import { albumOnState, dataState, globalClickerState, selectedMusicToAddInAlbumState } from "@/app/states";
+import { albumIDState, albumOnState, dataState, globalClickerState, selectedMusicToAddInAlbumState } from "@/app/states";
 import Cookies from 'js-cookie';
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -65,10 +65,8 @@ export default function Home() {
   const router = useRouter();
   const { vw } = useViewport();
   const [albumOn, setAlbumOnState] = useRecoilState(albumOnState);
-
-
-  const [data, setData] = useRecoilState(dataState);
-
+  const [, setData] = useRecoilState(dataState);
+  const [, setAlbumId] = useRecoilState(albumIDState); 
 
   useEffect(() => {
     axios
@@ -138,6 +136,7 @@ export default function Home() {
       });
       const albumData = response.data;
       setGlobalClickerState(albumData.musics[0].id);
+      
     } catch (error) {
       console.error("Error fetching and playing the track:", error);
     }
@@ -261,7 +260,7 @@ export default function Home() {
                 author={album.author.fullName}
                 title={album.title}
                 img={album.coverImage}
-                onClick={() => getMusicId(album.id)}
+                onClick={() => {getMusicId(album.id); setAlbumId(album.id); router.push(`/album?albumId=${album.id}`)}}
               />
             ))}
           </div>

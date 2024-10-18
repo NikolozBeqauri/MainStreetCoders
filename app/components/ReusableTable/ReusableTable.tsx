@@ -16,7 +16,6 @@ type Props = {
   pageName?: string;
   isTopHitPage?: boolean;
   albumMusics?:boolean;
-
 };
 
 export const ReusableTable = (props: Props) => {
