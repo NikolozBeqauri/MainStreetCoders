@@ -81,3 +81,7 @@ export const activeSearchState = atom({
     default: false, 
 });
 
+export const albumIDState = atom<number | null>({
+    key: 'albumIDState',
+    default: null,
+});

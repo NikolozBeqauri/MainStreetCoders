@@ -5,8 +5,23 @@ import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import styles from "./page.module.scss";
 import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
 import { ReusableTable } from "@/app/components/ReusableTable/ReusableTable";
+import { albumIDState } from "@/app/states";
+import { useRecoilState } from "recoil";
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useEffect } from "react";
 
 const AlbumPage = () => {
+  const searchParams = useSearchParams()
+  const id  = searchParams.get('albumId')
+ console.log(id,'searchiddddddddd')
+  const [albumId, setAlbumId] = useRecoilState(albumIDState); 
+  const pathname = usePathname(); 
+  useEffect(() => {
+    if (pathname !== '/album') {
+      setAlbumId(null);
+    }
+}, [pathname, setAlbumId]);
+
   return (
     <div className={styles.album}>
       <div className={styles.album2}>
@@ -22,7 +37,11 @@ const AlbumPage = () => {
             image={"artistDemoImage"}
           />
           <div className={styles.table}>
-            <ReusableTable pageName="album" />
+            {id ? 
+              <ReusableTable albumMusics pageName={`album/${id}`} />
+              :
+              <ReusableTable  pageName="album" />
+            }
           </div>
         </div>
       </div>
