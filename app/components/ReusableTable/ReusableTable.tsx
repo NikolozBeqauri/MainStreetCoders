@@ -21,7 +21,6 @@ type Props = {
 
 export const ReusableTable = (props: Props) => {
   const [records, setRecords] = useState<any[]>([]);
-  const [authorName, setAuthorName] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const token = Cookies.get("token");
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
