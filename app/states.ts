@@ -76,4 +76,8 @@ export const dataState = atom<Album | null>({
     default: null,    
 });
 
+export const activeSearchState = atom({
+    key: 'activeSearchState',
+    default: false, 
+});
 

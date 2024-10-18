@@ -11,9 +11,7 @@
     background-image: url('/images/signin.png'), url('/images/eclipse.png'), url('/images/rectangle.png');
     background-repeat: no-repeat;
     background-position: bottom right, top left, top left;
-    background-size: contain;
     background-size: 750px auto, auto, auto;
-    
 }
 
 .content {
@@ -46,7 +44,7 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: transparent;
-    font-family:  var(--font-jakarta-sans);
+    font-family: var(--font-jakarta-sans);
     font-size: 62px;
     font-style: normal;
     font-weight: 400;
@@ -59,7 +57,7 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-family:  var(--font-jakarta-sans);
+    font-family: var(--font-jakarta-sans);
     font-size: 50px;
     font-style: normal;
     font-weight: 700;
@@ -108,20 +106,27 @@
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-
 }
-@media (min-width:1700px) {
+
+/* Media query for extra-large screens (1700px and above) */
+@media (min-width: 1700px) {
     .signUpWrapper {
         gap: 104px;
         padding: 40px 0px 40px 70px;
+        background-image: url('/images/signin-large.png'), url('/images/eclipse-large.png'), url('/images/rectangle-large.png'); /* Use larger images for larger screens */
+        background-size: auto, auto, auto;
+        background-position: bottom right, top left, top left;
     }
 }
+
+/* Media query for tablet and smaller desktop screens (1024px and below) */
 @media (max-width: 1024px) {
     .signUpWrapper {
         padding: 32px;
         gap: 72px;
         background-image: url('/images/signin.png'), url('/images/signTabletBackground.png');
         background-size: auto 60%, 100% 100%;
+        background-position: bottom right, center;
     }
 
     .where {
@@ -155,12 +160,14 @@
     }
 }
 
+/* Media query for mobile screens (650px and below) */
 @media (max-width: 650px) {
     .signUpWrapper {
         padding: 12px;
         gap: 62px;
         background-image: url('/images/signin.png'), url('/images/signMobileBackground.png');
         background-size: 440px auto, 100% 100%;
+        background-position: bottom right, center;
     }
 
     .signUpWrapper>img {
@@ -189,7 +196,6 @@
     }
 
     .startedComponentWrapper {
-        
         padding: 140px 24px 24px 24px;
         background-image: url('/images/mainLogo.png'), url('/images/signMobileBackground.png');
         background-position: top 24px left 24px, center;
