@@ -15,9 +15,6 @@ export const Search = (props: Props) => {
     const [authorSuggestion, setAuthorSuggestion] = useState<any>(null);
     const [album, setAlbum] = useState<any>(null);
     const [value, setValue] = useState<any>(null);
-    // const [trackId, setTrackId] = useState<any>(null);
-    
-    
     
     const placeHolder = props.placeHolder ? props.placeHolder : "Artists, tracks, albums";
     const searchEngine = (e: any) => {
@@ -32,8 +29,6 @@ export const Search = (props: Props) => {
             setSuggestions(r.data.music);
             setAuthorSuggestion(r.data.author);
             setAlbum(r.data.albums);
-            
-            
             
           })
     };

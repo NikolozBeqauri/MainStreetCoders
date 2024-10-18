@@ -30,6 +30,16 @@ export const albumOnState = atom({
     default: false,
   });
 
+export const playlistOnState = atom({
+    key: "playlistOn",
+    default: false,
+  });
+
+export const musicOnState = atom({
+    key: "musicOn",
+    default: true,
+  });
+
 export const albumIdState = atom<number | null>({
     key: "albumId",
     default: null,
@@ -64,4 +74,19 @@ export const trackIdState = atom ({
 export const threeDotClickedState = atom({
     key: 'threeDotClickedState', 
     default: false, 
+});
+
+export const playlistIdState = atom<any>({
+    key: 'playlistId', 
+    default: null, 
+});
+
+export const selectedPlaylistTrackState = atom<any>({
+    key: 'selectedPlaylistTrack', 
+    default: null, 
+});
+
+export const playlistDataState = atom<any>({
+    key: 'playlistData', 
+    default: {}, 
 });

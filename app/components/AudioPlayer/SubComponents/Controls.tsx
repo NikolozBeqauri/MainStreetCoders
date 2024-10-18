@@ -17,7 +17,7 @@ import {
   IoVolumeHighOutline,
 } from "react-icons/io5";
 import { useRecoilState } from "recoil";
-import { isPlayingState, modalState } from "@/app/states";
+import { isPlayingState, modalState, musicOnState, playlistOnState } from "@/app/states";
 
 const Controls = ({
   audioRef,
@@ -34,6 +34,10 @@ const Controls = ({
   const [isShuffle, setIsShuffle] = useState(false);
   const [isRepeat, setIsRepeat] = useState(false);
   const playAnimationRef = useRef<number | null>(null);
+  const [musicOn, setMusicOnState] = useRecoilState(musicOnState);
+  const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
+
+
 
   const repeat = useCallback(() => {
     const currentTime = audioRef.current.currentTime;
@@ -75,7 +79,9 @@ const Controls = ({
   };
 
   const previousTrack = () => {
-    setAlbumOnState(true);
+    setAlbumOnState(false);
+    // // setMusicOnState(true);
+    // setPlaylistOnState(true);
     let prevIndex = trackIndex > 0 ? trackIndex - 1 : tracks.length - 1;
     setTrackIndex(prevIndex);
     setCurrentTrack(tracks[prevIndex]);
@@ -89,7 +95,9 @@ const Controls = ({
   };
 
   const nextTrack = () => {
-    setAlbumOnState(true);
+    setAlbumOnState(false);
+    // // setMusicOnState(true);
+    // setPlaylistOnState(true);
     let nextIndex = trackIndex < tracks.length - 1 ? trackIndex + 1 : 0;
     setTrackIndex(nextIndex);
     setCurrentTrack(tracks[nextIndex]);

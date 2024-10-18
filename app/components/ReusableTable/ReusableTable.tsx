@@ -9,7 +9,7 @@ import axios from "axios";
 import Loading from "../Loading/Loading";
 import Cookies from "js-cookie";
 import { useRecoilState } from "recoil";
-import { globalClickerState, albumOnState, isPlayingState } from "@/app/states";
+import { globalClickerState, albumOnState, isPlayingState, musicOnState, playlistOnState } from "@/app/states";
 
 type Props = {
   heartActive?: boolean;
@@ -26,6 +26,10 @@ export const ReusableTable = (props: Props) => {
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
   const [albumOn, setAlbumOnState] = useRecoilState(albumOnState);
   const [isPlaying, setIsPlayingState] = useRecoilState(isPlayingState);
+  const [musicOn, setMusicOnState] = useRecoilState(musicOnState);
+  const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
+
+
 
   useEffect(() => {
     const fetchRecords = async () => {
@@ -49,7 +53,7 @@ export const ReusableTable = (props: Props) => {
     };    
 
     fetchRecords();
-  }, [token, props.pageName]);
+  }, [token, props.pageName, props.albumMusics]);
 
   if (loading) {
     return <Loading width="" />;
@@ -59,6 +63,8 @@ export const ReusableTable = (props: Props) => {
     setGlobalClickerState(record.id);
     setAlbumOnState(props.pageName === "album");
     setIsPlayingState(true)
+    setMusicOnState((props.pageName === "music/topHits") || (props.pageName === "music/topweek"))
+    setPlaylistOnState(false)
   };
 
   const columns = [
@@ -97,7 +103,7 @@ export const ReusableTable = (props: Props) => {
                 </div>
               </div>
               <div className={styles.author}>
-                {firstMusic ? firstMusic.author?.fullName : record.author?.fullName || 'Unknown Author'}
+                {firstMusic ? '' : record.author?.fullName || 'Unknown Author'}
               </div>
             </div>
           </div>

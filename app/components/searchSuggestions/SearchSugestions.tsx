@@ -1,7 +1,7 @@
 import { useRecoilState } from "recoil";
 import { AddLine } from "../AddPlaylist/AddLIne/AddLine";
 import styles from "./SearchSuggestions.module.scss"
-import { trackIdState } from "@/app/states";
+import { globalClickerState, trackIdState } from "@/app/states";
 
 type Props = {
     musicSuggestions: any;
@@ -10,14 +10,14 @@ type Props = {
 
 }
 
-
 export const SearchSuggestions = (props: Props) => {
-    const [trackId, setTrackId] = useRecoilState(trackIdState);
+    const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
+    
     return(
         <div  className={styles.suggestions}>
             {props.musicSuggestions != null && props.musicSuggestions.slice(0, 20).map((title: any) => (
                 <>
-                <AddLine title={title.trackTitle} onClick={(e: any) => setTrackId(title.id)}/>
+                <AddLine title={title.trackTitle} onClick={(e: any) => setGlobalClickerState(title.id)}/>
                 </>
                 
             ))}
