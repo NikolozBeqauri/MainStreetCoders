@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { Header } from "@/app/components/Header/Header";
 import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
@@ -8,19 +8,19 @@ import { ReusableTable } from "@/app/components/ReusableTable/ReusableTable";
 import { albumIDState } from "@/app/states";
 import { useRecoilState } from "recoil";
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 
 const AlbumPage = () => {
   const searchParams = useSearchParams()
-  const id  = searchParams.get('albumId')
-  const [, setAlbumId] = useRecoilState(albumIDState); 
-  const pathname = usePathname(); 
+  const id = searchParams.get('albumId')
+  const [, setAlbumId] = useRecoilState(albumIDState);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (pathname !== '/album') {
       setAlbumId(null);
     }
-}, [pathname, setAlbumId]);
+  }, [pathname, setAlbumId]);
 
   return (
     <div className={styles.album}>
@@ -37,10 +37,10 @@ const AlbumPage = () => {
             image={"artistDemoImage"}
           />
           <div className={styles.table}>
-            {id ? 
+            {id ?
               <ReusableTable albumMusics pageName={`album/${id}`} />
               :
-              <ReusableTable  pageName="album" />
+              <ReusableTable pageName="album" />
             }
           </div>
         </div>
@@ -49,4 +49,6 @@ const AlbumPage = () => {
   );
 };
 
-export default AlbumPage;
+const Page = () => <Suspense><AlbumPage /></Suspense>;
+
+export default Page;
