@@ -4,7 +4,8 @@ import { HeartIcon } from "../../HeartIcon/HeartIcon";
 import styles from "../src/styles/styles.module.scss";
 import style from "../src/styles/mobile.module.scss";
 import { useRecoilState } from "recoil";
-import { albumOnState, modalState, musicOnState, playlistDataState, playlistOnState } from "@/app/states";
+import { albumOnState, modalState, musicOnState, playlistDataState, playlistOnState, repeatOnState } from "@/app/states";
+import { handleClientScriptLoad } from "next/script";
 
 const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, idDate, playlistTracks }: any) => {
     const titleRef = useRef<HTMLParagraphElement | null>(null);
@@ -14,6 +15,8 @@ const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, idD
     const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
     const [musicOn, setMusicOnState] = useRecoilState(musicOnState);
     const [playlistData, setPlaylistDataState] = useRecoilState(playlistDataState)
+    const [repeatOn, setRepeatOnState] = useRecoilState(repeatOnState);
+
     
     useEffect(() => {
         checkTitleOverflow();
@@ -50,7 +53,7 @@ const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, idD
                 src={idDate?.filePath || currentTrack?.filePath || ''}
                 ref={audioRef}
                 onLoadedMetadata={onLoadedMetadata}
-                onEnded={() => console.log("Track ended")}
+                onEnded={() => setRepeatOnState(!repeatOn)}
                 />
             <div className={modal ? styles.audioInfo : style.mobileAudioInfo}>
                 <div className={modal ? styles.audioImage : style.mobileAudioImage}>

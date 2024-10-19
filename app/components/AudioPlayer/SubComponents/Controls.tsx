@@ -17,7 +17,7 @@ import {
   IoVolumeHighOutline,
 } from "react-icons/io5";
 import { useRecoilState } from "recoil";
-import { isPlayingState, modalState, musicOnState, playlistOnState } from "@/app/states";
+import { isPlayingState, modalState, musicOnState, playlistOnState, repeatOnState } from "@/app/states";
 
 const Controls = ({
   audioRef,
@@ -36,8 +36,22 @@ const Controls = ({
   const playAnimationRef = useRef<number | null>(null);
   const [musicOn, setMusicOnState] = useRecoilState(musicOnState);
   const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
+  const [repeatOn, setRepeatOnState] = useRecoilState(repeatOnState);
 
+  useEffect(() => {
+    if(isRepeat && repeatOn) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play()
+    }
 
+    if (tracks.length === 0) {
+      console.log("Array is empty. No random number can be generated.");
+    } else if (isShuffle && repeatOn) {
+        const randomIndex = Math.floor(Math.random() * tracks.length);   
+        setTrackIndex(randomIndex);
+        setCurrentTrack(tracks[randomIndex]);
+      }
+  }, [audioRef, isRepeat, isShuffle, repeatOn, tracks]);
 
   const repeat = useCallback(() => {
     const currentTime = audioRef.current.currentTime;
@@ -83,9 +97,18 @@ const Controls = ({
     // // setMusicOnState(true);
     // setPlaylistOnState(true);
     let prevIndex = trackIndex > 0 ? trackIndex - 1 : tracks.length - 1;
-    setTrackIndex(prevIndex);
-    setCurrentTrack(tracks[prevIndex]);
 
+    if (tracks.length === 0) {
+      console.log("Array is empty. No random number can be generated.");
+    } else if (isShuffle) {
+        const randomIndex = Math.floor(Math.random() * tracks.length);
+        
+        setTrackIndex(randomIndex);
+        setCurrentTrack(tracks[randomIndex]);
+    } else {
+        setTrackIndex(prevIndex);
+        setCurrentTrack(tracks[prevIndex]);
+    }
     if (audioRef.current) {
       audioRef.current.src = tracks[prevIndex].filePath;
       audioRef.current.play();
@@ -99,8 +122,18 @@ const Controls = ({
     // // setMusicOnState(true);
     // setPlaylistOnState(true);
     let nextIndex = trackIndex < tracks.length - 1 ? trackIndex + 1 : 0;
-    setTrackIndex(nextIndex);
-    setCurrentTrack(tracks[nextIndex]);
+    if (tracks.length === 0) {
+      console.log("Array is empty. No random number can be generated.");
+    } else if (isShuffle) {
+        const randomIndex = Math.floor(Math.random() * tracks.length);
+        console.log(randomIndex, 'here randomindex');
+        
+        setTrackIndex(randomIndex);
+        setCurrentTrack(tracks[randomIndex]);
+    } else {
+        setTrackIndex(nextIndex);
+        setCurrentTrack(tracks[nextIndex]);
+    }
 
     if (audioRef.current) {
       audioRef.current.src = tracks[nextIndex].filePath;
@@ -111,7 +144,7 @@ const Controls = ({
   };
 
   const shuffleIt = () => {
-    
+    setIsShuffle(!isShuffle);
   }
 
   const repeatIt = () => {
