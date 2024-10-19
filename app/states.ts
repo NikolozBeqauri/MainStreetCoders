@@ -112,3 +112,8 @@ export const albumIDState = atom<number | null>({
     default: null,
 
 });
+
+export const repeatOnState = atom({
+    key: 'repeatOn',
+    default: false,
+});
