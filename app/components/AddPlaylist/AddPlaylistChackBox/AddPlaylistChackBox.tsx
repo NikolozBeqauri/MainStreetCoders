@@ -32,9 +32,9 @@ export const AddPlaylistChackBox = (props: Props) => {
     const [selectedMusicToAddInAlbum,] = useRecoilState(selectedMusicToAddInAlbumState);
     const [, setThreeDotClicked] = useRecoilState(threeDotClickedState);
     const [globalClicker, ] = useRecoilState(globalClickerState);
-
+    const [selectedPlaylistId, setSelectedPlaylistId] = useState<string | undefined>(undefined)
     const token = Cookies.get("token");
-
+    
     const selectedPlaylist = watch("selectedPlaylist");
 
     useEffect(() => {
@@ -58,14 +58,13 @@ export const AddPlaylistChackBox = (props: Props) => {
 
     const handleCheckboxChange = (id: number) => {
         setValue("selectedPlaylist", selectedPlaylist === id.toString() ? "" : id.toString());
+        setSelectedPlaylistId(id.toString())        
     };
 
     const onSubmit = (data: FormData) => {
         setSelectedPlaylistIDToAddTrack(Number(data.selectedPlaylist[0]));
-        const selectedPlaylist = Number(data.selectedPlaylist[0])
-        console.log('Selected Playlist ID:', selectedPlaylist);
 
-        axios.patch(`https://project-spotify-1.onrender.com/playlist/${selectedPlaylist}/music/${globalClicker}`, null,{
+        axios.patch(`https://project-spotify-1.onrender.com/playlist/${selectedPlaylistId}/music/${globalClicker}`, null,{
             headers: {
                 'Authorization': `Bearer ${token}`,
             }

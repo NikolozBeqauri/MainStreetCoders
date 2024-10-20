@@ -32,7 +32,7 @@ export const MusicCard = (props: Props) => {
 
             <div className={styles.cardAditionalInfo}>
                 <span className={styles.timing}>{props.duration}</span>
-                <div>
+                <div >
                     <HeartIcon/>
                     <ReusableIcon imgName={'threeDots'}/>
                 </div>

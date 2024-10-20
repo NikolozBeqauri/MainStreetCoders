@@ -11,5 +11,24 @@
     max-height: 300px;
     background: $background;
     overflow: scroll;
-
+    z-index: 100;
+    scrollbar-width: none; 
+    
+    &::-webkit-scrollbar {
+        display: none; 
+    }
 }
+
+@media (max-width: 759px) {
+    .suggestions {
+        max-width: 348px;
+    }
+}
+
+@media (max-width: 500px) {
+    .suggestions {
+        max-width: 257px;
+        top: 90px;
+    }
+}
+
