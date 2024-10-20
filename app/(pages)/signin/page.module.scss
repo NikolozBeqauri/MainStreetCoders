@@ -108,18 +108,16 @@
     line-height: normal;
 }
 
-/* Media query for extra-large screens (1700px and above) */
-@media (min-width: 1700px) {
+@media (min-width: 3000px) {
     .signUpWrapper {
         gap: 104px;
         padding: 40px 0px 40px 70px;
-        background-image: url('/images/signin-large.png'), url('/images/eclipse-large.png'), url('/images/rectangle-large.png'); /* Use larger images for larger screens */
+        background-image: url('/images/signin-large.png'), url('/images/eclipse-large.png'), url('/images/rectangle-large.png'); 
         background-size: auto, auto, auto;
         background-position: bottom right, top left, top left;
     }
 }
 
-/* Media query for tablet and smaller desktop screens (1024px and below) */
 @media (max-width: 1024px) {
     .signUpWrapper {
         padding: 32px;
@@ -160,7 +158,6 @@
     }
 }
 
-/* Media query for mobile screens (650px and below) */
 @media (max-width: 650px) {
     .signUpWrapper {
         padding: 12px;

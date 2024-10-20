@@ -26,7 +26,6 @@ export const SignIn = () => {
             const dataString = response.config.data;
             const parsedData = JSON.parse(dataString);
             const email = parsedData.email;
-
             setCookie("token", response.data.access_token, 60);
             localStorage.setItem("email", email);
             setSuccessMessage("Login successful! Redirecting...");
