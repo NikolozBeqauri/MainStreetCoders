@@ -31,7 +31,7 @@ export const AlbumCard = (props: Props) => {
           tabIndex={0}
         />
         <div className={styles.iconsWholeWrapper}>
-          <div className={styles.cardIconsWrapper}>
+          <div onClick={(e) => e.stopPropagation()}  className={styles.cardIconsWrapper}>
             <HeartIcon background />
             <ReusableIcon imgName={"threeDots"} background />
           </div>

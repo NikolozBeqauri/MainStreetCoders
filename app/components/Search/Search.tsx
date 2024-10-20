@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import Image from 'next/image';
 import styles from "./Search.module.scss";
 import axios from 'axios';
@@ -18,9 +18,10 @@ export const Search = (props: Props) => {
     const [authorSuggestion, setAuthorSuggestion] = useState<any>(null);
     const [album, setAlbum] = useState<any>(null);
     const [value, setValue] = useState<string>('');
-    const [activeSearch,] = useRecoilState(activeSearchState);
-
+    const [activeSearch] = useRecoilState(activeSearchState);
+    const [isFocused, setIsFocused] = useState<boolean>(false); 
     const inputRef = useRef<HTMLInputElement>(null); 
+    const focusTimeoutRef = useRef<NodeJS.Timeout | null>(null); 
 
     const placeHolder = props.placeHolder ? props.placeHolder : "Artists, tracks, albums";
 
@@ -39,22 +40,43 @@ export const Search = (props: Props) => {
                 headers: {
                   Authorization: `Bearer ${token}`,
                 }
-              })
-              .then((r) => {
+            })
+            .then((r) => {
                 console.log(r);
                 setSuggestions(r.data.music);     
                 setAuthorSuggestion(r.data.author);
                 setAlbum(r.data.albums);
-              })
-              .catch((err) => {
+            })
+            .catch((err) => {
                 console.log(err);
-              });
+            });
         } else {
             setSuggestions(null);
             setAuthorSuggestion(null);
             setAlbum(null);
         }
     };
+
+    const handleFocus = () => {
+        setIsFocused(true);
+    };
+
+    const handleBlur = () => {
+        if (focusTimeoutRef.current) {
+            clearTimeout(focusTimeoutRef.current); 
+        }
+        focusTimeoutRef.current = setTimeout(() => {
+            setIsFocused(false);
+        }, 1); 
+    };
+
+    useEffect(() => {
+        return () => {
+            if (focusTimeoutRef.current) {
+                clearTimeout(focusTimeoutRef.current);
+            }
+        };
+    }, []);
 
     return (
         <>
@@ -64,7 +86,9 @@ export const Search = (props: Props) => {
                     placeholder={placeHolder} 
                     value={value}  
                     onChange={handleInputChange} 
-                    ref={inputRef} 
+                    ref={inputRef}
+                    onFocus={handleFocus} 
+                    onBlur={handleBlur} 
                 />
                 <Image 
                     className={styles.searchImage}
@@ -74,15 +98,13 @@ export const Search = (props: Props) => {
                     height={24}
                 />
             </div>
-            {value && value.length !== 0 && (
+            {isFocused && value && value.length !== 0 && ( 
                 <SearchSuggestions 
                     musicSuggestions={suggestions} 
                     authorSuggestion={authorSuggestion} 
                     albumSuggestion={album} 
                 />
             )}
-
-  
         </>
     );
 };

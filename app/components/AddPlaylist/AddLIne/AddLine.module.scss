@@ -9,6 +9,17 @@
     gap: 4px;
     padding: 12px 16px;
     transition: 0.5s;
+    cursor: pointer;
+}
+.containerForSearch {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 12px 16px;
+    transition: 0.5s;
+    padding: 10px;
+    cursor: pointer;
 }
 
 /* || font properties */
@@ -22,12 +33,12 @@
 }
 
 /* || clicked and hovered state */
-
+.containerForSearch:hover,
 .container:hover{
     background-color: #141414;
     border-radius: 8px;
 }
-
+.containerForSearch:hover,
 .container:active{
     background-color: #141414;
     border-radius: 8px;

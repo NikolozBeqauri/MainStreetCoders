@@ -7,7 +7,7 @@ import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import { useRecoilState } from "recoil";
-import { globalClickerState, musicOnState, playlistDataState, playlistIdState, playlistOnState, selectedPlaylistTrackState, threeDotClickedState } from "@/app/states";
+import { globalClickerState, musicOnState, playlistDataState, playlistOnState, threeDotClickedState } from "@/app/states";
 
 
 interface MusicTrack {

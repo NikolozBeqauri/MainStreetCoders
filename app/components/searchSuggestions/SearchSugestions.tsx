@@ -29,6 +29,7 @@ export const SearchSuggestions = (props: Props) => {
               setTrackId(title.id);
               setGlobalClickerState(title.id);
             }}
+            useForSearch
           />
         ))}
       {props.authorSuggestion != null &&
@@ -41,6 +42,7 @@ export const SearchSuggestions = (props: Props) => {
               setData(author);
               router.push("/artist");
             }}
+            useForSearch 
           />
         ))}
     </div>
