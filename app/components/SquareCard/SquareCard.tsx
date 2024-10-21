@@ -1,8 +1,10 @@
+import { useRecoilState } from 'recoil';
 import { HeartIcon } from '../HeartIcon/HeartIcon';
 import { ReusableIcon } from '../ReusableIcon/ReusableIcon';
 import styles from './SquareCard.module.scss';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { threeDotClickedState } from '@/app/states';
 
 type Props = {
     title: string;
@@ -14,10 +16,12 @@ type Props = {
 };
 
 export const SquareCard = (props: Props) => {
-    const stylesClass = [styles.cardIconsBackground];    
+    const stylesClass = [styles.cardIconsBackground]; 
+    const [, setThreeDotClicked] = useRecoilState(threeDotClickedState);   
     const cardImageStyle = [styles.defaultCardStyles];
     const token = Cookies.get("token");
     const handleDelete = () => {
+        
         if (props.playListId && props.iconImage === "trash") {
             axios.delete(`https://project-spotify-1.onrender.com/playlist/${props.playListId}`, {
                 headers: {
@@ -25,12 +29,14 @@ export const SquareCard = (props: Props) => {
                 }
             })
             .then((res) => {
+                setThreeDotClicked(false)
                 console.log("Playlist deleted:", res);
                 if(props.refetchPlaylists){
                     props.refetchPlaylists();
                 }
             })
             .catch((err) => {
+                setThreeDotClicked(false)
                 console.error("Error deleting playlist:", err);
             });
         }
