@@ -10,6 +10,7 @@ import { UserProfileIcon } from "@/app/components/UserProfileIcon/UserPrifileIco
 import Image from "next/image";
 import { useRecoilState } from "recoil";
 import { dataState } from "@/app/states";
+import { useViewport } from 'react-viewport-hooks';
 
 type Album = {
     totalSongsOfAuthor: string;
@@ -21,9 +22,7 @@ type Album = {
 const ArtistPage = () => {
     const [data, setData] = useRecoilState(dataState);
     const [dataBase, setDataBase] = useState<any>([]);
-
-
-    console.log(data,'gelas');
+    const { vw, } = useViewport();
     
     const token = Cookies.get("token")
     useEffect(() => {
@@ -47,13 +46,15 @@ const ArtistPage = () => {
             <div className={styles.headerWrapper}>
                 <BurgerMenu />
                 <div onClick={()=>setData(null)}>
+                {(vw > 1024 || vw < 600) && (  
                     <Image
-                        style={{ 'cursor': 'pointer' }}
+                        style={{ cursor: 'pointer' }}
                         src={`/icons/rightArrow.svg`}
                         alt="icon"
                         width={24}
-                        height={ 24}
+                        height={24}
                     />
+                )}
                 </div>
                 <UserProfileIcon />
             </div>
