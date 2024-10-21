@@ -47,7 +47,6 @@ export const SquareCard = (props: Props) => {
                 />
                 <div className={stylesClass.join(" ").trim()}>
                     <div className={styles.cardIconsWrapper} onClick={(e: React.MouseEvent) => e.stopPropagation()}>
-                        <HeartIcon background />
                         <div onClick={() => handleDelete()}>
                             <ReusableIcon imgName={props.iconImage ? props.iconImage : 'threeDots'} background />
                         </div>
