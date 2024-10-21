@@ -67,7 +67,7 @@ export const Search = (props: Props) => {
         }
         focusTimeoutRef.current = setTimeout(() => {
             setIsFocused(false);
-        }, 1); 
+        }, 2000); 
     };
 
     useEffect(() => {
