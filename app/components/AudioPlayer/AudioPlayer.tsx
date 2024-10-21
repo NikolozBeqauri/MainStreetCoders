@@ -12,7 +12,6 @@ import Different from "../MobileAudioPlayer/Different";
 import { useViewport } from "react-viewport-hooks";
 import styles from "./src/styles/styles.module.scss";
 import style from "./src/styles/mobile.module.scss";
-import Loading from "../Loading/Loading";
 import Cookies from "js-cookie";
 import axios from "axios";
 
