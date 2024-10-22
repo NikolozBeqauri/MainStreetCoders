@@ -7,10 +7,11 @@ import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import { useRecoilState } from "recoil";
-import { globalClickerState, musicOnState, playlistDataState, playlistOnState, threeDotClickedState } from "@/app/states";
+import { globalClickerState, musicOnState, playlistDataState, playlistOnState, randomWordsState, threeDotClickedState } from "@/app/states";
 
 
 interface MusicTrack {
+  authorFullName: string;
   authorId: number;
   createAt: string; 
   deleteAt: string | null;  
@@ -30,6 +31,7 @@ type Props = {
   selectedPlaylistId?: number;
   refetchPlaylists: () => void;
   refetchSelectedPlaylist: () => void;
+  someWord?: string;
 };
 
 const formatDate = (dateString: string) => {
@@ -45,7 +47,9 @@ export const PlaylistTable = (props: Props) => {
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
   const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
   const [musicOn, setMusicOnState] = useRecoilState(musicOnState);
-  const [playlistData, setPlaylistDataState] = useRecoilState(playlistDataState)
+  const [playlistData, setPlaylistDataState] = useRecoilState(playlistDataState);
+  const [randomWords, setRandomWordsState] = useRecoilState(randomWordsState);
+
 
 
   const handleTrashClick = (id: number) => {
@@ -74,6 +78,7 @@ export const PlaylistTable = (props: Props) => {
           console.error(err);
         });
     }
+    setRandomWordsState(`https://project-spotify-1.onrender.com/playlist/${props.selectedPlaylistId}/music/${selectedMusicIdToDelete}`);
   }, [selectedMusicIdToDelete, props.selectedPlaylistId, token, props]);
   
 
@@ -109,7 +114,7 @@ export const PlaylistTable = (props: Props) => {
               </div>
             </div>
             <div className={styles.author}>
-              {record.authorId || 'Unknown Author'}
+              {record.authorFullName || 'Unknown Author'}
             </div>
           </div>
         </div>
@@ -153,14 +158,15 @@ export const PlaylistTable = (props: Props) => {
           return {
             onClick: () => {
               console.log(`Music Track ID: ${record.id}`);
+              console.log('helloooooo', record);
               setGlobalClickerState(record.id);
-              setPlaylistOnState(true);
-              setMusicOnState(false);
+              setPlaylistOnState(false);
+              setMusicOnState(true);
               setPlaylistDataState({
                 title: record.trackTitle,
                 img: record.trackImage,
                 duration: record.duration,
-                path: record.filePath,
+                path: record.filePath,                
               })
             },
           };

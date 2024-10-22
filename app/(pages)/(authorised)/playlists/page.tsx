@@ -13,7 +13,7 @@ import { ReusableIcon } from "@/app/components/ReusableIcon/ReusableIcon";
 import UploadFile from "@/app/components/AddPlaylist/UploadFile/UploadFile";
 import { PlaylistTable } from "@/app/components/PlaylistTable/PlaylistTable";
 import { useRecoilState } from "recoil";
-import { albumOnState, playlistIdState, playlistOnState, selectedPlaylistTrackState } from "@/app/states";
+import { albumOnState, playlistIdState, playlistOnState, randomWordsState, selectedPlaylistTrackState } from "@/app/states";
 
 const PlayListPage = () => {
     const { vw } = useViewport();
@@ -26,6 +26,8 @@ const PlayListPage = () => {
     const [playlistId, setPlaylistIdState] = useRecoilState(playlistIdState);
     const [albumOn, setAlbumOnState] = useRecoilState(albumOnState);
     const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
+    const [randomWords, setRandomWordsState] = useRecoilState(randomWordsState);
+
 
 
     const fetchPlaylists = () => {
@@ -132,6 +134,7 @@ const PlayListPage = () => {
                                 records={selectedPlaylist.music}
                                 refetchPlaylists={fetchPlaylists}
                                 refetchSelectedPlaylist={() => fetchSelectedPlaylist(selectedPlaylist.id)} 
+                                someWord={randomWords}
                             />
                         </>
                     )}

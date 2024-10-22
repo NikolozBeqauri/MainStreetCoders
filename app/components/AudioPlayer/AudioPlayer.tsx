@@ -40,30 +40,6 @@ const AudioPlayer = () => {
 
   const token = Cookies.get("token");
 
-
-  useEffect(() => {
-    console.log(playlistId);
-    
-    if(playlistId && playlistOn) {
-      axios.get(`https://project-spotify-1.onrender.com/playlist/${playlistId}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        }
-      })
-        .then((res) => {
-          const data = res.data  
-          setPlaylistTracks(data)
-          setTracks(data.music);
-          setCurrentTrack(data.music[0]);
-          setPlaylistCurrentTracks(playlistData)
-          console.log(data, ' playlist data');
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [playlistId, playlistOn, playlistData, token]);
-
   useEffect(() => {
     const fetchTrackData = async () => {
       if (globalClicker) {
@@ -91,6 +67,23 @@ const AudioPlayer = () => {
             if (audioRef.current) {
               audioRef.current.src = firstTrack.filePath;
             }
+          } else if (playlistId && playlistOn) {
+              axios.get(`https://project-spotify-1.onrender.com/playlist/${playlistId}`, {
+                headers: {
+                  'Authorization': `Bearer ${token}`,
+                }
+              })
+                .then((res) => {
+                  const data = res.data  
+                  setPlaylistTracks(data)
+                  setTracks(data.music);
+                  setCurrentTrack(data.music[0]);
+                  setPlaylistCurrentTracks(playlistData)
+                  console.log(data, ' playlist data');
+                })
+                .catch((err) => {
+                  console.log(err);
+                })
           } else if(musicOn) {
             response = await axios.get(
               `https://project-spotify-1.onrender.com/music/${globalClicker}`,
@@ -119,7 +112,7 @@ const AudioPlayer = () => {
     };
 
     fetchTrackData();
-  }, [globalClicker, token, albumOn, musicOn]);
+  }, [globalClicker, token, albumOn, musicOn, playlistId, playlistOn, playlistData]);
 
 
   return (

@@ -117,3 +117,10 @@ export const repeatOnState = atom({
     key: 'repeatOn',
     default: false,
 });
+
+
+export const randomWordsState = atom({
+    key: 'randomWords',
+    default: '',
+});
+

@@ -6,7 +6,7 @@ import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import styles from "./page.module.scss";
 import { Header } from "@/app/components/Header/Header";
 import axios from "axios";
-import { albumIDState, albumOnState, dataState, globalClickerState, selectedMusicToAddInAlbumState } from "@/app/states";
+import { albumIDState, albumOnState, dataState, globalClickerState, musicOnState, playlistOnState, selectedMusicToAddInAlbumState } from "@/app/states";
 import Cookies from 'js-cookie';
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -67,6 +67,9 @@ export default function Home() {
   const [albumOn, setAlbumOnState] = useRecoilState(albumOnState);
   const [, setData] = useRecoilState(dataState);
   const [, setAlbumId] = useRecoilState(albumIDState); 
+  const [musicOn, setMusicOnState] = useRecoilState(musicOnState);
+  const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
+
 
   useEffect(() => {
     axios
@@ -206,7 +209,11 @@ export default function Home() {
                 author={album.authorName}
                 title={album.trackTitle}
                 img={album.trackImage}
-                onClick={() => handleRowClickTopHits(album.id)}
+                onClick={() => {
+                  handleRowClickTopHits(album.id);
+                  setPlaylistOnState(false);
+                  setMusicOnState(true);
+                }}
               />
             ))}
           </div>
@@ -225,7 +232,11 @@ export default function Home() {
                 trackTitle={musicCard.trackTitle}
                 authorName={musicCard.authorName}
                 duration={musicCard.duration}
-                onClick={() => handleRowClickTopHits(musicCard.id)}
+                onClick={() => {
+                  handleRowClickTopHits(musicCard.id);
+                  setPlaylistOnState(false);
+                  setMusicOnState(true);
+                }}
               />
             ))}
           </div>

@@ -119,8 +119,8 @@ const Controls = ({
 
   const nextTrack = () => {
     setAlbumOnState(false);
-    // // setMusicOnState(true);
-    // setPlaylistOnState(true);
+    setMusicOnState(true);
+    setPlaylistOnState(true);
     let nextIndex = trackIndex < tracks.length - 1 ? trackIndex + 1 : 0;
     if (tracks.length === 0) {
       console.log("Array is empty. No random number can be generated.");
