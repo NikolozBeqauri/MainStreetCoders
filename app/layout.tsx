@@ -34,7 +34,9 @@ export default function RootLayout({
  {
   return (
     <html lang="en">
-    
+      <head>
+        <link rel="icon" href="/images/favicon.png" />
+      </head>
       <body className={`${plusJakartaPlus.variable} ${manrope.variable}`}>
         <div className={styles.mainContent}>
           <RecoilWrapper>
