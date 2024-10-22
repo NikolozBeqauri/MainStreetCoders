@@ -77,6 +77,7 @@ export const TopSongs = (props: Props) => {
                 title={props.title} 
                 count={props.count} 
                 playlistBackground={props.image}
+                onlyTitle
             />
             <div>
                 <div className={styles.navigationWrapper}>
