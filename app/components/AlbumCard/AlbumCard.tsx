@@ -10,6 +10,7 @@ type Props = {
   img: string;
   onClick?: () => void;
   id?: number | null;
+  desableIcons?: boolean;
 };
 
 export const AlbumCard = (props: Props) => {
@@ -31,10 +32,13 @@ export const AlbumCard = (props: Props) => {
           tabIndex={0}
         />
         <div className={styles.iconsWholeWrapper}>
-          <div onClick={(e) => e.stopPropagation()}  className={styles.cardIconsWrapper}>
+          {!props.desableIcons && (
+            <div onClick={(e) => e.stopPropagation()}  className={styles.cardIconsWrapper}>
             <HeartIcon background />
             <ReusableIcon imgName={"threeDots"} background />
           </div>
+          )}
+          
           <div className={stylesClass.join(" ").trim()}></div>
         </div>
       </div>
