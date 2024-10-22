@@ -262,6 +262,7 @@ export default function Home() {
                 title={album.title}
                 img={album.coverImage}
                 onClick={() => {getMusicId(album.id); setAlbumId(album.id); router.push(`/album?albumId=${album.id}`)}}
+                desableIcons
               />
             ))}
           </div>
