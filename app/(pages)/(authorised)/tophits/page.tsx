@@ -15,7 +15,7 @@ const TopHitPage = () => {
       </div>
       <NewsComponent
         onlyTitle 
-        title="Top Hit Of the week"
+        title="Top Hit Of All Month"
         count={"999"}
         image="chartBackground"
       />

@@ -18,7 +18,7 @@ type FormValues = {
 
 type Props = {
     setActiveComponent: Function;
-    refetchPlaylists?: () => void; 
+    refetchPlaylists?: () => void;
     withOutArrow?: boolean;
 }
 
@@ -41,9 +41,9 @@ export const UploadFile = (props: Props) => {
             }
         })
             .then(res => {
-                console.log(res); 
-                if(props.refetchPlaylists){
-                    props.refetchPlaylists(); 
+                console.log(res);
+                if (props.refetchPlaylists) {
+                    props.refetchPlaylists();
                 }
                 props.setActiveComponent(null);
                 setThreeDotClicked(false);
@@ -82,8 +82,18 @@ export const UploadFile = (props: Props) => {
                     <input
                         id='forFile'
                         type="file"
-                        {...register("file", { required: "Please upload a file" })}
+                        accept=".png,.jpg,.jpeg,.webp"
+                        {...register("file", {
+                            required: "Please upload a file",
+                            validate: {
+                                isValidType: (fileList: FileList) => {
+                                    const allowedTypes = ['image/png', 'image/jpeg', 'image/webp'];
+                                    return allowedTypes.includes(fileList[0]?.type) || "Only .png, .jpg, .jpeg, and .webp files are allowed";
+                                },
+                            },
+                        })}
                     />
+
                 </div>
 
                 {errors.file && <span className={styles.error}>{errors.file.message}</span>}

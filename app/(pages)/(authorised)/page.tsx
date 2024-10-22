@@ -189,6 +189,7 @@ export default function Home() {
             title="Top Hit Of the week"
             count={topHitOfWeek?.count ?? "795,900"}
             image="newsimage"
+            onlyTitle
           />
         </section>
 
