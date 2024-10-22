@@ -9,13 +9,14 @@ import axios from "axios";
 import Loading from "../Loading/Loading";
 import Cookies from "js-cookie";
 import { useRecoilState } from "recoil";
-import { globalClickerState, albumOnState, isPlayingState, musicOnState, playlistOnState } from "@/app/states";
+import { globalClickerState, albumOnState, isPlayingState, musicOnState, playlistOnState, randomWordsState } from "@/app/states";
 
 type Props = {
   heartActive?: boolean;
   pageName?: string;
   isTopHitPage?: boolean;
   albumMusics?:boolean;
+  include?: string;
 };
 
 export const ReusableTable = (props: Props) => {
@@ -27,6 +28,7 @@ export const ReusableTable = (props: Props) => {
   const [isPlaying, setIsPlayingState] = useRecoilState(isPlayingState);
   const [musicOn, setMusicOnState] = useRecoilState(musicOnState);
   const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
+  const [randomWords, setRandomWordsState] = useRecoilState(randomWordsState);
 
   useEffect(() => {
     
@@ -49,7 +51,8 @@ export const ReusableTable = (props: Props) => {
         setLoading(false);
       }
     };    
-
+    
+    setRandomWordsState(`${props.pageName}`)
     fetchRecords();
   }, [token, props.pageName, props.albumMusics]);
 
@@ -61,7 +64,7 @@ export const ReusableTable = (props: Props) => {
     setGlobalClickerState(record.id);
     setAlbumOnState(props.pageName === "album");
     setIsPlayingState(true)
-    setMusicOnState((props.pageName === "music/topHits") || (props.pageName === "music/topweek"))
+    setMusicOnState((props.pageName === "music/topHits") || (props.pageName === "music/topweek") || props.include === "author/find-all-music-of-author/")
     setPlaylistOnState(false)
   };
 
@@ -91,8 +94,7 @@ export const ReusableTable = (props: Props) => {
       render: (record: any) => {
         const firstMusic = record.musics && record.musics.length > 0 ? record.musics[0] : null;
         const trackTitle = firstMusic ? firstMusic.trackTitle : record.trackTitle || 'Unknown Track';
-        console.log(record,'tatiana');
-        
+
         return (
           <div className={styles.infoWrapper}>
             <div className={styles.wrapper}>

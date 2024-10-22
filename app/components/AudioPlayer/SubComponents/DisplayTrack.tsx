@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import { albumOnState, modalState, musicOnState, playlistDataState, playlistOnState, repeatOnState } from "@/app/states";
 import { handleClientScriptLoad } from "next/script";
 
-const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, idDate, playlistTracks }: any) => {
+const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, idDate, playlistTracks, tracks }: any) => {
     const titleRef = useRef<HTMLParagraphElement | null>(null);
     const titleWrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -59,7 +59,7 @@ const DisplayTrack = ({ currentTrack, audioRef, setDuration, progressBarRef, idD
                 <div className={modal ? styles.audioImage : style.mobileAudioImage}>
                     {
                         (idDate?.album?.coverImage || currentTrack?.filePath) ? (
-                            <img src={albumOn === true ? (currentTrack?.trackImage || idDate?.coverImage) : playlistOn === true ? (currentTrack?.trackImage || playlistTracks?.image) : musicOn === true ? (idDate?.trackImage || idDate?.album?.coverImage || "/images/default-album-cover.png") : ''} alt="" />
+                            <img src={albumOn === true ? (currentTrack?.trackImage || idDate?.coverImage || tracks.coverImage) : playlistOn === true ? (currentTrack?.trackImage || playlistTracks?.image) : musicOn === true ? (idDate?.trackImage || idDate?.album?.coverImage || "/images/default-album-cover.png") : ''} alt="" />
                         ) : (
                             <div className={modal ? styles.iconWrapper : style.mobileIconWrapper}>
                                 <span className={styles.audioIcon}>

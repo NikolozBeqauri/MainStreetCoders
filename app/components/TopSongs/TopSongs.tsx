@@ -8,6 +8,8 @@ import { ArtistAlbum } from '../ArtistAlbum/ArtistAlbum';
 import { ReusableTable } from '../ReusableTable/ReusableTable';
 import Cookies from 'js-cookie';
 import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { albumOnState, globalClickerState, musicOnState, playlistOnState } from '@/app/states';
 
 
 type Props = {
@@ -27,7 +29,14 @@ export const TopSongs = (props: Props) => {
     const token = Cookies.get("token")
 
     const [activeButton, setActiveButton] = useState(artistNav.topSongs); 
-    const [albumsOfArtist, setAlbumsOfArtist] = useState<album[]>([])
+    const [albumsOfArtist, setAlbumsOfArtist] = useState<album[]>([]);
+    const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
+    const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
+    const [musicOn, setMusicOnState] = useRecoilState(musicOnState);
+    const [albumOn, setAlbumOnState] = useRecoilState(albumOnState);
+
+
+
     
     useEffect(()=>{
         axios.get("https://project-spotify-1.onrender.com/author/topArtists", {
@@ -35,8 +44,7 @@ export const TopSongs = (props: Props) => {
               Authorization: `Bearer ${token}`
             }
           })
-        .then((res) => {
-          console.log(res);
+        .then((res) => {;
         })
         .catch((err) => {
           console.log(err);
@@ -66,6 +74,7 @@ export const TopSongs = (props: Props) => {
         })
         .then((res) => {
             console.log(res.data.musics, 'gela');
+            setGlobalClickerState(res.data[0].authorId);
         })
         .catch((err) => {
             console.log(err);
@@ -102,7 +111,7 @@ export const TopSongs = (props: Props) => {
                 {(() => {
                     switch (activeButton) {
                         case artistNav.topSongs:
-                            return <ReusableTable pageName={`author/find-all-music-of-author/${props.data?.id}`} albumMusics/>;
+                            return <ReusableTable pageName={`author/find-all-music-of-author/${props.data?.id}`} include='author/find-all-music-of-author/' albumMusics/>;
                         case artistNav.album:
                             return <ArtistAlbum albumsOfArtist={albumsOfArtist}/>;
                         case artistNav.biography:
