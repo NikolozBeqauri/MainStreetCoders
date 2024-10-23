@@ -29,6 +29,7 @@ export const ReusableTable = (props: Props) => {
   const [musicOn, setMusicOnState] = useRecoilState(musicOnState);
   const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
   const [randomWords, setRandomWordsState] = useRecoilState(randomWordsState);
+  const [albumFullName, setAlbumFullName] = useState<string >('')
 
   useEffect(() => {
     
@@ -39,9 +40,9 @@ export const ReusableTable = (props: Props) => {
             'Authorization': `Bearer ${token}`,
           },
         });
-        console.log(response.data, 'hereeeeesszz');
         if(props.albumMusics){
-          setRecords(response.data.musics);
+          setRecords(response.data.musics);          
+          setAlbumFullName(response.data.title);
         }else{
           setRecords(response.data);
         }
@@ -116,7 +117,7 @@ export const ReusableTable = (props: Props) => {
       key: "album",
       render: (record: any) => (
         <div className={styles.albumName}>
-          {record.title || record.album?.title || "Unknown Album"}
+          {record.title || record.album?.title || albumFullName || "Unknown Album"}
         </div>
       ),
     },
