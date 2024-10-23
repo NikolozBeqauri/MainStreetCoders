@@ -58,14 +58,13 @@ export const TopSongs = (props: Props) => {
                 }
             })
             .then((res) => {
-                console.log(res.data.albums, 'asdsadasdsadsadasd');
+                console.log(res.data.albums, 'aq aq ');
                 setAlbumsOfArtist(res.data.albums)
             })
             .catch((err) => {
                 console.log(err);
             });
     },[props.data?.id, token])
-
     useEffect(()=>{
         axios.get(`https://project-spotify-1.onrender.com/author/find-all-music-of-author/${props.data?.id}`, {
             headers: {
