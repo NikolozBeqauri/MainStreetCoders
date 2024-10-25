@@ -5,19 +5,22 @@ import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import styles from "./page.module.scss";
 import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
 import { ReusableTable } from "@/app/components/ReusableTable/ReusableTable";
-import { albumIDState } from "@/app/states";
+import { albumIDState, currentAlbumStete } from "@/app/states";
 import { useRecoilState } from "recoil";
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect } from "react";
+import { AlbumTable } from "@/app/components/AlbumTable/AlbumTable";
 
 const AlbumPage = () => {
   const searchParams = useSearchParams()
   const id = searchParams.get('albumId')
-  const [, setAlbumId] = useRecoilState(albumIDState);
+  const idFromAlbumPage = searchParams.get('idFromAlbumPage')
+  const [albumId, setAlbumId] = useRecoilState(albumIDState);
   const pathname = usePathname();
+  const [currentAlbum, ] = useRecoilState(currentAlbumStete);
 
-  useEffect(() => {
-    if (pathname !== '/album') {
+  useEffect(() => {    
+    if (pathname !== '/album') {      
       setAlbumId(null);
     }
   }, [pathname, setAlbumId]);
@@ -32,7 +35,7 @@ const AlbumPage = () => {
         <div>
           <NewsComponent
             onlyTitle
-            title={"All Albums"}
+            title={idFromAlbumPage ? `${currentAlbum}` : "All Albums"}
             count={"Released 07/12/2023"}
             image={"artistDemoImage"}
           />
@@ -40,7 +43,11 @@ const AlbumPage = () => {
             {id ?
               <ReusableTable albumMusics pageName={`album/${id}`} />
               :
-              <ReusableTable pageName="album" />
+              (idFromAlbumPage ? 
+                <ReusableTable albumMusics pageName={`album/${idFromAlbumPage}`} />
+                :
+                <AlbumTable pageName="album" />
+              )
             }
           </div>
         </div>

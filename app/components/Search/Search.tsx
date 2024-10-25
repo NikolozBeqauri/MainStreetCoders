@@ -44,7 +44,7 @@ export const Search = (props: Props) => {
             .then((r) => {
                 console.log(r);
                 setSuggestions(r.data.music);     
-                setAuthorSuggestion(r.data.author);
+                setAuthorSuggestion(r.data.author);                
                 setAlbum(r.data.albums);
             })
             .catch((err) => {

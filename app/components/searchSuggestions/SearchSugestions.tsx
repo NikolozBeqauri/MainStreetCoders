@@ -1,7 +1,7 @@
 import { useRecoilState } from "recoil";
 import { AddLine } from "../AddPlaylist/AddLIne/AddLine";
 import styles from "./SearchSuggestions.module.scss";
-import { globalClickerState, trackIdState } from "@/app/states";
+import { currentAlbumStete, globalClickerState, trackIdState } from "@/app/states";
 import { dataState } from "@/app/states";
 import { useRouter } from "next/navigation";
 
@@ -15,6 +15,8 @@ export const SearchSuggestions = (props: Props) => {
   const [globalClicker, setGlobalClickerState] = useRecoilState(globalClickerState);
   const [trackId, setTrackId] = useRecoilState(trackIdState);
   const [, setData] = useRecoilState(dataState);
+  const [, setCurrentAlbum] = useRecoilState(currentAlbumStete);
+
   const router = useRouter();
 
   return (
@@ -36,13 +38,27 @@ export const SearchSuggestions = (props: Props) => {
         props.authorSuggestion.slice(0, 20).map((author: any) => (
           <AddLine
             key={author.id}
-            image={`profileIcon`}
+            image={`viewArtistIcon`}
             title={author.fullName}
             onClick={(e: any) => {
               setData(author);
               router.push("/artist");
             }}
-            useForSearch 
+            useForSearch
+          />
+        ))}
+
+      {props.albumSuggestion != null &&
+        props.albumSuggestion.slice(0, 10).map((album: any) => (
+          <AddLine
+            key={album.id}
+            image={`viewAlbumIcon`}
+            title={album.title}
+            onClick={(e: any) => {
+              setCurrentAlbum(album.title)
+              router.push(`/album?idFromAlbumPage=${album.id}`);
+            }}
+            useForSearch
           />
         ))}
     </div>

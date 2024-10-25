@@ -66,10 +66,6 @@ export const trackIdState = atom ({
     default: null,
 })
 
-// export const currentPlaylistState = atom({
-//     key: 'currentPlaylist',
-//     default: [],
-// });
 
 export const threeDotClickedState = atom({
     key: 'threeDotClickedState', 
@@ -124,3 +120,7 @@ export const randomWordsState = atom({
     default: '',
 });
 
+export const currentAlbumStete = atom({
+    key: 'currentAlbumStete',
+    default: undefined,
+});
