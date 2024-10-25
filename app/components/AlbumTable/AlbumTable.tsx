@@ -2,15 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import { Table } from "antd";
-import styles from "./ReusubleTable.module.scss";
-import { HeartIcon } from "../HeartIcon/HeartIcon";
-import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
+import styles from "./AlbumTable.module.scss";
 import axios from "axios";
 import Loading from "../Loading/Loading";
 import Cookies from "js-cookie";
 import { useRecoilState } from "recoil";
-import { globalClickerState, albumOnState, isPlayingState, musicOnState, playlistOnState, randomWordsState } from "@/app/states";
-import Image from "next/image";
+import { globalClickerState, albumOnState, isPlayingState, musicOnState, playlistOnState, randomWordsState, currentAlbumStete } from "@/app/states";
+import { useRouter } from "next/navigation";
 
 type Props = {
   heartActive?: boolean;
@@ -18,10 +16,9 @@ type Props = {
   isTopHitPage?: boolean;
   albumMusics?:boolean;
   include?: string;
-  rightArrow?: boolean;
 };
 
-export const ReusableTable = (props: Props) => {
+export const AlbumTable = (props: Props) => {
   const [records, setRecords] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const token = Cookies.get("token");
@@ -32,6 +29,8 @@ export const ReusableTable = (props: Props) => {
   const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
   const [randomWords, setRandomWordsState] = useRecoilState(randomWordsState);
   const [albumFullName, setAlbumFullName] = useState<string >('')
+  const [, setCurrentAlbum] = useRecoilState(currentAlbumStete);
+  const router = useRouter();
 
   useEffect(() => {
     
@@ -45,9 +44,7 @@ export const ReusableTable = (props: Props) => {
         if(props.albumMusics){
           setRecords(response.data.musics);          
           setAlbumFullName(response.data.title);
-        }else{
-          console.log(response.data,'s');
-          
+        }else{      
           setRecords(response.data);
         }
         setLoading(false);
@@ -56,11 +53,10 @@ export const ReusableTable = (props: Props) => {
         setLoading(false);
       }
     };    
-    
     setRandomWordsState(`${props.pageName}`)
     fetchRecords();
   }, [token, props.pageName, props.albumMusics]);
-
+  
   if (loading) {
     return <Loading width="" />;
   }
@@ -94,68 +90,48 @@ export const ReusableTable = (props: Props) => {
       ),
     },
     {
-      title: "Song Name",
-      key: "songName",
+      title: "Album",
+      key: "Album",
       render: (record: any) => {
-        const firstMusic = record.musics && record.musics.length > 0 ? record.musics[0] : null;
-        const trackTitle = firstMusic ? firstMusic.trackTitle : record.trackTitle || record.title || 'Unknown Track';
+        const albumTitle = record.title || record.album?.title || albumFullName || "Unknown Album";
 
         return (
           <div className={styles.infoWrapper}>
             <div className={styles.wrapper}>
               <div className={styles.titleWrapper}>
                 <div id={`authorTitle-${record.id}`} className={styles.authorTitle}>
-                  {trackTitle}
+                  {albumTitle}
                 </div>
-              </div>
-              <div className={styles.author}>
-                {firstMusic ? firstMusic.fullName : record.author?.fullName || record.authorFullName || ``}
               </div>
             </div>
           </div>
         );
       },
     },
+  
     {
-      title: "Album",
-      key: "album",
+      title: "Number of Track",
+      key: "Number of Track",
       render: (record: any) => (
         <div className={styles.albumName}>
-          {record.title || record.album?.title || albumFullName || "Unknown Album"}
+          {record.count ||  "Unknown counter"}
         </div>
       ),
     },
     {
-      title: "Duration",
-      key: "duration",
+      title: "releaseDate",
+      key: "releaseDate",
       render: (record: any) => (
         <div className={styles.time}>
-          {record.duration || (record?.musics?.[0]?.duration ?? 'Unknown Duration')}
+          {record.releaseDate || (record?.musics?.[0]?.durareleaseDatetion ?? 'Unknown releaseDate')}
         </div>
       ),
     },
-    {
-      key: "actions",
-      render: () => (
-        <div className={styles.icon}>
-          <HeartIcon active={props.heartActive} />
-          <ReusableIcon imgName={"threeDots"} />
-        </div>
-      ),
-    },
+   
   ];
 
   return (
     <div className={styles.wrapper}>
-      {props.rightArrow && <div>
-        <Image
-              style={{ cursor: 'pointer' }}
-              src={`/icons/rightArrow.svg`}
-              alt="icon"
-              width={42}
-              height={42}
-          />
-      </div>}
       <Table
         columns={columns}
         dataSource={records}
@@ -173,7 +149,10 @@ export const ReusableTable = (props: Props) => {
               titleElement.classList.remove(styles.scrolling);
             }
           },
-          onClick: () => handleRowClick(record),
+          onClick: () => {
+            router.push(`/album?idFromAlbumPage=${record.id}`)
+            setCurrentAlbum(record.title);
+          },
         })}
       />
     </div>
