@@ -255,6 +255,7 @@ export default function Home() {
                 author={artist.authorFullName}
                 img={artist.authorImage}
                 onClick={() => handleArtistClick(artist)}
+                desableIcons
               />
             ))}
           </div>
