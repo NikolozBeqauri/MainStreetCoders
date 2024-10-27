@@ -13,7 +13,7 @@ import { ReusableIcon } from "@/app/components/ReusableIcon/ReusableIcon";
 import UploadFile from "@/app/components/AddPlaylist/UploadFile/UploadFile";
 import { PlaylistTable } from "@/app/components/PlaylistTable/PlaylistTable";
 import { useRecoilState } from "recoil";
-import { albumOnState, playlistIdState, playlistOnState, randomWordsState, selectedPlaylistTrackState } from "@/app/states";
+import { albumOnState, oneArrayMusicState, playlistIdState, playlistOnState, randomWordsState, selectedPlaylistTrackState } from "@/app/states";
 
 const PlayListPage = () => {
     const { vw } = useViewport();
@@ -27,6 +27,8 @@ const PlayListPage = () => {
     const [albumOn, setAlbumOnState] = useRecoilState(albumOnState);
     const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
     const [randomWords, setRandomWordsState] = useRecoilState(randomWordsState);
+    const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
+
 
 
 
@@ -45,7 +47,7 @@ const PlayListPage = () => {
         });
 
     };
-    
+
     const fetchSelectedPlaylist = (playlistId: number) => {
         axios.get(`https://project-spotify-1.onrender.com/playlist/${playlistId}`, {
             headers: {
@@ -53,12 +55,34 @@ const PlayListPage = () => {
             }
         })
         .then((r) => {
+            setData(r.data.musics)
             setSelectedPlaylist(r.data);
+            setMusicArrayTwo(data)
+
         })
         .catch((err) => {
             console.error(err);
         });
     };
+
+    useEffect(() => {
+        const fetchSelectedPlaylist = (playlistId: number) => {
+            axios.get(`https://project-spotify-1.onrender.com/playlist/${playlistId}`, {
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                }
+            })
+            .then((r) => {
+                setSelectedPlaylist(r.data);
+                console.log(r.data, ' data playlist here');
+                setData(r.data.musics)
+                setMusicArrayTwo(data)
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+        };
+    },[token])
 
     useEffect(() => {
         fetchPlaylists();
@@ -135,6 +159,7 @@ const PlayListPage = () => {
                                 refetchPlaylists={fetchPlaylists}
                                 refetchSelectedPlaylist={() => fetchSelectedPlaylist(selectedPlaylist.id)} 
                                 someWord={randomWords}
+                                data={data}
                             />
                         </>
                     )}

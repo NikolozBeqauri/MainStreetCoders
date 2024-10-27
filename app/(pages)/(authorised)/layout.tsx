@@ -1,7 +1,7 @@
-import AudioPlayer from "@/app/components/AudioPlayer/AudioPlayer"
 import { MobileNavbar } from "@/app/components/MobileNavbar/MobileNavbar"
 import { SideBar } from "@/app/components/SideBar/SideBar"
 import styles from "./layout.module.scss"
+import IndexPage from "@/app/components/MusicPlayer/IndexPage";
 
 export const authorised = ({
     children,
@@ -15,8 +15,8 @@ export const authorised = ({
                 {children}
             </div>
             <footer className={styles.AudioPlayer}>
-                <AudioPlayer />
-                <MobileNavbar />
+                <IndexPage/>
+                <MobileNavbar/>
             </footer>
         </>
     )

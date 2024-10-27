@@ -9,9 +9,8 @@ import axios from "axios";
 import Loading from "../Loading/Loading";
 import Cookies from "js-cookie";
 import { useRecoilState } from "recoil";
-import { globalClickerState, albumOnState, isPlayingState, musicOnState, playlistOnState, randomWordsState } from "@/app/states";
+import { globalClickerState, albumOnState, isPlayingState, musicOnState, playlistOnState, randomWordsState, topHitsOnState, topWeeksOnState, indexOfArrState, oneArrayMusicState } from "@/app/states";
 import Image from "next/image";
-
 type Props = {
   heartActive?: boolean;
   pageName?: string;
@@ -19,6 +18,8 @@ type Props = {
   albumMusics?:boolean;
   include?: string;
   rightArrow?: boolean;
+  isTopWeekPage?: boolean;
+  data?: any;
 };
 
 export const ReusableTable = (props: Props) => {
@@ -31,7 +32,14 @@ export const ReusableTable = (props: Props) => {
   const [musicOn, setMusicOnState] = useRecoilState(musicOnState);
   const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
   const [randomWords, setRandomWordsState] = useRecoilState(randomWordsState);
-  const [albumFullName, setAlbumFullName] = useState<string >('')
+  const [albumFullName, setAlbumFullName] = useState<string >('');
+  const [topHitsOn, setTopHitsOnState] = useRecoilState(topHitsOnState);
+  const [topWeeksOn, setTopWeeksOnState] = useRecoilState(topWeeksOnState);
+  const [indexOfArr, setIndexOfArrState] = useRecoilState(indexOfArrState)
+
+  const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
+
+
 
   useEffect(() => {
     
@@ -71,6 +79,18 @@ export const ReusableTable = (props: Props) => {
     setIsPlayingState(true)
     setMusicOnState((props.pageName === "music/topHits") || (props.pageName === "music/topweek") || props.include === "author/find-all-music-of-author/")
     setPlaylistOnState(false)
+    if(props.isTopHitPage) {
+      setTopHitsOnState(true);
+      setTopWeeksOnState(false);
+      setPlaylistOnState(false);
+      setAlbumOnState(props.pageName === "album");
+    }
+    if(props.isTopWeekPage) {
+      setTopWeeksOnState(true);
+      setTopHitsOnState(false);
+      setPlaylistOnState(false);
+      setAlbumOnState(props.pageName === "album");
+    }
   };
 
   const columns = [
@@ -160,7 +180,7 @@ export const ReusableTable = (props: Props) => {
         columns={columns}
         dataSource={records}
         rowKey="id"
-        onRow={(record) => ({
+        onRow={(record, index) => ({
           onMouseEnter: () => {
             const titleElement = document.getElementById(`authorTitle-${record.id}`);
             if (titleElement) {
@@ -173,7 +193,11 @@ export const ReusableTable = (props: Props) => {
               titleElement.classList.remove(styles.scrolling);
             }
           },
-          onClick: () => handleRowClick(record),
+          onClick: () => {
+            handleRowClick(record);
+            if(index) setIndexOfArrState(index);
+            setMusicArrayTwo(props.data);
+          },
         })}
       />
     </div>
