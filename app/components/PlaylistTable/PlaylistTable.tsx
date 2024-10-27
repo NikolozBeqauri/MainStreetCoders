@@ -7,7 +7,7 @@ import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import { useRecoilState } from "recoil";
-import { globalClickerState, musicOnState, playlistDataState, playlistOnState, randomWordsState, threeDotClickedState } from "@/app/states";
+import { globalClickerState, musicOnState, oneArrayMusicState, playlistDataState, playlistOnState, randomWordsState, threeDotClickedState } from "@/app/states";
 
 
 interface MusicTrack {
@@ -32,6 +32,7 @@ type Props = {
   refetchPlaylists: () => void;
   refetchSelectedPlaylist: () => void;
   someWord?: string;
+  data?: any;
 };
 
 const formatDate = (dateString: string) => {
@@ -49,6 +50,8 @@ export const PlaylistTable = (props: Props) => {
   const [musicOn, setMusicOnState] = useRecoilState(musicOnState);
   const [playlistData, setPlaylistDataState] = useRecoilState(playlistDataState);
   const [randomWords, setRandomWordsState] = useRecoilState(randomWordsState);
+
+  const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
 
 
 
@@ -168,6 +171,7 @@ export const PlaylistTable = (props: Props) => {
                 duration: record.duration,
                 path: record.filePath,                
               })
+              setMusicArrayTwo(props.data)
             },
           };
         }}

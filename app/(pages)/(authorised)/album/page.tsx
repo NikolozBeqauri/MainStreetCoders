@@ -1,61 +1,73 @@
-"use client"
+"use client"; // Add this line to mark the component as a Client Component
+import styles from './page.module.scss';
+import { useParams, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { albumidState } from '@/app/states';
+import { Header } from '@/app/components/Header/Header';
+import Card from '@/app/components/Card/Card';
+import Cookies from "js-cookie";
 
-import { Header } from "@/app/components/Header/Header";
-import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
-import styles from "./page.module.scss";
-import { BurgerMenu } from "@/app/components/BurgerMenu/BurgerMenu";
-import { ReusableTable } from "@/app/components/ReusableTable/ReusableTable";
-import { albumIDState, currentAlbumStete } from "@/app/states";
-import { useRecoilState } from "recoil";
-import { usePathname, useSearchParams } from 'next/navigation';
-import { Suspense, useEffect } from "react";
-import { AlbumTable } from "@/app/components/AlbumTable/AlbumTable";
 
-const AlbumPage = () => {
-  const searchParams = useSearchParams()
-  const id = searchParams.get('albumId')
-  const idFromAlbumPage = searchParams.get('idFromAlbumPage')
-  const [albumId, setAlbumId] = useRecoilState(albumIDState);
-  const pathname = usePathname();
-  const [currentAlbum, ] = useRecoilState(currentAlbumStete);
+const Album = () => {
+    const [albumId, setAlbumId] = useRecoilState(albumidState);
+    const [reusableID, setReusableId] = useState()
+    const router = useRouter();
+    const param = useParams();
 
-  useEffect(() => {    
-    if (pathname !== '/album') {      
-      setAlbumId(null);
-    }
-  }, [pathname, setAlbumId]);
 
-  return (
-    <div className={styles.album}>
-      <div className={styles.album2}>
-        <div className={styles.album1}>
-          <BurgerMenu />
-          <Header />
+    const handleCardClick = (id: number) => {
+        router.push(`/album/${id}`);
+    };
+
+    const [artists, setArtists] = useState([]);
+    const token = Cookies.get('token');
+
+    useEffect(() => {
+        axios.get(`https://project-spotify-1.onrender.com/album`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+            .then((r) => {
+                setArtists(r.data);
+                console.log(r.data, 'here is data of album');
+            })
+            .catch((error) => {
+            });
+    }, []);
+
+    return (
+        <div className={styles.container}>
+            <Header />
+            <div className={styles.container2}>
+                <br />
+                <br />
+                <h2 className={styles.h2}>Trending Now</h2>
+                <div className={styles.wrapper}>
+                    {
+                        artists.map((item: any) => (
+                            <div
+                                key={item.id} // Assign the unique key here
+                                onClick={() => {
+                                    setReusableId(item.id)
+                                    setAlbumId(item.id);
+                                    handleCardClick(item.id);
+                                }}
+                            >
+                                <Card
+                                    image={item.coverImage}
+                                    title={item.title}
+                                    imageStyle={'round'}
+                                />
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
         </div>
-        <div>
-          <NewsComponent
-            onlyTitle
-            title={idFromAlbumPage ? `${currentAlbum}` : "All Albums"}
-            count={"Released 07/12/2023"}
-            image={"artistDemoImage"}
-          />
-          <div className={styles.table}>
-            {id ?
-              <ReusableTable albumMusics pageName={`album/${id}`} />
-              :
-              (idFromAlbumPage ? 
-                <ReusableTable albumMusics pageName={`album/${idFromAlbumPage}`} />
-                :
-                <AlbumTable pageName="album" />
-              )
-            }
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
-const Page = () => <Suspense><AlbumPage /></Suspense>;
-
-export default Page;
+export default Album;
