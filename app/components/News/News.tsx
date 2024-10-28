@@ -40,9 +40,6 @@ const News = (props: Props) => {
       });
   }, []);
 
-
-
-
   const backImage: object = {
     backgroundImage: `url(${props.image})`,
     backgroundRepeat: "no-repeat",

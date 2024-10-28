@@ -8,32 +8,20 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ChartTable from '@/app/components/ChartTable/ChartTable';
 import Cookies from 'js-cookie';
+import { NewsComponent } from '@/app/components/NewsComponent/NewsComponent';
 
 
    
 const Charts = () => {
-
-
-    const [topHit, setTopHIt] = useState<any>()
-
     const token = Cookies.get('token');
-
-    useEffect(() => {
-        axios
-            .get(`https://project-spotify-1.onrender.com/music/topweek`, {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              })
-            .then(async (r) => {
-                setTopHIt(r.data[0])
-            });
-    }, []);
-
     return(
-        <div className={styles.container}>
+        <div className={styles.wrapper}>
             <ReusableHeader />
-            <News title={'Top Chart Of The Week'} image={topHit?.albumCover} plays={topHit?.listenerCount} />
+            <NewsComponent
+                onlyTitle
+                title={"Top Hit Of The Week"}
+                image={"chartBackground"}
+            />
             <ChartTable />
 
         </div>
