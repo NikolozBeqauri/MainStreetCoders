@@ -25,6 +25,7 @@
     // max-width: 100%;
     height: 280px;
     width: 100%; 
+    transition: 0.5s;
 }
 
 .container:hover {
@@ -86,6 +87,7 @@
     top: 0;
     content-visibility: hidden;
     padding-top: 75px;
+    transition: 0.5s;
 }
 
 .union:hover {

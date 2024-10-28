@@ -51,12 +51,15 @@
 }
 
 @media (max-width: 755px) {
+  .container {
+    height: 280px;
+  }
   .componentHeader {
     padding: 24px;
   }
 
   .h1Style {
-    font-size: 48px;
+    font-size: 38px;
     font-weight: 800;
     line-height: 48px;
   }
@@ -69,6 +72,9 @@
 }
 
 @media (max-width: 500px) {
+  .container {
+    height: 200px;
+  }
   .componentHeader {
     padding: 16px;
     gap: 4px;

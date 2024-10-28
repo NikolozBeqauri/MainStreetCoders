@@ -9,6 +9,7 @@ interface Props {
     subtitle?: string;
     title?: string;
     imageStyle?: 'normal' | 'round';
+    dontVisible?: boolean;
 }
 
 const Card = (props: Props) => {
@@ -24,7 +25,7 @@ const Card = (props: Props) => {
                 <Image src={props.image} alt='image' width={210} height={195} className={radius.join(' ').trim()} />
 
                 <div className={styles.union}>
-                    <ItemsUnion />
+                    <ItemsUnion dontVisible={props.dontVisible} />
                 </div>
                 
                 <span className={styles.subtitle}>{props.subtitle}</span>

@@ -10,6 +10,7 @@ import { useParams } from 'next/navigation'
 import { Header } from '@/app/components/Header/Header'
 import News from '@/app/components/News/News'
 import Tables from '@/app/components/Table/Table'
+import { NewsComponent } from '@/app/components/NewsComponent/NewsComponent'
 
 
 
@@ -37,7 +38,7 @@ const AlbumID = () => {
                 setAlbumName(r.data.title)
                 setMusicArrayTwo(r.data.musics)
                 console.log(r.data, 'asdasd');
-                
+
 
             })
             .catch(error => {
@@ -45,12 +46,15 @@ const AlbumID = () => {
     }, [id])
 
     return (
-        <div className={styles.container}>
+        <div className={styles.wrapper}>
             <div className={styles.headerContainer}>
                 <Header />
                 <div className={styles.bodyContainer}>
-                    <br />
-                    <News title={albumName || 'Loading...'} image={`${albumCover}`} plays={'888'}/>
+                    <NewsComponent
+                        title={albumName || 'Loading...'}
+                        playlistBackground={albumCover}
+                        onlyTitle
+                    />
                     <Tables />
                 </div>
             </div>

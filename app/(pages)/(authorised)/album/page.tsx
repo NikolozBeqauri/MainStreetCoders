@@ -39,11 +39,9 @@ const Album = () => {
     }, []);
 
     return (
-        <div className={styles.container}>
+        <div className={styles.wholeWrapper}>
             <Header />
             <div className={styles.container2}>
-                <br />
-                <br />
                 <h2 className={styles.h2}>Trending Now</h2>
                 <div className={styles.wrapper}>
                     {
@@ -60,6 +58,7 @@ const Album = () => {
                                     image={item.coverImage}
                                     title={item.title}
                                     imageStyle={'round'}
+                                    dontVisible={true}
                                 />
                             </div>
                         ))
