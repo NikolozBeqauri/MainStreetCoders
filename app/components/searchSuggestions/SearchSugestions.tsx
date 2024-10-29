@@ -1,7 +1,7 @@
 import { useRecoilState } from "recoil";
 import { AddLine } from "../AddPlaylist/AddLIne/AddLine";
 import styles from "./SearchSuggestions.module.scss";
-import { currentAlbumStete, globalClickerState, trackIdState } from "@/app/states";
+import { currentAlbumStete, globalClickerState, mudicIDState, trackIdState } from "@/app/states";
 import { dataState } from "@/app/states";
 import { useRouter } from "next/navigation";
 
@@ -16,6 +16,7 @@ export const SearchSuggestions = (props: Props) => {
   const [trackId, setTrackId] = useRecoilState(trackIdState);
   const [, setData] = useRecoilState(dataState);
   const [, setCurrentAlbum] = useRecoilState(currentAlbumStete);
+  const [, setMusicId] = useRecoilState(mudicIDState)
 
   const router = useRouter();
 
@@ -27,9 +28,8 @@ export const SearchSuggestions = (props: Props) => {
             key={title.id}
             image={"addPlaylistIcon"}
             title={title.trackTitle}
-            onClick={(e: any) => {
-              setTrackId(title.id);
-              setGlobalClickerState(title.id);
+            onClick={() => {
+              setMusicId(title.id);
             }}
             useForSearch
           />

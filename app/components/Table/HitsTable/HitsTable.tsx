@@ -16,7 +16,7 @@ const HitsTable = () => {
     const [globalalbum, setGlobalAlbum] = useRecoilState(globalAlbumDataState);
     const [musicID, setMusicId] = useRecoilState(mudicIDState)
     const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
-
+    
     const [musicCover,setMusicCover] = useState<any>()
     const token = Cookies.get('token');
 
@@ -130,6 +130,8 @@ const HitsTable = () => {
           onClick: () => {
             setMusicId(record.id);
             setMusicArrayTwo(musicCover)
+            console.log(musicCover,'musicaa');
+
           },
         })}
         columns={columns}

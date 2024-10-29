@@ -6,7 +6,7 @@ import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import styles from "./page.module.scss";
 import { Header } from "@/app/components/Header/Header";
 import axios from "axios";
-import { albumIDState, albumOnState, dataState, globalClickerState, musicOnState, playlistOnState, selectedMusicToAddInAlbumState } from "@/app/states";
+import { albumidState, albumIdState, albumIDState, albumOnState, clickFetchState, dataState, formusicFetchState, globalClickerState, mudicIDState, musicOnState, oneArrayMusicState, playlistOnState, selectedMusicToAddInAlbumState } from "@/app/states";
 import Cookies from 'js-cookie';
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -17,7 +17,7 @@ interface MusicItem {
   id: number;
   trackTitle: string;
   authorName: string;
-  authorId: number;
+  authorId: any;
   trackImage: string;
   duration: string;
   filePath: string;
@@ -26,6 +26,7 @@ interface MusicItem {
   createAt: string;
   deleteAt: string | null;
   updateAt: string;
+  albumId: number;
 }
 
 interface PopularAlbum {
@@ -35,7 +36,7 @@ interface PopularAlbum {
   coverImage: string;
   createAt: string;
   deleteAt: string | null;
-  id: number;
+  id: any;
   musics: MusicItem[];
   author: { fullName: string };
 }
@@ -66,11 +67,19 @@ export default function Home() {
   const { vw } = useViewport();
   const [albumOn, setAlbumOnState] = useRecoilState(albumOnState);
   const [, setData] = useRecoilState(dataState);
-  const [, setAlbumId] = useRecoilState(albumIDState); 
   const [musicOn, setMusicOnState] = useRecoilState(musicOnState);
   const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
 
 
+
+  const [clickFetch, setClickFetch] = useRecoilState(clickFetchState);
+  const [viewArtist, setViewArtist] = useRecoilState(formusicFetchState)
+  const [albumIDData, setAlbumIDData] = useRecoilState(albumIdState)
+  const [, setAlbumId] = useRecoilState(albumidState);
+  const [musicID, setMusicId] = useRecoilState(mudicIDState)
+  const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
+  console.log(musicID,'musicid');
+  
   useEffect(() => {
     axios
       .get(`https://project-spotify-1.onrender.com/music/topweek`, {
@@ -139,7 +148,7 @@ export default function Home() {
       });
       const albumData = response.data;
       setGlobalClickerState(albumData.musics[0].id);
-      
+
     } catch (error) {
       console.error("Error fetching and playing the track:", error);
     }
@@ -165,18 +174,22 @@ export default function Home() {
     console.log("Selected Artist ID: ", artist.authorId);
     axios.get(`https://project-spotify-1.onrender.com/author/${artist.authorId}`, {
       headers: {
-          "Content-Type": "multipart/form-data",
-          "Authorization": `Bearer ${token}`
+        "Content-Type": "multipart/form-data",
+        "Authorization": `Bearer ${token}`
       }
-      })
+    })
       .then(r => {
-          setData(r.data)
-          router.push('/artist')
+        setData(r.data)
+        router.push('/artist')
       })
       .catch((err) => {
-          console.log(err);
+        console.log(err);
       })
   };
+
+  function setGlobalMusic(id: number) {
+    throw new Error("Function not implemented.");
+  }
 
   return (
     <main className={styles.wholeWrapper}>
@@ -198,26 +211,27 @@ export default function Home() {
 
         <section className={styles.generalCardWrapper}>
           <div className={styles.secondaryTitleDiv}>
-            <h2 onClick={() => router.push("/tophits")}>Top Hits</h2>
-            <span onClick={() => router.push("/tophits")}>See all</span>
+            <h2 onClick={() => router.push("/hits")}>Top Hits</h2>
+            <span onClick={() => router.push("/hits")}>See all</span>
           </div>
           <div className={styles.generalCardItem}>
             {topHits.slice(0, 4).map((album, index) => (
               <AlbumCard
                 key={index}
-                id={globalClicker}
+                id={album.id}
                 author={album.authorName}
                 title={album.trackTitle}
                 img={album.trackImage}
                 onClick={() => {
-                  handleRowClickTopHits(album.id);
-                  setPlaylistOnState(false);
-                  setMusicOnState(true);
+                  setMusicId(album.id);
+                  setMusicArrayTwo(topHits);
+                  setGlobalClickerState(album.id)
                 }}
               />
             ))}
           </div>
         </section>
+
 
         <section className={styles.musicCardWrapper}>
           <div className={styles.secondaryTitleDiv}>
@@ -233,9 +247,8 @@ export default function Home() {
                 authorName={musicCard.authorName}
                 duration={musicCard.duration}
                 onClick={() => {
-                  handleRowClickTopHits(musicCard.id);
-                  setPlaylistOnState(false);
-                  setMusicOnState(true);
+                  setMusicId(musicCard.id);
+                  setMusicArrayTwo(topWeekMusics);
                 }}
               />
             ))}
@@ -273,7 +286,10 @@ export default function Home() {
                 author={album.author.fullName}
                 title={album.title}
                 img={album.coverImage}
-                onClick={() => {getMusicId(album.id); setAlbumId(album.id); router.push(`/album?albumId=${album.id}`)}}
+                onClick={() => { getMusicId(album.id); 
+                  setAlbumId(album.id); 
+                  router.push(`/album/${album.id}`);
+                }}
                 desableIcons
               />
             ))}
