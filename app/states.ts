@@ -40,9 +40,9 @@ export const musicOnState = atom({
     default: true,
   });
 
-export const albumIdState = atom<number | null>({
+export const albumIdState = atom<number | undefined>({
     key: "albumId",
-    default: null,
+    default: undefined,
   });
 
 export const selectedPlaylistIDToAddTrackState = atom<number | null>({

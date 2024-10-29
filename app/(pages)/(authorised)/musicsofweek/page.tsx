@@ -23,7 +23,6 @@ const Charts = () => {
                 image={"chartBackground"}
             />
             <ChartTable />
-
         </div>
     )
 }

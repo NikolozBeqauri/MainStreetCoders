@@ -69,11 +69,6 @@ export const PlaylistTable = (props: Props) => {
         })
         .then((res) => {
           console.log(res);
-          notification.success({
-            message: 'Music Deleted',
-            description: 'The music has been successfully deleted from the playlist.',
-            placement: 'top',
-          });
           props.refetchSelectedPlaylist(); 
           setThreeDotClicked(false)
         })

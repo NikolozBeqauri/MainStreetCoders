@@ -47,7 +47,7 @@ const Album = () => {
                     {
                         artists.map((item: any) => (
                             <div
-                                key={item.id} // Assign the unique key here
+                                key={item.id}
                                 onClick={() => {
                                     setReusableId(item.id)
                                     setAlbumId(item.id);

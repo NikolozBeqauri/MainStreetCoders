@@ -13,7 +13,7 @@ import { ReusableIcon } from "@/app/components/ReusableIcon/ReusableIcon";
 import UploadFile from "@/app/components/AddPlaylist/UploadFile/UploadFile";
 import { PlaylistTable } from "@/app/components/PlaylistTable/PlaylistTable";
 import { useRecoilState } from "recoil";
-import { albumOnState, oneArrayMusicState, playlistIdState, playlistOnState, randomWordsState, selectedPlaylistTrackState } from "@/app/states";
+import { albumOnState, mudicIDState, oneArrayMusicState, playlistIdState, playlistOnState, randomWordsState } from "@/app/states";
 
 const PlayListPage = () => {
     const { vw } = useViewport();
@@ -23,13 +23,11 @@ const PlayListPage = () => {
     const [showUploadFile, setShowUploadFile] = useState(false);
     const token = Cookies.get("token");
 
-    const [playlistId, setPlaylistIdState] = useRecoilState(playlistIdState);
-    const [albumOn, setAlbumOnState] = useRecoilState(albumOnState);
-    const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
-    const [randomWords, setRandomWordsState] = useRecoilState(randomWordsState);
-    const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
-
-
+    const [, setPlaylistIdState] = useRecoilState(playlistIdState);
+    const [, setAlbumOnState] = useRecoilState(albumOnState);
+    const [, setPlaylistOnState] = useRecoilState(playlistOnState);
+    const [randomWords, ] = useRecoilState(randomWordsState);
+    const [, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
 
 
     const fetchPlaylists = () => {
