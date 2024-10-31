@@ -6,7 +6,7 @@ import { NewsComponent } from "@/app/components/NewsComponent/NewsComponent";
 import styles from "./page.module.scss";
 import { Header } from "@/app/components/Header/Header";
 import axios from "axios";
-import { albumidState, albumIdState, albumIDState, albumOnState, clickFetchState, dataState, formusicFetchState, globalClickerState, mudicIDState, musicOnState, oneArrayMusicState, playlistOnState, selectedMusicToAddInAlbumState } from "@/app/states";
+import { albumidState, albumIdState, albumIDState, albumOnState, clickFetchState, dataState, formusicFetchState, globalClickerState, mudicIDState, musicIdForPlaylistState, musicOnState, oneArrayMusicState, playlistOnState, selectedMusicToAddInAlbumState } from "@/app/states";
 import Cookies from 'js-cookie';
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -77,8 +77,8 @@ export default function Home() {
   const [albumIDData, setAlbumIDData] = useRecoilState(albumIdState)
   const [, setAlbumId] = useRecoilState(albumidState);
   const [musicID, setMusicId] = useRecoilState(mudicIDState)
+  const [musicIdForPlaylist, setMusicIdForPlaylist] = useRecoilState(musicIdForPlaylistState)
   const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
-  console.log(musicID,'musicid');
   
   useEffect(() => {
     axios
@@ -222,10 +222,11 @@ export default function Home() {
                 author={album.authorName}
                 title={album.trackTitle}
                 img={album.trackImage}
+                
                 onClick={() => {
                   setMusicId(album.id);
                   setMusicArrayTwo(topHits);
-                  setGlobalClickerState(album.id)
+                  setGlobalClickerState(album.id);
                 }}
               />
             ))}
@@ -246,6 +247,7 @@ export default function Home() {
                 trackTitle={musicCard.trackTitle}
                 authorName={musicCard.authorName}
                 duration={musicCard.duration}
+                id={musicCard.id}
                 onClick={() => {
                   setMusicId(musicCard.id);
                   setMusicArrayTwo(topWeekMusics);

@@ -199,8 +199,13 @@ export const albumCoverState = atom({
 
 export const mudicIDState = atom({
     key: 'mudicIDState',
-    default: 10
+    default: 10,
 })
+export const musicIdForPlaylistState = atom<any>({
+    key: 'musicIdForPlaylistState',
+    default: null,
+})
+
 export const playerDisplayState = atom({
     key: 'playerDisplayState',
     default: 157

@@ -7,7 +7,7 @@ import popUpNav from '@/app/enums/popUpNav';
 import axios from "axios";
 import Cookies from 'js-cookie';
 import ReusableButton from '../../ReusableButton/ReusableButton';
-import { globalClickerState, mudicIDState, selectedMusicToAddInAlbumState, selectedPlaylistIDToAddTrackState, threeDotClickedState } from '@/app/states';
+import { globalClickerState, mudicIDState, musicIdForPlaylistState, selectedMusicToAddInAlbumState, selectedPlaylistIDToAddTrackState, threeDotClickedState } from '@/app/states';
 import { useRecoilState } from 'recoil';
 
 type Props = {
@@ -35,6 +35,7 @@ export const AddPlaylistChackBox = (props: Props) => {
     const [selectedPlaylistId, setSelectedPlaylistId] = useState<string | undefined>(undefined)
     const token = Cookies.get("token");
     const [musicID,] = useRecoilState(mudicIDState)
+    const [musicIdForPlaylist,] = useRecoilState(musicIdForPlaylistState)
 
     const selectedPlaylist = watch("selectedPlaylist");
 
@@ -65,7 +66,7 @@ export const AddPlaylistChackBox = (props: Props) => {
     const onSubmit = (data: FormData) => {
         setSelectedPlaylistIDToAddTrack(Number(data.selectedPlaylist[0]));
 
-        axios.patch(`https://project-spotify-1.onrender.com/playlist/${selectedPlaylistId}/music/${musicID}`, null,{
+        axios.patch(`https://project-spotify-1.onrender.com/playlist/${selectedPlaylistId}/music/${musicIdForPlaylist}`, null,{
             headers: {
                 'Authorization': `Bearer ${token}`,
             }

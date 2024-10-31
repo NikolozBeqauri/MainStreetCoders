@@ -29,21 +29,32 @@ const PlayListPage = () => {
     const [randomWords, ] = useRecoilState(randomWordsState);
     const [, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
 
+    axios.get(`https://project-spotify-1.onrender.com/playlist`, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+            "Authorization": `Bearer ${token}`,
+        }
+    })
+    .then((r) => {
+        setData(r.data);
+    })
+    .catch((err) => {
+        console.error(err);
+    });
 
-    const fetchPlaylists = () => {
-        axios.get(`https://project-spotify-1.onrender.com/playlist`, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-                "Authorization": `Bearer ${token}`,
-            }
-        })
-        .then((r) => {
-            setData(r.data);
-        })
-        .catch((err) => {
+
+    const fetchPlaylists = async () => {
+        try {
+            const response = await axios.get('https://project-spotify-1.onrender.com/playlist', {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    "Authorization": `Bearer ${token}`,
+                },
+            });
+            setData(response.data);
+        } catch (err) {
             console.error(err);
-        });
-
+        }
     };
 
     const fetchSelectedPlaylist = (playlistId: number) => {

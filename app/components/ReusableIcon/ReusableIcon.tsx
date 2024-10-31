@@ -22,7 +22,6 @@ export const ReusableIcon = (props: Props) => {
   const stylesClasses = [styles.generalStyles];
   const [isFocused, setIsFocused] = useState(false);
   const [threeDotClicked, setThreeDotClicked] = useRecoilState(threeDotClickedState);
-
   const handleFocus = () => {
     setIsFocused(true);
     if (props.onFocus) props.onFocus();
