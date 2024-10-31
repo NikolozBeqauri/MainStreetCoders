@@ -1,7 +1,9 @@
+import { musicIdForPlaylistState } from "@/app/states";
 import { HeartIcon } from "../HeartIcon/HeartIcon";
 import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
 import styles from "./MusicCard.module.scss"
 import Image from 'next/image';
+import { useRecoilState } from "recoil";
 
 type Props = {
     trackImage: string;
@@ -13,7 +15,8 @@ type Props = {
 }
 
 export const MusicCard = (props: Props) => {
-    
+    const [, setMusicIdForPlaylist] = useRecoilState(musicIdForPlaylistState)
+
     return (
         <div className={styles.cardWrapper} onClick={props.onClick}>
             <div className={styles.cardinfo}>
@@ -32,9 +35,13 @@ export const MusicCard = (props: Props) => {
 
             <div className={styles.cardAditionalInfo}>
                 <span className={styles.timing}>{props.duration}</span>
-                <div >
-                    <HeartIcon/>
-                    <ReusableIcon imgName={'threeDots'}/>
+                <div onClick={(e) => e.stopPropagation()} >
+                    <HeartIcon />
+                    <div onClick={() => {
+                        setMusicIdForPlaylist(props.id)
+                    }}>
+                        <ReusableIcon imgName={"threeDots"} />
+                    </div>
                 </div>
             </div>
         </div>
