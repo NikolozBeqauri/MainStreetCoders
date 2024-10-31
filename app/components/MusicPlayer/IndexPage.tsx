@@ -13,14 +13,14 @@ import ModalPlayer from "./modalPlayer";
 const IndexPage: React.FC = () => {
   const token = Cookies.get('token');
   const [albumIDData, setAlbumIDData] = useRecoilState(albumIdState);
-  const [isPlaying, setIsPlaying] = useState(true); // Set default as true
+  const [isPlaying, setIsPlaying] = useState(true);
   const [volume, setVolume] = useState(50);
   const [isLooping, setIsLooping] = useState(false);
   const [isShuffling, setIsShuffling] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const audioRef = useRef<any>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
   const [musicID, setMusicId] = useRecoilState(mudicIDState);
   const [fetchMusic, setFetchMusic] = useState<any>(null);
@@ -48,14 +48,12 @@ const IndexPage: React.FC = () => {
     }
   }, [musicID, token]);
 
-  // Auto-play when page loads if there is audio
   useEffect(() => {
     if (audioRef.current && fetchMusic) {
-      setIsPlaying(true);  // Auto play when page loads
+      setIsPlaying(true); 
     }
   }, [fetchMusic]);
 
-  // Handle volume and loop changes
   useEffect(() => {
     const audio = audioRef.current;
     if (audio) {
@@ -64,7 +62,6 @@ const IndexPage: React.FC = () => {
     }
   }, [volume, isLooping]);
 
-  // Shuffle logic
   const shuffleArray = (array: any[]) => {
     return array
       .map((item) => ({ item, sort: Math.random() }))
@@ -119,7 +116,6 @@ const IndexPage: React.FC = () => {
     };
   }, [playNextTrack]);
 
-  // Play or pause the audio
   useEffect(() => {
     if (audioRef.current) {
       if (isPlaying) {
@@ -130,7 +126,6 @@ const IndexPage: React.FC = () => {
     }
   }, [isPlaying, fetchMusic]);
 
-  // Toggle play/pause
   const playPause = useCallback(() => {
     setIsPlaying((prevIsPlaying) => !prevIsPlaying);
   }, []);
