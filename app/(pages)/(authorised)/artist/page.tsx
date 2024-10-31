@@ -75,6 +75,7 @@ const ArtistPage = () => {
                                 author={album.fullName}
                                 img={album.image}
                                 onClick={() => setData(album)}
+                                desableIcons
                             />
                         ))}
                     </div>
