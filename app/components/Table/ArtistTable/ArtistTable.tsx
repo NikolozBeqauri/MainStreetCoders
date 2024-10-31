@@ -9,13 +9,24 @@ import { useRecoilState } from "recoil";
 import { albumCoverState, globalAlbumDataState, mudicIDState, musicState, newsImageState, oneArrayMusicState } from "@/app/states";
 import { useEffect } from "react";
 import axios from "axios";
-
 const ArtistTable = () => {
   const [musicArray, setMusicArray] = useRecoilState(musicState);
   const [globalalbum, setGlobalAlbum] = useRecoilState(globalAlbumDataState);
   const [musicID, setMusicId] = useRecoilState(mudicIDState)
 
   const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
+
+
+
+
+
+
+  const formatDuration = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  };
+
 
   const { width, height } = useWindowSize();
   const isMobile = width > 767;
@@ -38,22 +49,22 @@ const ArtistTable = () => {
       width: "30%",
       render: (text: any, item: any) => (
         <div className={styles.cellSongname}>
-          <Image className={styles.img} src={item.trackImage} width={48} height={48} alt={text} />
+          <Image className={styles.img} src={item.albumCover} width={48} height={48} alt={text} />
           <div className={styles.fontGap}>
-            <div className={styles.songTitle}>{item.trackTitle}</div>
-            <div className={styles.songArtist}></div>
+            <div className={styles.songTitle}>{item.name}</div>
+            <div className={styles.songArtist}>{item.artistName}</div>
           </div>
         </div>
       ),
     },
     width > 725
       ? {
-          title: "Author",
-          dataIndex: "author",
-          key: "author",
+          title: "Album",
+          dataIndex: "album",
+          key: "album",
           width: "25%",
           render: (text: any, item: any) => (
-            <div className={styles.cellAlbumName}>{item.authorFullName}</div>
+            <div className={styles.cellAlbumName}>{item.albumName}</div>
           ),
         }
       : {
@@ -67,7 +78,7 @@ const ArtistTable = () => {
           key: "time",
           width: "15%",
           render: (text: any, item: any) => (
-            <div className={styles.cellTimeName}>{item.duration}</div>
+            <div className={styles.cellTimeName}>{formatDuration(item.duration)}</div>
           ),
         }
       : {
