@@ -32,7 +32,8 @@ export const ArtistAlbum = (props: Props) => {
                     key={album.id}
                     title={album.title || "Unknown Album"} 
                     img={album.coverImage}
-                    onClick={() => handleAlbumClick(album.id)} 
+                    onClick={() => handleAlbumClick(album.id)}
+                    desableIcons 
                 />
             ))
             )}

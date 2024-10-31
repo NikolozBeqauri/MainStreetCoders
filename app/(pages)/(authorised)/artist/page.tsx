@@ -1,4 +1,4 @@
-"use client"; // Add this line to mark the component as a Client Component
+"use client";
 
 import styles from './page.module.scss';
 import { useParams, useRouter } from 'next/navigation';
@@ -69,6 +69,29 @@ const ArtistsList = () => {
                     }
                 </div>
             </div>
+            {data ? (
+                <TopSongs
+                    image={data?.image}
+                    title={data?.fullName}
+                    count={data.totalSongsOfAuthor}
+                    data={data}
+                />
+            ) : (
+                <div className={styles.artistCardsWrapper}>
+                    <h2>Trending Now</h2>
+                    <div className={styles.artistCards}>
+                        {dataBase.map((album: SetStateAction<Album | any>, index: Key | null | undefined) => (
+                            <AlbumCard
+                                key={index}
+                                author={album.fullName}
+                                img={album.image}
+                                onClick={() => setData(album)}
+                                desableIcons
+                            />
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

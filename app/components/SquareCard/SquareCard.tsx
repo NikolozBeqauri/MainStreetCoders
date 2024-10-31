@@ -9,43 +9,44 @@ import { threeDotClickedState } from '@/app/states';
 type Props = {
     title: string;
     img: string;
-    onClick?: () => void; 
+    onClick?: () => void;
     iconImage?: string;
-    playListId?: string; 
-    refetchPlaylists?: () => void; 
+    playListId?: string;
+    refetchPlaylists?: () => void;
+    desableIcons?: boolean
 };
 
 export const SquareCard = (props: Props) => {
-    const stylesClass = [styles.cardIconsBackground]; 
-    const [, setThreeDotClicked] = useRecoilState(threeDotClickedState);   
+    const stylesClass = [styles.cardIconsBackground];
+    const [, setThreeDotClicked] = useRecoilState(threeDotClickedState);
     const cardImageStyle = [styles.defaultCardStyles];
     const token = Cookies.get("token");
     const handleDelete = () => {
-        
+
         if (props.playListId && props.iconImage === "trash") {
             axios.delete(`https://project-spotify-1.onrender.com/playlist/${props.playListId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
             })
-            .then((res) => {
-                setThreeDotClicked(false)
-                console.log("Playlist deleted:", res);
-                if(props.refetchPlaylists){
-                    props.refetchPlaylists();
-                }
-            })
-            .catch((err) => {
-                setThreeDotClicked(false)
-                console.error("Error deleting playlist:", err);
-            });
+                .then((res) => {
+                    setThreeDotClicked(false)
+                    console.log("Playlist deleted:", res);
+                    if (props.refetchPlaylists) {
+                        props.refetchPlaylists();
+                    }
+                })
+                .catch((err) => {
+                    setThreeDotClicked(false)
+                    console.error("Error deleting playlist:", err);
+                });
         }
     };
 
     return (
         <div className={styles.cardWrapper} onClick={props.onClick}>
             <div className={styles.cardImageWrapper}>
-                <img 
+                <img
                     className={cardImageStyle.join(" ").trim()}
                     src={props.img}
                     alt={props.title}
@@ -53,9 +54,11 @@ export const SquareCard = (props: Props) => {
                 />
                 <div className={stylesClass.join(" ").trim()}>
                     <div className={styles.cardIconsWrapper} onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+                        {!props.desableIcons && (
                         <div onClick={() => handleDelete()}>
                             <ReusableIcon imgName={props.iconImage ? props.iconImage : 'threeDots'} background />
                         </div>
+                        )}
                     </div>
                 </div>
             </div>
