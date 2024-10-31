@@ -1,52 +1,79 @@
-@import "/app/colors.scss";
-
-.artistPageWrapper {
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    gap: 40px;
-    max-width: 1300px;
+.container {
+    min-height: 100vh;
+    height: 100%;
+    padding: 25px;
     width: 100%;
-    padding: 40px 24px;
-}
-.headerWrapper {
-    display: flex; 
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-}
-.artistCardsWrapper>h2 {
-    color: $defaultWhite;
-    font-family: var(--font-jakarta-suns);
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 20px;
-    margin-bottom: 16px;
 }
 
-.artistCards {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-gap: 16px;
+.container2 {
+    max-width: 1450px;
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 150px;
 }
 
-@media (max-width: 1440px) {
-    .artistCards {
-        grid-template-columns: repeat(4, 1fr);
-    }
+.wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1400px;
+    width: 100%;
+    gap: 20px;
 }
-@media (max-width: 700px) {
-    .artistCards {
-        grid-template-columns: repeat(3, 1fr);
+
+@media screen and (min-width: 300px) and (max-width: 1100px) {
+    .wrapper {
+        justify-content: center;
     }
 }
 
-@media (max-width: 550px) {
-    .artistPageWrapper {
-        padding: 24px 12px;
+.h2 {
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+@media screen and (min-width: 300px) and (max-width: 767px) {
+    .container2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 180px;
     }
-    .artistCards {
-        grid-template-columns: repeat(2, 1fr);
+
+    .container2 {
+        padding-right: 30px;
+        padding-left: 15px;
+    }
+
+    .wrapper {
+        gap: 35px;
     }
 }
+
+@media screen and (min-width: 485px) and (max-width: 505px) {
+    .wrapper {
+        gap: 50px;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1123px) {
+    .wrapper {
+        gap: 55px;
+    }
+
+    .container2 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;    
+        padding-right: 40px;
+    }
+}
+
+// @media screen and (min-width: 1123px) {
+//     .wrapper {
+//         gap: 10px;
+//     }
+
+//     .container2 {
+//         padding-right: 30px;
+//     }
+// }
