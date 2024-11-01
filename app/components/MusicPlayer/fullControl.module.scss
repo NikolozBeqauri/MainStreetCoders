@@ -79,6 +79,7 @@
     display: flex;
     align-items: center;
   }
+
   .volimg{
     display: none;
   }
@@ -94,7 +95,7 @@
   .progressDiv {
     position: relative;
     height: 10px;
-    background: aqua;
+    // background: aqua;
     bottom: 14px;
     border-radius: 12px;
   background: var(--Gradient-apolo, linear-gradient(90deg, #F903D0 0%, #9A16F2 100%));

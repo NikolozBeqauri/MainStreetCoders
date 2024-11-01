@@ -10,7 +10,7 @@
 .load {
   -webkit-appearance: none;
   appearance: none;
-  width: 100%;
+  width: 100vw;
   height: 10px;
   border-radius: 5px;
   outline: none;
@@ -26,7 +26,7 @@
   appearance: none;
   height: 1px;
   width: 1px;
-  background: var(--Gradient-apolo, linear-gradient(90deg, #F903D0 0%, #9A16F2 100%));
+  // background: var(--Gradient-apolo, linear-gradient(90deg, #F903D0 0%, #9A16F2 100%));
   border-radius: 12px;
 
 }
@@ -40,13 +40,13 @@
 
 .progressMain {
   position: absolute;
-  width: 100%;
+  right: 0px;
+  left: 0px;
 }
 
 .progressDiv {
   position: relative;
   height: 10px;
-  background: aqua;
   bottom: 70px;
   border-radius: 12px;
   background: var(--Gradient-apolo, linear-gradient(90deg, #F903D0 0%, #9A16F2 100%));
@@ -87,5 +87,9 @@
   .progressDiv {
     display: none;
   }
-
+}
+@media screen and (max-width:768px) {
+  .load {
+      width: 100vw;
+  }
 }

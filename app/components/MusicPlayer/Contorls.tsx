@@ -90,12 +90,15 @@ const Controls = (props: propsinterFace) => {
                 )}
                 <input
                     type="range"
-                    min="0"
-                    max="100"
+                    min={0}
+                    max={100}
                     value={isMuted ? 0 : props.volume}
                     onChange={handleVolumeChange}
                     aria-label="Volume"
                     className={style.volSetting}
+                    style={{
+                        background: `linear-gradient(to right, #F903D0 ${props.volume}%, #2E3133 ${props.volume}%)`,
+                    }}
                 />
             </div>
         </>
