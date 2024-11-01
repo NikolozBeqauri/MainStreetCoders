@@ -9,7 +9,7 @@ import axios from "axios";
 import Loading from "../Loading/Loading";
 import Cookies from "js-cookie";
 import { useRecoilState } from "recoil";
-import { globalClickerState, albumOnState, isPlayingState, musicOnState, playlistOnState, randomWordsState, topHitsOnState, topWeeksOnState, indexOfArrState, oneArrayMusicState } from "@/app/states";
+import { globalClickerState, albumOnState, isPlayingState, musicOnState, playlistOnState, randomWordsState, topHitsOnState, topWeeksOnState, indexOfArrState, oneArrayMusicState, mudicIDState } from "@/app/states";
 import Image from "next/image";
 type Props = {
   heartActive?: boolean;
@@ -37,9 +37,10 @@ export const ReusableTable = (props: Props) => {
   const [topWeeksOn, setTopWeeksOnState] = useRecoilState(topWeeksOnState);
   const [indexOfArr, setIndexOfArrState] = useRecoilState(indexOfArrState)
 
-  const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
-
-
+  const [, setMusicId] = useRecoilState(mudicIDState)
+  const [, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
+  
+  setMusicArrayTwo(records);
 
   useEffect(() => {
     
@@ -74,23 +75,7 @@ export const ReusableTable = (props: Props) => {
   }
 
   const handleRowClick = async (record: { id: number }) => {
-    setGlobalClickerState(record.id);
-    setAlbumOnState(props.pageName === "album");
-    setIsPlayingState(true)
-    setMusicOnState((props.pageName === "music/topHits") || (props.pageName === "music/topweek") || props.include === "author/find-all-music-of-author/")
-    setPlaylistOnState(false)
-    if(props.isTopHitPage) {
-      setTopHitsOnState(true);
-      setTopWeeksOnState(false);
-      setPlaylistOnState(false);
-      setAlbumOnState(props.pageName === "album");
-    }
-    if(props.isTopWeekPage) {
-      setTopWeeksOnState(true);
-      setTopHitsOnState(false);
-      setPlaylistOnState(false);
-      setAlbumOnState(props.pageName === "album");
-    }
+      setMusicId(record.id)
   };
 
   const columns = [
@@ -196,7 +181,6 @@ export const ReusableTable = (props: Props) => {
           onClick: () => {
             handleRowClick(record);
             if(index) setIndexOfArrState(index);
-            setMusicArrayTwo(props.data);
           },
         })}
       />

@@ -7,7 +7,7 @@ import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
 import axios from "axios";
 import Cookies from 'js-cookie';
 import { useRecoilState } from "recoil";
-import { globalClickerState, musicOnState, oneArrayMusicState, playlistDataState, playlistOnState, randomWordsState, threeDotClickedState } from "@/app/states";
+import { globalClickerState, mudicIDState, musicOnState, oneArrayMusicState, playlistDataState, playlistOnState, randomWordsState, threeDotClickedState } from "@/app/states";
 
 
 interface MusicTrack {
@@ -51,9 +51,14 @@ export const PlaylistTable = (props: Props) => {
   const [playlistData, setPlaylistDataState] = useRecoilState(playlistDataState);
   const [randomWords, setRandomWordsState] = useRecoilState(randomWordsState);
 
-  const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
 
-
+  const [, setMusicId] = useRecoilState(mudicIDState)
+  const [, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
+  setMusicArrayTwo(props.records)
+  
+  const handleRowClick = async (record: { id: number }) => {
+    setMusicId(record.id)
+  };  
 
   const handleTrashClick = (id: number) => {
     setSelectedMusicIdToDelete(id);
@@ -155,8 +160,6 @@ export const PlaylistTable = (props: Props) => {
         onRow={(record) => {
           return {
             onClick: () => {
-              console.log(`Music Track ID: ${record.id}`);
-              console.log('helloooooo', record);
               setGlobalClickerState(record.id);
               setPlaylistOnState(false);
               setMusicOnState(true);
@@ -166,7 +169,7 @@ export const PlaylistTable = (props: Props) => {
                 duration: record.duration,
                 path: record.filePath,                
               })
-              setMusicArrayTwo(props.data)
+              handleRowClick(record);
             },
           };
         }}
