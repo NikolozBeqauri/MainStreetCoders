@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import style from './TrackDisplay.module.scss';
 import { useRecoilState } from 'recoil';
@@ -10,14 +10,29 @@ interface TrackDisplayProps {
         artist: string;
         albumArt: string;
     };
-    onAlbumArtClick: () => void; // Added the onAlbumArtClick prop
+    onAlbumArtClick: () => void;
 }
 
 const TrackDisplay: React.FC<TrackDisplayProps> = ({ currentTrack, onAlbumArtClick }) => {
-    const [playerDisplay, setPlayerDisplay] = useRecoilState<any>(playerDisplayState)
+    const [playerDisplay] = useRecoilState<any>(playerDisplayState);
+    const titleRef = useRef<HTMLSpanElement>(null);
+    const [isScrolling, setIsScrolling] = useState(false);
+
+    useEffect(() => {
+        const checkScrollNeeded = () => {
+            const titleText = playerDisplay.trackTitle || 'Unknown Title';
+            setIsScrolling(titleText.length > 19);
+        };
+
+        checkScrollNeeded();
+        window.addEventListener('resize', checkScrollNeeded);
+
+        return () => {
+            window.removeEventListener('resize', checkScrollNeeded);
+        };
+    }, [playerDisplay.trackTitle]);
 
     if (!currentTrack) {
-        // Return a default placeholder or nothing if no currentTrack is provided
         return (
             <div className={style.container}>
                 <p>No track selected</p>
@@ -26,30 +41,28 @@ const TrackDisplay: React.FC<TrackDisplayProps> = ({ currentTrack, onAlbumArtCli
     }
 
     return (
-        <div className={style.container} onClick={onAlbumArtClick} >
-            <div className={style.albumArt} > {/* Clickable area */}
-                <img
-                    src={playerDisplay?.album?.coverImage || '/defaultAlbumArt.jpg'} // Fallback if albumArt is missing
-                    alt="AlbumArt"
+        <div className={style.container} onClick={onAlbumArtClick}>
+            <div className={style.albumArt}>
+                <Image
+                    src={playerDisplay?.album?.coverImage || '/defaultAlbumArt.jpg'}
+                    alt="Album Art"
                     width={80}
                     height={80}
                     className={style.img}
                 />
             </div>
-            <div className={style.like}>
-                <div className={style.text}>
-                    <div className={style.likebtn}>
-                        {/* <HeartShapeBtn
-                            isActive={true}
-                            isDisabled={false}
-                            onClick={() => { }}
-                        /> */}
-                    </div>
-                    <div className={style.wrapper}>
-                        <span className={style.titleWrapper}>{playerDisplay.trackTitle || 'Unknown Title'}</span> {/* Fallback for title */}
-                        <span className={style.artist}>{playerDisplay.author?.fullName || 'Unknown Artist'}</span> {/* Fallback for artist */}
-                    </div>
+            <div className={style.wrapper}>
+                <div className={style.titleWrapper}>
+                    <span
+                        ref={titleRef}
+                        className={`${style.authorTitle} ${isScrolling ? style.scrolling : ''}`}
+                    >
+                        {playerDisplay.trackTitle || 'Unknown Title'}
+                    </span>
                 </div>
+                <span className={style.artist}>
+                    {playerDisplay.author?.fullName || 'Unknown Artist'}
+                </span>
             </div>
         </div>
     );

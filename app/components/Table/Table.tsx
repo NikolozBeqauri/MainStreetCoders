@@ -26,7 +26,7 @@ const Tables = () => {
 
     const columns = [
         {
-            title: isMobile ? '#' : '',
+            title: isMobile ? '#' : '#',
             dataIndex: 'id',
             key: 'id',
             width: '1%',
@@ -38,7 +38,7 @@ const Tables = () => {
         },
 
         {
-            title: isMobile ? 'Song Name' : '',
+            title: isMobile ? 'Song Name' : 'Song Name',
             dataIndex: 'title',
             key: 'title',
             width: '30%',
@@ -47,21 +47,28 @@ const Tables = () => {
                     <Image className={styles.img} src={item.trackImage} width={48} height={48} alt={text} />
                     <div className={styles.fontGap}>
                         <div className={styles.songTitle}>{item.trackTitle}</div>
-                        <div className={styles.songArtist}>{item.authorFullName}</div>
                     </div>
                 </div>
             ),
         },
         width > 725 ? {
-            title: '',
-            dataIndex: '',
-            key: '',
-            width: '',
+            title: 'Author',
+            dataIndex: 'author',
+            key: 'author',
+            width: '12%',
+            render: (text: any, item: any) => (
+                <div className={styles.fontGap}>
+                    <div className={styles.songArtist}>{item.authorFullName}</div>
+                </div>
+            )
         } : {
-            width: '0.5%',
-            render: () => (
-                <div>
-
+            title: 'Author',
+            dataIndex: 'author',
+            key: 'author',
+            width: '12%',
+            render: (text: any, item: any) => (
+                <div className={styles.fontGap}>
+                    <div className={styles.songArtist}>{item.authorFullName}</div>
                 </div>
             )
         },
@@ -77,9 +84,13 @@ const Tables = () => {
                     </div>
                 )
             } : {
+                title: 'Time',
+                dataIndex: 'time',
+                key: 'time',
                 width: '0.5%',
-                render: () => (
-                    <div>
+                render: (text: any, item: any) => (
+                    <div className={styles.cellTimeName}>
+                        {item.duration}
                     </div>
                 )
             },
