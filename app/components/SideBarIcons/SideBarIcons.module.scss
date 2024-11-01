@@ -1,0 +1,62 @@
+@import "/app/colors.scss";
+
+.iconWrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.generalStyles {
+  padding: 4px;
+  cursor: pointer;
+}
+
+.whiteBackground {
+  border-radius: 50%;
+  background: $defaultWhite;
+}
+
+.AddPlaylist,
+.AddWhitePlaylist {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 340px;
+  height: 200px;
+  z-index: 100; 
+  background-color: $defaultWhite;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.AddPlaylist {
+  background: red;
+  width: 0px; 
+}
+
+.AddWhitePlaylist {
+  background: $defaultWhite;
+}
+
+.backgroundOfPopup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.04);
+  z-index: 300; 
+}
+
+.iconWrapper img {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.iconWrapper img:hover {
+  transform: scale(1.1);
+}
