@@ -9,6 +9,7 @@ import { Discoverlinks } from './SideBarLinks/Discover';
 import { Colectionlinks } from './SideBarLinks/ColectionLinks';
 import { activeSidebarState } from '@/app/states';
 import { useRecoilState } from 'recoil';
+import { SideBarIcons } from '../SideBarIcons/SideBarIcons';
 
 export const SideBar = () => {
   const [active, setActive] = useState<string | null>(null);
@@ -62,7 +63,7 @@ export const SideBar = () => {
                 }}
                 id={active === link.label ? styles.active : ''}
               >
-                <ReusableIcon imgName={link.imageName} active={active === link.label} />
+                <SideBarIcons imgName={link.imageName} active={active === link.label} />
                 <span>{link.label}</span>
               </div>
             ))}
@@ -77,7 +78,7 @@ export const SideBar = () => {
                 }}
                 id={active === link.label ? styles.active : ''}
               >
-                <ReusableIcon imgName={link.imageName} active={active === link.label} />
+                <SideBarIcons imgName={link.imageName} active={active === link.label} />
                 <span>{link.label}</span>
               </div>
             ))}
@@ -92,7 +93,7 @@ export const SideBar = () => {
                 }}
                 id={active === link.label ? styles.active : ''}
               >
-                <ReusableIcon imgName={link.imageName} active={active === link.label} />
+                <SideBarIcons imgName={link.imageName} active={active === link.label} />
                 <span>{link.label}</span>
               </div>
             ))}
