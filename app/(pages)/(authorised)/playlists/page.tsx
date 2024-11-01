@@ -64,10 +64,10 @@ const PlayListPage = () => {
             }
         })
         .then((r) => {
+            console.log(r.data.musics, 'data playlist here');
             setData(r.data.musics)
             setSelectedPlaylist(r.data);
-            setMusicArrayTwo(data)
-
+            setMusicArrayTwo(r.data.musics)
         })
         .catch((err) => {
             console.error(err);
