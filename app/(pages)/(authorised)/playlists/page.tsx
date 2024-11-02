@@ -111,7 +111,7 @@ const PlayListPage = () => {
                 <div className={Styles.defaultPage}>
                     <div>
                         {vw < 1024 && vw > 600 ? (
-                            <Header burger={true} />
+                            <Header burger={true}/>
                         ) : (
                             <Header imgName={"rightArrow"} imgHeight={35} imgWidth={35} />
                         )}
@@ -158,6 +158,7 @@ const PlayListPage = () => {
                     {selectedPlaylist && (
                         <>
                             <NewsComponent
+                                onlyTitle
                                 title={selectedPlaylist.name}
                                 playlistBackground={selectedPlaylist?.image}
                                 count={selectedPlaylist?.count}

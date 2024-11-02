@@ -6,19 +6,26 @@ import { text } from "stream/consumers";
 import Image from "next/image";
 import { useWindowSize } from "react-use";
 import { useRecoilState } from "recoil";
-import { globalAlbumDataState, mudicIDState, musicState, oneArrayMusicState } from "@/app/states";
+import { globalAlbumDataState, mudicIDState, musicIdForPlaylistState, musicState, oneArrayMusicState } from "@/app/states";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { ReusableIcon } from "../../ReusableIcon/ReusableIcon";
 
 const HitsTable = () => {
     const [musicArray, setMusicArray] = useRecoilState(musicState);
     const [globalalbum, setGlobalAlbum] = useRecoilState(globalAlbumDataState);
     const [musicID, setMusicId] = useRecoilState(mudicIDState)
     const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
-    
+    const [, setMusicIdForPlaylist] = useRecoilState(musicIdForPlaylistState);
+
     const [musicCover,setMusicCover] = useState<any>()
     const token = Cookies.get('token');
+
+    const handleThreeDotIconClick = (record: { id: number }) => {
+      console.log(record.id, "music id here");
+      setMusicIdForPlaylist(record.id);
+    };
 
     useEffect(() => {
       axios
@@ -95,18 +102,18 @@ const HitsTable = () => {
           width: "0.5%",
           render: () => <div></div>,
         },
-    // {
-    //   title: "",
-    //   key: "like",
-    //   width: "10%",
-    //   render: () => (
-    //     <HeartShapeBtn
-    //       isActive={true}
-    //       isDisabled={false}
-    //       onClick={() => console.log("button clicked")}
-    //     />
-    //   ),
-    // },
+        {
+          title: 'actions',
+          key: 'actions',
+          width: '10%',
+          render: (_: any, record: any) => (
+              <div onClick={(e) => e.stopPropagation()}>
+                  <div className={styles.iconWrapper} onClick={() => handleThreeDotIconClick(record)}>
+                      <ReusableIcon imgName="threeDots" />
+                  </div>
+              </div>
+          ),
+      },
   ];
 
   return (
