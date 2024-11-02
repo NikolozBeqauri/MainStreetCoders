@@ -34,9 +34,6 @@ export const NewsComponent = (props: Props) => {
         {!props.onlyTitle && (
           <>
             <p className={styles.playCount}>{props.count ?? "0"} Plays</p>
-            <div className={styles.buttonElement} onClick={handleClick}>
-              <ReusableButton title={"Listen Now"} icon={"playIcon"} />
-            </div>
           </>
         )}
       </div>

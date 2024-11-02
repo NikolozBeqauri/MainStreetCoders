@@ -6,10 +6,11 @@ import { text } from "stream/consumers";
 import Image from "next/image";
 import { useWindowSize } from "react-use";
 import { useRecoilState } from "recoil";
-import { globalAlbumDataState, mudicIDState, musicState, oneArrayMusicState } from "@/app/states";
+import { globalAlbumDataState, mudicIDState, musicIdForPlaylistState, musicState, oneArrayMusicState } from "@/app/states";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
 
 
 const ChartTable = () => {
@@ -23,6 +24,12 @@ const ChartTable = () => {
     const [albumData, setAlbumData] = useState()
     const [musicData, setMusicData] = useState<any>()
     const [musicCover, setMusicCover] = useState<any>()
+    const [, setMusicIdForPlaylist] = useRecoilState(musicIdForPlaylistState);
+
+    const handleThreeDotIconClick = (record: { id: number }) => {
+        console.log(record.id, "music id here");
+        setMusicIdForPlaylist(record.id);
+    };
 
     useEffect(() => {
         axios.get(`https://project-spotify-1.onrender.com/music/topweek`, {
@@ -97,18 +104,18 @@ const ChartTable = () => {
                 width: "0.5%",
                 render: () => <div></div>,
             },
-        // {
-        //     title: "",
-        //     key: "like",
-        //     width: "10%",
-        //     render: () => (
-        //         <HeartShapeBtn
-        //             isActive={true}
-        //             isDisabled={false}
-        //             onClick={() => console.log("button clicked")}
-        //         />
-        //     ),
-        // },
+            {
+                title: 'actions',
+                key: 'actions',
+                width: '10%',
+                render: (_: any, record: any) => (
+                    <div onClick={(e) => e.stopPropagation()}>
+                        <div className={styles.iconWrapper} onClick={() => handleThreeDotIconClick(record)}>
+                            <ReusableIcon imgName="threeDots" />
+                        </div>
+                    </div>
+                ),
+            },
     ];
 
     return (

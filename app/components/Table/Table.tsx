@@ -71,7 +71,8 @@ const Tables = () => {
                 <div className={styles.cellTimeName}>{item.duration || formatDuration(item.duration)}</div>
             ),
         },
-        {
+        { 
+            
             title: 'actions',
             key: 'actions',
             width: '10%',
