@@ -44,7 +44,7 @@ const TrackDisplay: React.FC<TrackDisplayProps> = ({ currentTrack, onAlbumArtCli
         <div className={style.container} onClick={onAlbumArtClick}>
             <div className={style.albumArt}>
                 <Image
-                    src={playerDisplay?.album?.coverImage || '/defaultAlbumArt.jpg'}
+                    src={playerDisplay?.album?.coverImage || '/defaultIcon.png'}
                     alt="Album Art"
                     width={80}
                     height={80}

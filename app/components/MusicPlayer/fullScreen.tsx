@@ -28,7 +28,7 @@ const Fullscreen = () => {
 
     return (
         <div className={style.container}>
-            <img src={playerDisplay?.album?.coverImage || '/defaultAlbumArt.jpg'} alt="Album Art" width={80} height={80} className={style.img} />
+            <img src={playerDisplay?.album?.coverImage || '/defaultIcon.png'} alt="Album Art" width={80} height={80} className={style.img} />
             <div className={style.like}>
                 <div className={style.text}>
                     <div className={style.flexing}>
