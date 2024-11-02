@@ -9,13 +9,27 @@ import axios from "axios";
 import Loading from "../Loading/Loading";
 import Cookies from "js-cookie";
 import { useRecoilState } from "recoil";
-import { globalClickerState, albumOnState, isPlayingState, musicOnState, playlistOnState, randomWordsState, topHitsOnState, topWeeksOnState, indexOfArrState, oneArrayMusicState, mudicIDState } from "@/app/states";
+import {
+  globalClickerState,
+  albumOnState,
+  isPlayingState,
+  musicOnState,
+  playlistOnState,
+  randomWordsState,
+  topHitsOnState,
+  topWeeksOnState,
+  indexOfArrState,
+  oneArrayMusicState,
+  mudicIDState,
+  musicIdForPlaylistState,
+} from "@/app/states";
 import Image from "next/image";
+
 type Props = {
   heartActive?: boolean;
   pageName?: string;
   isTopHitPage?: boolean;
-  albumMusics?:boolean;
+  albumMusics?: boolean;
   include?: string;
   rightArrow?: boolean;
   isTopWeekPage?: boolean;
@@ -32,31 +46,35 @@ export const ReusableTable = (props: Props) => {
   const [musicOn, setMusicOnState] = useRecoilState(musicOnState);
   const [playlistOn, setPlaylistOnState] = useRecoilState(playlistOnState);
   const [randomWords, setRandomWordsState] = useRecoilState(randomWordsState);
-  const [albumFullName, setAlbumFullName] = useState<string >('');
+  const [albumFullName, setAlbumFullName] = useState<string>("");
   const [topHitsOn, setTopHitsOnState] = useRecoilState(topHitsOnState);
   const [topWeeksOn, setTopWeeksOnState] = useRecoilState(topWeeksOnState);
-  const [indexOfArr, setIndexOfArrState] = useRecoilState(indexOfArrState)
+  const [indexOfArr, setIndexOfArrState] = useRecoilState(indexOfArrState);
 
-  const [, setMusicId] = useRecoilState(mudicIDState)
+  const [, setMusicId] = useRecoilState(mudicIDState);
   const [, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
-  
+  const [, setMusicIdForPlaylist] = useRecoilState(musicIdForPlaylistState);
+
+
   setMusicArrayTwo(records);
 
+  const handleThreeDotIconClick = (record: { id: number }) => {
+    console.log(record.id, "music id here");
+    setMusicIdForPlaylist(record.id);
+  };
+
   useEffect(() => {
-    
     const fetchRecords = async () => {
       try {
         const response = await axios.get(`https://project-spotify-1.onrender.com/${props.pageName}`, {
           headers: {
-            'Authorization': `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         });
-        if(props.albumMusics){
-          setRecords(response.data.musics);          
+        if (props.albumMusics) {
+          setRecords(response.data.musics);
           setAlbumFullName(response.data.title);
-        }else{
-          console.log(response.data,'s');
-          
+        } else {
           setRecords(response.data);
         }
         setLoading(false);
@@ -64,9 +82,9 @@ export const ReusableTable = (props: Props) => {
         console.error("Error fetching data:", error);
         setLoading(false);
       }
-    };    
-    
-    setRandomWordsState(`${props.pageName}`)
+    };
+
+    setRandomWordsState(`${props.pageName}`);
     fetchRecords();
   }, [token, props.pageName, props.albumMusics]);
 
@@ -75,16 +93,14 @@ export const ReusableTable = (props: Props) => {
   }
 
   const handleRowClick = async (record: { id: number }) => {
-      setMusicId(record.id)
+    setMusicId(record.id);
   };
 
   const columns = [
     {
       title: "#",
       key: "index",
-      render: (_: any, __: any, index: number) => (
-        <div className={styles.key}>{index + 1}</div>
-      ),
+      render: (_: any, __: any, index: number) => <div className={styles.key}>{index + 1}</div>,
     },
     {
       title: "Album Cover",
@@ -103,7 +119,7 @@ export const ReusableTable = (props: Props) => {
       key: "songName",
       render: (record: any) => {
         const firstMusic = record.musics && record.musics.length > 0 ? record.musics[0] : null;
-        const trackTitle = firstMusic ? firstMusic.trackTitle : record.trackTitle || record.title || 'Unknown Track';
+        const trackTitle = firstMusic ? firstMusic.trackTitle : record.trackTitle || record.title || "Unknown Track";
 
         return (
           <div className={styles.infoWrapper}>
@@ -114,7 +130,7 @@ export const ReusableTable = (props: Props) => {
                 </div>
               </div>
               <div className={styles.author}>
-                {firstMusic ? firstMusic.fullName : record.author?.fullName || record.authorFullName || ``}
+                {firstMusic ? firstMusic.fullName : record.author?.fullName || record.authorFullName || ""}
               </div>
             </div>
           </div>
@@ -134,17 +150,17 @@ export const ReusableTable = (props: Props) => {
       title: "Duration",
       key: "duration",
       render: (record: any) => (
-        <div className={styles.time}>
-          {record.duration || (record?.musics?.[0]?.duration ?? 'Unknown Duration')}
-        </div>
+        <div className={styles.time}>{record.duration || (record?.musics?.[0]?.duration ?? "Unknown Duration")}</div>
       ),
     },
     {
       key: "actions",
-      render: () => (
-        <div className={styles.icon}>
-          <HeartIcon active={props.heartActive} />
-          <ReusableIcon imgName={"threeDots"} />
+      render: (record: any) => (
+        <div className={styles.icon} onClick={(e) => e.stopPropagation()}>
+            <HeartIcon active={props.heartActive} />
+          <div onClick={() => handleThreeDotIconClick(record)}>
+            <ReusableIcon imgName={"threeDots"} />
+          </div>
         </div>
       ),
     },
@@ -152,15 +168,11 @@ export const ReusableTable = (props: Props) => {
 
   return (
     <div className={styles.wrapper}>
-      {props.rightArrow && <div>
-        <Image
-              style={{ cursor: 'pointer' }}
-              src={`/icons/rightArrow.svg`}
-              alt="icon"
-              width={42}
-              height={42}
-          />
-      </div>}
+      {props.rightArrow && (
+        <div>
+          <Image style={{ cursor: "pointer" }} src={`/icons/rightArrow.svg`} alt="icon" width={42} height={42} />
+        </div>
+      )}
       <Table
         columns={columns}
         dataSource={records}
@@ -180,7 +192,7 @@ export const ReusableTable = (props: Props) => {
           },
           onClick: () => {
             handleRowClick(record);
-            if(index) setIndexOfArrState(index);
+            if (index) setIndexOfArrState(index);
           },
         })}
       />
