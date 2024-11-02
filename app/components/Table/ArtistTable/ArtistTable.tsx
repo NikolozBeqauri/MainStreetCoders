@@ -16,11 +16,6 @@ const ArtistTable = () => {
 
   const [musicArrayTwo, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
 
-
-
-
-
-
   const formatDuration = (seconds: number) => {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
@@ -101,7 +96,7 @@ const ArtistTable = () => {
         pagination={false}
         onRow={(record: any) => ({
           onClick: () => {
-            setMusicArrayTwo(musicArray)
+            setMusicArrayTwo(musicArray);
             setMusicId(record.id);
           },
         })}

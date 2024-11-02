@@ -1,20 +1,20 @@
 'use client'
 import { Table } from "antd";
-import styles from './Table.module.scss'
-import { render } from "sass";
-import { text } from "stream/consumers";
+import styles from './Table.module.scss';
 import Image from "next/image";
 import { useWindowSize } from "react-use";
 import { useRecoilState } from "recoil";
-import { albumMusicFromArtistState, mudicIDState, musicState, oneArrayMusicState } from "@/app/states";
+import { albumMusicFromArtistState, mudicIDState, musicIdForPlaylistState, musicState } from "@/app/states";
+import { ReusableIcon } from "../ReusableIcon/ReusableIcon";
+
 const Tables = () => {
     const [musicArray, setMusicArray] = useRecoilState(musicState);
-    const [albumPage, setAlbumPage] = useRecoilState(albumMusicFromArtistState)
-    const [musicID, setMusicId] = useRecoilState(mudicIDState)
+    const [albumPage, setAlbumPage] = useRecoilState(albumMusicFromArtistState);
+    const [musicID, setMusicId] = useRecoilState(mudicIDState);
+    const [, setMusicIdForPlaylist] = useRecoilState(musicIdForPlaylistState);
 
-
-    const { width, height } = useWindowSize();
-    const isMobile = width > 767
+    const { width } = useWindowSize();
+    const isMobile = width > 767;
 
     const formatDuration = (seconds: number) => {
         const minutes = Math.floor(seconds / 60);
@@ -22,27 +22,27 @@ const Tables = () => {
         return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
     };
 
-
+    const handleThreeDotIconClick = (record: { id: number }) => {
+        console.log(record.id, "music id here");
+        setMusicIdForPlaylist(record.id);
+    };
 
     const columns = [
         {
-            title: isMobile ? '#' : '#',
+            title: '#',
             dataIndex: 'id',
             key: 'id',
-            width: '1%',
-            render: (text: any, item: any, index: number) => (
-                <div className={styles.cellId}>
-                    {index + 1}
-                </div>
-            )
+            width: '5%',
+            render: (_: any, __: any, index: number) => (
+                <div className={styles.cellId}>{index + 1}</div>
+            ),
         },
-
         {
-            title: isMobile ? 'Song Name' : 'Song Name',
+            title: 'Song Name',
             dataIndex: 'title',
             key: 'title',
             width: '30%',
-            render: (text: any, item: any) => (
+            render: (text: string, item: any) => (
                 <div className={styles.cellSongname}>
                     <Image className={styles.img} src={item.trackImage} width={48} height={48} alt={text} />
                     <div className={styles.fontGap}>
@@ -51,59 +51,39 @@ const Tables = () => {
                 </div>
             ),
         },
-        width > 725 ? {
+        {
             title: 'Author',
             dataIndex: 'author',
             key: 'author',
-            width: '12%',
-            render: (text: any, item: any) => (
+            width: '20%',
+            render: (_: any, item: any) => (
                 <div className={styles.fontGap}>
                     <div className={styles.songArtist}>{item.authorFullName}</div>
                 </div>
-            )
-        } : {
-            title: 'Author',
-            dataIndex: 'author',
-            key: 'author',
-            width: '12%',
-            render: (text: any, item: any) => (
-                <div className={styles.fontGap}>
-                    <div className={styles.songArtist}>{item.authorFullName}</div>
-                </div>
-            )
+            ),
         },
-        isMobile ?
-            {
-                title: 'Time',
-                dataIndex: 'time',
-                key: 'time',
-                width: '15%',
-                render: (text: any, item: any) => (
-                    <div className={styles.cellTimeName}>
-                        {item.duration}
+        {
+            title: 'Time',
+            dataIndex: 'time',
+            key: 'time',
+            width: '10%',
+            render: (_: any, item: any) => (
+                <div className={styles.cellTimeName}>{item.duration || formatDuration(item.duration)}</div>
+            ),
+        },
+        {
+            title: 'actions',
+            key: 'actions',
+            width: '10%',
+            render: (_: any, record: any) => (
+                <div onClick={(e) => e.stopPropagation()}>
+                    <div className={styles.iconWrapper} onClick={() => handleThreeDotIconClick(record)}>
+                        <ReusableIcon imgName="threeDots" />
                     </div>
-                )
-            } : {
-                title: 'Time',
-                dataIndex: 'time',
-                key: 'time',
-                width: '0.5%',
-                render: (text: any, item: any) => (
-                    <div className={styles.cellTimeName}>
-                        {item.duration}
-                    </div>
-                )
-            },
-        // {
-        //     title: '',
-        //     key: 'like',
-        //     width: '10%',
-        //     render: (() =>
-        //         <HeartShapeBtn isActive={true} isDisabled={false} onClick={() => console.log('button clicked')} />
-        //     )
-        // },
+                </div>
+            ),
+        },
     ];
-
 
     return (
         <div className={styles.wrapper}>
@@ -112,18 +92,16 @@ const Tables = () => {
                 dataSource={albumPage}
                 columns={columns}
                 pagination={false}
+                rowKey="id"
                 onRow={(record: any) => ({
                     onClick: () => {
                         setMusicId(record.id);
                     },
                 })}
-                rowClassName={styles.row111111}
-
+                rowClassName={styles.row}
             />
         </div>
-
-    )
-}
+    );
+};
 
 export default Tables;
-
