@@ -56,7 +56,7 @@ export const SearchSuggestions = (props: Props) => {
             title={album.title}
             onClick={(e: any) => {
               setCurrentAlbum(album.title)
-              router.push(`/album?idFromAlbumPage=${album.id}`);
+              router.push(`/album/${album.id}`);
             }}
             useForSearch
           />
