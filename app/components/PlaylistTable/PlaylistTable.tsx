@@ -144,7 +144,7 @@ export const PlaylistTable = (props: Props) => {
     {
       key: "actions",
       render: (record: MusicTrack) => (
-        <div className={styles.icon} onClick={() => handleTrashClick(record.id)}>
+        <div className={styles.icon} onClick={(e) => {e.stopPropagation(); handleTrashClick(record.id)}}>
           <ReusableIcon imgName={"trash"} />
         </div>
       ),
