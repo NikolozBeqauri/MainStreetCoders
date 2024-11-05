@@ -199,7 +199,7 @@ export const albumCoverState = atom({
 
 export const mudicIDState = atom({
     key: 'mudicIDState',
-    default: 10,
+    default: 15,
 })
 export const musicIdForPlaylistState = atom<any>({
     key: 'musicIdForPlaylistState',
@@ -222,7 +222,7 @@ export const topHitState = atom({
  
 export const  oneArrayMusicState = atom({
     key: 'oneArrayMusicState',
-    default: []
+    default: [] 
 })
 export const somePlayingState = atom({
     key: 'somePlayingState',
