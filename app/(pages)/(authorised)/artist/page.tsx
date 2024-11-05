@@ -26,7 +26,7 @@ const ArtistPage = () => {
     
     const token = Cookies.get("token")
     useEffect(() => {
-        axios.get("https://project-spotify-1.onrender.com/author", {
+        axios.get("https://project-spotify-83tj.onrender.com/author", {
             headers: {
                 "Content-Type": "multipart/form-data",
                 "Authorization": `Bearer ${token}`

@@ -36,7 +36,7 @@ export const Search = (props: Props) => {
         setValue(inputValue);  
 
         if (inputValue.trim()) {
-            axios.get(`https://project-spotify-1.onrender.com/search?searchfield=${inputValue}`, {
+            axios.get(`https://project-spotify-83tj.onrender.com/search?searchfield=${inputValue}`, {
                 headers: {
                   Authorization: `Bearer ${token}`,
                 }

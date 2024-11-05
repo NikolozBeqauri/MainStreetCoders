@@ -29,7 +29,7 @@ const IndexPage: React.FC = () => {
   useEffect(() => {
     if (musicID && token) {
       axios
-        .get(`https://project-spotify-1.onrender.com/music/${musicID}`, {
+        .get(`https://project-spotify-83tj.onrender.com/music/${musicID}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

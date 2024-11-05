@@ -25,7 +25,7 @@ const Album = () => {
     const token = Cookies.get('token');
 
     useEffect(() => {
-        axios.get(`https://project-spotify-1.onrender.com/album`, {
+        axios.get(`https://project-spotify-83tj.onrender.com/album`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

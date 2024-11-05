@@ -32,7 +32,7 @@ const ChartTable = () => {
     };
 
     useEffect(() => {
-        axios.get(`https://project-spotify-1.onrender.com/music/topweek`, {
+        axios.get(`https://project-spotify-83tj.onrender.com/music/topweek`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

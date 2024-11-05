@@ -23,12 +23,14 @@ export const SignIn = () => {
     const [passwordHide, setPasswordHide] = useState(true);
     const router = useRouter();
 
+    
+
     const onSubmit = async (data: FormValues) => {
         setErrorMessage(null);
         setSuccessMessage(null);
         setLoading(true); 
         try {
-            const response = await axios.post(`https://project-spotify-1.onrender.com/auth/login`, data);
+            const response = await axios.post(`https://project-spotify-83tj.onrender.com/auth/login`, data);
             const dataString = response.config.data;
             const parsedData = JSON.parse(dataString);
             const email = parsedData.email;
@@ -36,6 +38,7 @@ export const SignIn = () => {
             localStorage.setItem("email", email);
             setSuccessMessage("Login successful! Redirecting...");
             router.push("/");
+            
         } catch (error) {
             console.error(error);
             setErrorMessage("Login failed. Please check your credentials and try again.");

@@ -34,7 +34,7 @@ export const UploadFile = (props: Props) => {
         data.append("file", values.file[0]);
         const token = Cookies.get("token");
 
-        axios.post('https://project-spotify-1.onrender.com/playlist', data, {
+        axios.post('https://project-spotify-83tj.onrender.com/playlist', data, {
             headers: {
                 "Content-Type": "multipart/form-data",
                 'Authorization': `Bearer ${token}`,

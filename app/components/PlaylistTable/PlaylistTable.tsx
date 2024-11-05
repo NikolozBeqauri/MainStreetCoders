@@ -67,7 +67,7 @@ export const PlaylistTable = (props: Props) => {
   useEffect(() => {
     if (selectedMusicIdToDelete) {
       axios
-        .delete(`https://project-spotify-1.onrender.com/playlist/${props.selectedPlaylistId}/music/${selectedMusicIdToDelete}`, {
+        .delete(`https://project-spotify-83tj.onrender.com/playlist/${props.selectedPlaylistId}/music/${selectedMusicIdToDelete}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           }
@@ -81,7 +81,7 @@ export const PlaylistTable = (props: Props) => {
           console.error(err);
         });
     }
-    setRandomWordsState(`https://project-spotify-1.onrender.com/playlist/${props.selectedPlaylistId}/music/${selectedMusicIdToDelete}`);
+    setRandomWordsState(`https://project-spotify-83tj.onrender.com/playlist/${props.selectedPlaylistId}/music/${selectedMusicIdToDelete}`);
   }, [selectedMusicIdToDelete, props.selectedPlaylistId, token, props]);
   
 

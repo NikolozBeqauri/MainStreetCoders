@@ -27,7 +27,7 @@ const AlbumID = () => {
 
 
     useEffect(() => {
-        axios.get(`https://project-spotify-1.onrender.com/album/${id}`, {
+        axios.get(`https://project-spotify-83tj.onrender.com/album/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
