@@ -18,7 +18,7 @@ const Hits = () => {
     
     useEffect(() => {
         axios
-            .get(`https://project-spotify-1.onrender.com/music/topHits`, {
+            .get(`https://project-spotify-83tj.onrender.com/music/topHits`, {
                 headers: {
                   Authorization: `Bearer ${token}`,
                 },

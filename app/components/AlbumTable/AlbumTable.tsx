@@ -36,7 +36,7 @@ export const AlbumTable = (props: Props) => {
     
     const fetchRecords = async () => {
       try {
-        const response = await axios.get(`https://project-spotify-1.onrender.com/${props.pageName}`, {
+        const response = await axios.get(`https://project-spotify-83tj.onrender.com/${props.pageName}`, {
           headers: {
             'Authorization': `Bearer ${token}`,
           },

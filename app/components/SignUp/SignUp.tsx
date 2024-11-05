@@ -15,7 +15,7 @@ export const SignUp = () => {
     const router = useRouter();
 
     const onSubmit = (data: FormValues) => {
-        axios.post(`https://project-spotify-1.onrender.com/user/register`, data)
+        axios.post(`https://project-spotify-83tj.onrender.com/user/register`, data)
             .then(response => {
                 console.log(response);
                 router.push("/signin");

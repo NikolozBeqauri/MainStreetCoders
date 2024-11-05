@@ -24,7 +24,7 @@ export const SquareCard = (props: Props) => {
     const handleDelete = () => {
 
         if (props.playListId && props.iconImage === "trash") {
-            axios.delete(`https://project-spotify-1.onrender.com/playlist/${props.playListId}`, {
+            axios.delete(`https://project-spotify-83tj.onrender.com/playlist/${props.playListId}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }

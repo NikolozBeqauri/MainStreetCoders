@@ -40,7 +40,7 @@ export const AddPlaylistChackBox = (props: Props) => {
     const selectedPlaylist = watch("selectedPlaylist");
 
     useEffect(() => {
-        axios.get('https://project-spotify-1.onrender.com/playlist', {
+        axios.get('https://project-spotify-83tj.onrender.com/playlist', {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -66,7 +66,7 @@ export const AddPlaylistChackBox = (props: Props) => {
     const onSubmit = (data: FormData) => {
         setSelectedPlaylistIDToAddTrack(Number(data.selectedPlaylist[0]));
 
-        axios.patch(`https://project-spotify-1.onrender.com/playlist/${selectedPlaylistId}/music/${musicIdForPlaylist}`, null,{
+        axios.patch(`https://project-spotify-83tj.onrender.com/playlist/${selectedPlaylistId}/music/${musicIdForPlaylist}`, null,{
             headers: {
                 'Authorization': `Bearer ${token}`,
             }

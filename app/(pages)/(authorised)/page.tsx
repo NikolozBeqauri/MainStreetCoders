@@ -82,7 +82,7 @@ export default function Home() {
   
   useEffect(() => {
     axios
-      .get(`https://project-spotify-1.onrender.com/music/topweek`, {
+      .get(`https://project-spotify-83tj.onrender.com/music/topweek`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -97,7 +97,7 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get("https://project-spotify-1.onrender.com/music/topHits", {
+      .get("https://project-spotify-83tj.onrender.com/music/topHits", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -113,7 +113,7 @@ export default function Home() {
       });
 
     axios
-      .get("https://project-spotify-1.onrender.com/author/topArtists", {
+      .get("https://project-spotify-83tj.onrender.com/author/topArtists", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -126,7 +126,7 @@ export default function Home() {
       });
 
     axios
-      .get("https://project-spotify-1.onrender.com/album/top-albums", {
+      .get("https://project-spotify-83tj.onrender.com/album/top-albums", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -141,7 +141,7 @@ export default function Home() {
 
   const getMusicId = async (albumId: number) => {
     try {
-      const response = await axios.get(`https://project-spotify-1.onrender.com/album/${albumId}`, {
+      const response = await axios.get(`https://project-spotify-83tj.onrender.com/album/${albumId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -156,7 +156,7 @@ export default function Home() {
 
   const handleRowClickTopHits = async (trackId: number) => {
     try {
-      const response = await axios.get(`https://project-spotify-1.onrender.com/music/${trackId}`, {
+      const response = await axios.get(`https://project-spotify-83tj.onrender.com/music/${trackId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -172,7 +172,7 @@ export default function Home() {
 
   const handleArtistClick = (artist: any) => {
     console.log("Selected Artist ID: ", artist.authorId);
-    axios.get(`https://project-spotify-1.onrender.com/author/${artist.authorId}`, {
+    axios.get(`https://project-spotify-83tj.onrender.com/author/${artist.authorId}`, {
       headers: {
         "Content-Type": "multipart/form-data",
         "Authorization": `Bearer ${token}`

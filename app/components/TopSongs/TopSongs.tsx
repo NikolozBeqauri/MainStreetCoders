@@ -39,7 +39,7 @@ export const TopSongs = (props: Props) => {
 
     
     useEffect(()=>{
-        axios.get("https://project-spotify-1.onrender.com/author/topArtists", {
+        axios.get("https://project-spotify-83tj.onrender.com/author/topArtists", {
             headers: {
               Authorization: `Bearer ${token}`
             }
@@ -52,7 +52,7 @@ export const TopSongs = (props: Props) => {
     },[token])
 
     useEffect(()=>{
-            axios.get(`https://project-spotify-1.onrender.com/author/find-all-album-of-author/${props.data?.id}`, {
+            axios.get(`https://project-spotify-83tj.onrender.com/author/find-all-album-of-author/${props.data?.id}`, {
                 headers: {
                 Authorization: `Bearer ${token}`
                 }
@@ -66,7 +66,7 @@ export const TopSongs = (props: Props) => {
             });
     },[props.data?.id, token])
     useEffect(()=>{
-        axios.get(`https://project-spotify-1.onrender.com/author/find-all-music-of-author/${props.data?.id}`, {
+        axios.get(`https://project-spotify-83tj.onrender.com/author/find-all-music-of-author/${props.data?.id}`, {
             headers: {
             Authorization: `Bearer ${token}`
             }

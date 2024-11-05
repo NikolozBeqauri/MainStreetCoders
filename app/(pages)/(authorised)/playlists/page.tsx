@@ -29,7 +29,7 @@ const PlayListPage = () => {
     const [randomWords, ] = useRecoilState(randomWordsState);
     const [, setMusicArrayTwo] = useRecoilState<any>(oneArrayMusicState);
 
-    axios.get(`https://project-spotify-1.onrender.com/playlist`, {
+    axios.get(`https://project-spotify-83tj.onrender.com/playlist`, {
         headers: {
             "Content-Type": "multipart/form-data",
             "Authorization": `Bearer ${token}`,
@@ -45,7 +45,7 @@ const PlayListPage = () => {
 
     const fetchPlaylists = async () => {
         try {
-            const response = await axios.get('https://project-spotify-1.onrender.com/playlist', {
+            const response = await axios.get('https://project-spotify-83tj.onrender.com/playlist', {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     "Authorization": `Bearer ${token}`,
@@ -58,7 +58,7 @@ const PlayListPage = () => {
     };
 
     const fetchSelectedPlaylist = (playlistId: number) => {
-        axios.get(`https://project-spotify-1.onrender.com/playlist/${playlistId}`, {
+        axios.get(`https://project-spotify-83tj.onrender.com/playlist/${playlistId}`, {
             headers: {
                 "Authorization": `Bearer ${token}`,
             }
@@ -76,7 +76,7 @@ const PlayListPage = () => {
 
     useEffect(() => {
         const fetchSelectedPlaylist = (playlistId: number) => {
-            axios.get(`https://project-spotify-1.onrender.com/playlist/${playlistId}`, {
+            axios.get(`https://project-spotify-83tj.onrender.com/playlist/${playlistId}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                 }
